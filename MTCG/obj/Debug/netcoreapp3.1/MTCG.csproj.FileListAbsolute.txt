@@ -1,0 +1,14 @@
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\bin\Debug\netcoreapp3.1\MTCG.exe
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\bin\Debug\netcoreapp3.1\MTCG.deps.json
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\bin\Debug\netcoreapp3.1\MTCG.runtimeconfig.json
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\bin\Debug\netcoreapp3.1\MTCG.runtimeconfig.dev.json
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\bin\Debug\netcoreapp3.1\MTCG.dll
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\bin\Debug\netcoreapp3.1\MTCG.pdb
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\obj\Debug\netcoreapp3.1\MTCG.csproj.AssemblyReference.cache
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\obj\Debug\netcoreapp3.1\MTCG.GeneratedMSBuildEditorConfig.editorconfig
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\obj\Debug\netcoreapp3.1\MTCG.AssemblyInfoInputs.cache
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\obj\Debug\netcoreapp3.1\MTCG.AssemblyInfo.cs
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\obj\Debug\netcoreapp3.1\MTCG.csproj.CoreCompileInputs.cache
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\obj\Debug\netcoreapp3.1\MTCG.dll
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\obj\Debug\netcoreapp3.1\MTCG.pdb
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\MTCG\MTCG\MTCG\obj\Debug\netcoreapp3.1\MTCG.genruntimeconfig.cache
