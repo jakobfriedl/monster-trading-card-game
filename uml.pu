@@ -1,0 +1,29 @@
+@startuml
+
+class User{
+
+}
+
+class Stack{
+
+}
+
+enum elementType{
+
+}
+
+interface ICard{
+
+}
+
+interface ISpell{
+
+}
+ISpell --|> ICard
+
+interface IMonster{
+
+}
+IMonster --|> ICard
+
+@enduml
