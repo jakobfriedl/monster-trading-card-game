@@ -6,6 +6,16 @@ enum ElementType{
     Normal
 }
 
+enum MonsterType{
+    Goblin
+    Dragon
+    Wizzard 
+    Ork 
+    Knight
+    Kraken
+    Elf 
+}
+
 interface IUser{
     
 }
@@ -32,15 +42,16 @@ interface IMonster{
 }
 IMonster --|> ICard
 
-abstract class Spell{
+class Spell{
     - int Damage
     - ElementType Type
 }
 Spell --|> ISpell
 
-abstract class Monster{
+class Monster{
     - int Damage
-    - ElementType Type
+    - ElementType ElementType
+    - MonsterType MonsterType
 }
 Monster --|> IMonster
 
@@ -57,7 +68,7 @@ User --> Package : buys
 class Deck{
 
 }
-User --> Deck : chooses
+User --> Deck : uses
 
 interface ICardCollection{
 
@@ -76,7 +87,9 @@ User --> Store : trades in
 class Battle{
 
 }
+Deck --> Battle : is used in
 
+/'
 class Goblin{
 
 }
@@ -105,6 +118,6 @@ class Wizzard{
 
 }
 Wizzard --|> Monster
-
+'/
 
 @enduml
