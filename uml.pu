@@ -1,16 +1,22 @@
-@startuml
+@startuml Projekt: Monster Trading Card Game 
+
+enum ElementType{
+    Water
+    Fire
+    Normal
+}
+
+interface IUser{
+    
+}
 
 class User{
-
+    - string Username 
+    - string Password
+    - int Coins 
+    - Stack CardStack
 }
-
-class Stack{
-
-}
-
-enum elementType{
-
-}
+IUser <|-- User
 
 interface ICard{
 
@@ -25,5 +31,80 @@ interface IMonster{
 
 }
 IMonster --|> ICard
+
+abstract class Spell{
+    - int Damage
+    - ElementType Type
+}
+Spell --|> ISpell
+
+abstract class Monster{
+    - int Damage
+    - ElementType Type
+}
+Monster --|> IMonster
+
+class Stack{
+
+}
+User --> Stack : has
+
+class Package{
+
+}
+User --> Package : buys
+
+class Deck{
+
+}
+User --> Deck : chooses
+
+interface ICardCollection{
+
+}
+Stack --|> ICardCollection
+Package --|> ICardCollection
+Deck --|> ICardCollection
+ICardCollection "1" --> "n" ICard : contains
+
+class Store{
+
+}
+User --> Store : trades in
+
+
+class Battle{
+
+}
+
+class Goblin{
+
+}
+Goblin --|> Monster
+class Dragon{
+
+}
+Dragon --|> Monster
+class Ork{
+
+}
+Ork --|> Monster
+class Knight{
+
+}
+Knight --|> Monster
+class Kraken{
+
+}
+Kraken --|> Monster
+class Elf{
+
+}
+Elf --|> Monster
+class Wizzard{
+
+}
+Wizzard --|> Monster
+
 
 @enduml
