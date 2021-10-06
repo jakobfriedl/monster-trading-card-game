@@ -83,41 +83,9 @@ class Store{
 }
 User --> Store : trades in
 
-
 class Battle{
 
 }
 Deck --> Battle : is used in
-
-/'
-class Goblin{
-
-}
-Goblin --|> Monster
-class Dragon{
-
-}
-Dragon --|> Monster
-class Ork{
-
-}
-Ork --|> Monster
-class Knight{
-
-}
-Knight --|> Monster
-class Kraken{
-
-}
-Kraken --|> Monster
-class Elf{
-
-}
-Elf --|> Monster
-class Wizzard{
-
-}
-Wizzard --|> Monster
-'/
 
 @enduml

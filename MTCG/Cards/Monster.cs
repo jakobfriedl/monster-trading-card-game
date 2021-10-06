@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MTCG.Enums;
 
 namespace MTCG.Cards {
-    class Monster : ICard, IMonster {
-	    protected string Name { get; set; }
-	    protected readonly int Damage;
-	    protected ElementType ElementType { get; set; }
+    class Monster : IMonster {
+	    public string Name { get; set; }
+	    public readonly int Damage;
+	    public ElementType ElementType { get; set; }
+	    public MonsterType MonsterType { get; set; }
 
-	    protected Monster(string name, int damage, ElementType type) {
+	    public Monster(string name, int damage, ElementType eType, MonsterType mType) {
 		    Name = name;
 		    Damage = damage;
-		    ElementType = type;
+		    ElementType = eType;
+		    MonsterType = mType; 
 	    }
 	}
 }
