@@ -31,6 +31,8 @@ interface IUser{
     + SelectCardForDeck()
     + OfferTrade()
     + AcceptTrade()
+    + Challenge(IUser opponent);
+    + ChooseRandomCard(); 
 }
 
 class User{

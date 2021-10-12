@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using monster_trading_card_game.CardCollections;
+using monster_trading_card_game.Cards;
 
 namespace monster_trading_card_game.Users {
     class User : IUser{
@@ -10,7 +12,7 @@ namespace monster_trading_card_game.Users {
 	    private const int EloStartingValue = 100;
 	    private const int EloDecrement = 5;
 	    private const int EloIncrement = 3;
-	    private const int defaultWinLoss = 0; 
+	    private const int DefaultWinLoss = 0; 
 
 		// Class properties
 	    public string Username { get; set; }
@@ -27,7 +29,16 @@ namespace monster_trading_card_game.Users {
 		    Password = password;
 		    Coins = NumberOfCoins;
 		    Elo = EloStartingValue;
-		    Wins = Losses = defaultWinLoss;
+		    Wins = Losses = DefaultWinLoss;
+		}
+
+		public ICard ChooseRandomCard() {
+			Random random = new Random();
+			return CardStack.Cards.ElementAt(random.Next(4)); 
+		}
+		public void Challenge(IUser opponent) {
+			Battle battle = new Battle(this, opponent);
+			battle.StartBattle(); 
 		}
     }
 }

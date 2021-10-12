@@ -1,0 +1,168 @@
+TpTrace Verbose: 0 : 17512, 1, 2021/10/12, 10:34:27.855, 10927709705141, testhost.dll, Version: 16.9.4
+TpTrace Information: 0 : 17512, 1, 2021/10/12, 10:34:27.871, 10927709811221, testhost.dll, DefaultEngineInvoker.Invoke: Testhost process started with args :[--port, 58308],[--endpoint, 127.0.0.1:058308],[--role, client],[--parentprocessid, 13640],[--diag, C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\coverage-tool-output\diagnostics.host.21-10-12_10-34-27_52254_4.log],[--tracelevel, 4],[--datacollectionport, 58307],[--telemetryoptedin, false]
+TpTrace Information: 0 : 17512, 1, 2021/10/12, 10:34:27.874, 10927709838156, testhost.dll, Setting up debug trace listener.
+TpTrace Verbose: 0 : 17512, 1, 2021/10/12, 10:34:27.875, 10927709846662, testhost.dll, TestPlatformTraceListener.Setup: Replacing listener 0 with TestHostTraceListener.
+TpTrace Verbose: 0 : 17512, 1, 2021/10/12, 10:34:27.875, 10927709848012, testhost.dll, TestPlatformTraceListener.Setup: Added test platform trace listener.
+TpTrace Information: 0 : 17512, 1, 2021/10/12, 10:34:27.876, 10927709857767, testhost.dll, DefaultEngineInvoker.SetParentProcessExitCallback: Monitoring parent process with id: '13640'
+TpTrace Information: 0 : 17512, 1, 2021/10/12, 10:34:27.889, 10927709989289, testhost.dll, DefaultEngineInvoker.GetConnectionInfo: Initialize communication on endpoint address: '127.0.0.1:058308'
+TpTrace Information: 0 : 17512, 1, 2021/10/12, 10:34:27.923, 10927710328867, testhost.dll, SocketClient.Start: connecting to server endpoint: 127.0.0.1:058308
+TpTrace Information: 0 : 17512, 1, 2021/10/12, 10:34:27.935, 10927710451747, testhost.dll, DefaultEngineInvoker.ConnectToDatacollector: Connecting to datacollector, port: 58307
+TpTrace Information: 0 : 17512, 5, 2021/10/12, 10:34:27.937, 10927710463948, testhost.dll, SocketClient.OnServerConnected: connected to server endpoint: 127.0.0.1:058308
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:27.940, 10927710494626, testhost.dll, Connected to server, and starting MessageLoopAsync
+TpTrace Information: 0 : 17512, 1, 2021/10/12, 10:34:27.940, 10927710499123, testhost.dll, Trying to connect to server on socket : 127.0.0.1:58307 
+TpTrace Verbose: 0 : 17512, 1, 2021/10/12, 10:34:27.941, 10927710503367, testhost.dll, SocketCommunicationManager : SetupClientAsync : Attempting to connect to the server.
+TpTrace Information: 0 : 17512, 9, 2021/10/12, 10:34:27.943, 10927710525606, testhost.dll, Connected to the server successfully 
+TpTrace Information: 0 : 17512, 9, 2021/10/12, 10:34:27.943, 10927710527178, testhost.dll, Using the buffer size of 16384 bytes
+TpTrace Information: 0 : 17512, 1, 2021/10/12, 10:34:27.944, 10927710533771, testhost.dll, DefaultEngineInvoker.Invoke: Start Request Processing.
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:27.944, 10927710536919, testhost.dll, TcpClientExtensions.MessageLoopAsync: Polling on remoteEndPoint: [::ffff:127.0.0.1]:58308 localEndPoint: [::ffff:127.0.0.1]:58310
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:27.944, 10927710541810, testhost.dll, TcpClientExtensions.MessageLoopAsync: NotifyDataAvailable remoteEndPoint: [::ffff:127.0.0.1]:58308 localEndPoint: [::ffff:127.0.0.1]:58310
+TpTrace Information: 0 : 17512, 11, 2021/10/12, 10:34:27.945, 10927710544535, testhost.dll, DefaultEngineInvoker.StartProcessingAsync: Connected to vstest.console, Starting process requests.
+TpTrace Information: 0 : 17512, 5, 2021/10/12, 10:34:28.101, 10927712107746, testhost.dll, TestRequestHandler.ProcessRequests: received message: (ProtocolVersion) -> 5
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:28.136, 10927712460961, testhost.dll, TestRequestHandler.SendData:  sending data from testhost: {"Version":5,"MessageType":"TestSession.Message","Payload":{"MessageLevel":0,"Message":"Logging TestHost Diagnostics in file: C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\bin\\Debug\\net5.0\\fine-code-coverage\\coverage-tool-output\\diagnostics.host.21-10-12_10-34-27_52254_4.log"}}
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:28.137, 10927712464097, testhost.dll, TcpClientExtensions.MessageLoopAsync: Polling on remoteEndPoint: [::ffff:127.0.0.1]:58308 localEndPoint: [::ffff:127.0.0.1]:58310
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:28.137, 10927712465016, testhost.dll, TcpClientExtensions.MessageLoopAsync: NotifyDataAvailable remoteEndPoint: [::ffff:127.0.0.1]:58308 localEndPoint: [::ffff:127.0.0.1]:58310
+TpTrace Information: 0 : 17512, 5, 2021/10/12, 10:34:28.142, 10927712513150, testhost.dll, TestRequestHandler.ProcessRequests: received message: (TestExecution.Initialize) -> [
+  "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\bin\\Debug\\net5.0\\fine-code-coverage\\build-output\\NUnit3.TestAdapter.dll"
+]
+TpTrace Information: 0 : 17512, 5, 2021/10/12, 10:34:28.142, 10927712514644, testhost.dll, Execution Session Initialize.
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:28.149, 10927712584745, testhost.dll, TcpClientExtensions.MessageLoopAsync: Polling on remoteEndPoint: [::ffff:127.0.0.1]:58308 localEndPoint: [::ffff:127.0.0.1]:58310
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:28.149, 10927712585975, testhost.dll, TcpClientExtensions.MessageLoopAsync: NotifyDataAvailable remoteEndPoint: [::ffff:127.0.0.1]:58308 localEndPoint: [::ffff:127.0.0.1]:58310
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.152, 10927712612457, testhost.dll, TestExecutorService: Loading the extensions
+TpTrace Information: 0 : 17512, 5, 2021/10/12, 10:34:28.152, 10927712616156, testhost.dll, TestRequestHandler.ProcessRequests: received message: (TestExecution.StartWithSources) -> {
+  "AdapterSourceMap": {
+    "_none_": [
+      "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\bin\\Debug\\net5.0\\fine-code-coverage\\build-output\\MTCG_Tests.dll"
+    ]
+  },
+  "RunSettings": "<RunSettings>\r\n  <RunConfiguration>\r\n    <ResultsDirectory>C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\bin\\Debug\\net5.0\\fine-code-coverage\\coverage-tool-output</ResultsDirectory>\r\n    <TargetPlatform>X64</TargetPlatform>\r\n    <TargetFrameworkVersion>.NETCoreApp,Version=v5.0</TargetFrameworkVersion>\r\n    <DesignMode>False</DesignMode>\r\n    <CollectSourceInformation>False</CollectSourceInformation>\r\n  </RunConfiguration>\r\n  <LoggerRunSettings>\r\n    <Loggers>\r\n      <Logger friendlyName=\"blame\" enabled=\"True\" />\r\n      <Logger friendlyName=\"Console\" uri=\"logger://microsoft/TestPlatform/ConsoleLogger/v1\" assemblyQualifiedName=\"Microsoft.VisualStudio.TestPlatform.CommandLine.Internal.ConsoleLogger, vstest.console, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\" codeBase=\"C:\\Program Files\\dotnet\\sdk\\5.0.401\\vstest.console.dll\" enabled=\"True\" />\r\n    </Loggers>\r\n  </LoggerRunSettings>\r\n  <DataCollectionRunSettings>\r\n    <DataCollectors>\r\n      <DataCollector friendlyName=\"blame\" enabled=\"True\">\r\n        <Configuration>\r\n          <ResultsDirectory>C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\bin\\Debug\\net5.0\\fine-code-coverage\\coverage-tool-output</ResultsDirectory>\r\n        </Configuration>\r\n      </DataCollector>\r\n    </DataCollectors>\r\n  </DataCollectionRunSettings>\r\n</RunSettings>",
+  "TestExecutionContext": {
+    "FrequencyOfRunStatsChangeEvent": 10,
+    "RunStatsChangeEventTimeout": "00:00:01.5000000",
+    "InIsolation": false,
+    "KeepAlive": false,
+    "AreTestCaseLevelEventsRequired": false,
+    "IsDebug": false,
+    "TestCaseFilter": null,
+    "FilterOptions": null
+  },
+  "Package": null
+}
+TpTrace Information: 0 : 17512, 5, 2021/10/12, 10:34:28.152, 10927712617553, testhost.dll, Execution started.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.153, 10927712631224, testhost.dll, TestPluginCache.DiscoverTestExtensions: finding test extensions in assemblies ends with: TestAdapter.dll TPluginInfo: Microsoft.VisualStudio.TestPlatform.Common.ExtensionFramework.Utilities.TestExecutorPluginInformation TExtension: Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter.ITestExecutor
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.155, 10927712642047, testhost.dll, TestPluginCache.GetExtensionPaths: Filtered extension paths: 
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.155, 10927712646929, testhost.dll, TestPluginCache.GetExtensionPaths: Added default extension paths: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.155, 10927712647625, testhost.dll, TestPluginCache.GetExtensionPaths: Added unfilterableExtensionPaths: 
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.158, 10927712675422, testhost.dll, AssemblyResolver.ctor: Creating AssemblyResolver with searchDirectories C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.160, 10927712692699, testhost.dll, TestPluginCache.DiscoverTestExtensions: Discovering the extensions using extension path.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.160, 10927712694197, testhost.dll, TestPluginCache.GetExtensionPaths: Filtered extension paths: 
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.160, 10927712694553, testhost.dll, TestPluginCache.GetExtensionPaths: Added default extension paths: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.160, 10927712694815, testhost.dll, TestPluginCache.GetExtensionPaths: Added unfilterableExtensionPaths: 
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.160, 10927712695426, testhost.dll, TestPluginCache.DiscoverTestExtensions: Discovering the extensions using allExtensionPaths: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.161, 10927712703884, testhost.dll, AssemblyResolver.AddSearchDirectories: Adding more searchDirectories C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.166, 10927712753690, testhost.dll, AssemblyResolver.OnResolve: NUnit3.TestAdapter: Resolving assembly.
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.167, 10927712770030, testhost.dll, AssemblyResolver.OnResolve: Resolved assembly: NUnit3.TestAdapter, from path: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.171, 10927712803535, testhost.dll, AssemblyResolver.OnResolve: nunit.engine.api: Resolving assembly.
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.172, 10927712813396, testhost.dll, AssemblyResolver.OnResolve: Resolved assembly: nunit.engine.api, from path: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\nunit.engine.api.dll
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:28.176, 10927712856236, testhost.dll, TcpClientExtensions.MessageLoopAsync: Polling on remoteEndPoint: [::ffff:127.0.0.1]:58308 localEndPoint: [::ffff:127.0.0.1]:58310
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.176, 10927712859661, testhost.dll, TestPluginCache: Discovered the extensions using extension path ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.177, 10927712864386, testhost.dll, TestPluginCache: Discoverers are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.177, 10927712865083, testhost.dll, TestPluginCache: Executors are 'executor://NUnit3TestExecutor'.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.177, 10927712867044, testhost.dll, TestPluginCache: Executors2 are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.177, 10927712868254, testhost.dll, TestPluginCache: Setting providers are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.177, 10927712869057, testhost.dll, TestPluginCache: Loggers are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.181, 10927712906751, testhost.dll, TestPluginCache.DiscoverTestExtensions: finding test extensions in assemblies ends with: TestAdapter.dll TPluginInfo: Microsoft.VisualStudio.TestPlatform.Common.ExtensionFramework.Utilities.TestExecutorPluginInformation2 TExtension: Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter.ITestExecutor2
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.181, 10927712909530, testhost.dll, TestPluginCache.GetExtensionPaths: Filtered extension paths: 
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.181, 10927712909955, testhost.dll, TestPluginCache.GetExtensionPaths: Added default extension paths: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.181, 10927712910235, testhost.dll, TestPluginCache.GetExtensionPaths: Added unfilterableExtensionPaths: 
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712912132, testhost.dll, AssemblyResolver.AddSearchDirectories: Adding more searchDirectories C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712912744, testhost.dll, TestPluginCache.DiscoverTestExtensions: Discovering the extensions using extension path.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712913199, testhost.dll, TestPluginCache.GetExtensionPaths: Filtered extension paths: 
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712913521, testhost.dll, TestPluginCache.GetExtensionPaths: Added default extension paths: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712913825, testhost.dll, TestPluginCache.GetExtensionPaths: Added unfilterableExtensionPaths: 
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712914176, testhost.dll, TestPluginCache.DiscoverTestExtensions: Discovering the extensions using allExtensionPaths: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712914653, testhost.dll, AssemblyResolver.AddSearchDirectories: Adding more searchDirectories C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712917103, testhost.dll, TestPluginCache: Discovered the extensions using extension path ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712917445, testhost.dll, TestPluginCache: Discoverers are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712917714, testhost.dll, TestPluginCache: Executors are 'executor://NUnit3TestExecutor'.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712918147, testhost.dll, TestPluginCache: Executors2 are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712918371, testhost.dll, TestPluginCache: Setting providers are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.182, 10927712918555, testhost.dll, TestPluginCache: Loggers are ''.
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.188, 10927712976693, testhost.dll, TestPluginManager.CreateTestExtension: Attempting to load test extension: NUnit.VisualStudio.TestAdapter.NUnit3TestExecutor
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.189, 10927712986806, testhost.dll, TestExecutorExtensionManager: Loading executor NUnit.VisualStudio.TestAdapter.NUnit3TestExecutor
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.189, 10927712987650, testhost.dll, TestExecutorService: Loaded the executors
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.190, 10927712999544, testhost.dll, TestPluginCache.DiscoverTestExtensions: finding test extensions in assemblies ends with: TestAdapter.dll TPluginInfo: Microsoft.VisualStudio.TestPlatform.Common.ExtensionFramework.Utilities.TestSettingsProviderPluginInformation TExtension: Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter.ISettingsProvider
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.190, 10927713001374, testhost.dll, TestPluginCache.GetExtensionPaths: Filtered extension paths: 
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713002120, testhost.dll, TestPluginCache.GetExtensionPaths: Added default extension paths: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713002479, testhost.dll, TestPluginCache.GetExtensionPaths: Added unfilterableExtensionPaths: 
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713004131, testhost.dll, AssemblyResolver.AddSearchDirectories: Adding more searchDirectories C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713004618, testhost.dll, TestPluginCache.DiscoverTestExtensions: Discovering the extensions using extension path.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713004901, testhost.dll, TestPluginCache.GetExtensionPaths: Filtered extension paths: 
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713005135, testhost.dll, TestPluginCache.GetExtensionPaths: Added default extension paths: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713005479, testhost.dll, TestPluginCache.GetExtensionPaths: Added unfilterableExtensionPaths: 
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713005928, testhost.dll, TestPluginCache.DiscoverTestExtensions: Discovering the extensions using allExtensionPaths: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713006864, testhost.dll, AssemblyResolver.AddSearchDirectories: Adding more searchDirectories C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713009846, testhost.dll, TestPluginCache: Discovered the extensions using extension path ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713010477, testhost.dll, TestPluginCache: Discoverers are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713010748, testhost.dll, TestPluginCache: Executors are 'executor://NUnit3TestExecutor'.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713010971, testhost.dll, TestPluginCache: Executors2 are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.191, 10927713011472, testhost.dll, TestPluginCache: Setting providers are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.192, 10927713011986, testhost.dll, TestPluginCache: Loggers are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.193, 10927713023935, testhost.dll, TestExecutorService: Loaded the settings providers
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.193, 10927713024827, testhost.dll, TestExecutorService: Loaded the extensions
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.271, 10927713804368, testhost.dll, TestDiscoveryManager: Discovering tests from sources C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\MTCG_Tests.dll
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.274, 10927713834142, testhost.dll, TestPluginCache.DiscoverTestExtensions: finding test extensions in assemblies ends with: TestAdapter.dll TPluginInfo: Microsoft.VisualStudio.TestPlatform.Common.ExtensionFramework.Utilities.TestDiscovererPluginInformation TExtension: Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter.ITestDiscoverer
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.274, 10927713835824, testhost.dll, TestPluginCache.GetExtensionPaths: Filtered extension paths: 
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.274, 10927713836344, testhost.dll, TestPluginCache.GetExtensionPaths: Added default extension paths: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.274, 10927713836749, testhost.dll, TestPluginCache.GetExtensionPaths: Added unfilterableExtensionPaths: 
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.274, 10927713838796, testhost.dll, AssemblyResolver.AddSearchDirectories: Adding more searchDirectories C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.274, 10927713839326, testhost.dll, TestPluginCache.DiscoverTestExtensions: Discovering the extensions using extension path.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.274, 10927713839786, testhost.dll, TestPluginCache.GetExtensionPaths: Filtered extension paths: 
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.274, 10927713840140, testhost.dll, TestPluginCache.GetExtensionPaths: Added default extension paths: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.274, 10927713840468, testhost.dll, TestPluginCache.GetExtensionPaths: Added unfilterableExtensionPaths: 
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.274, 10927713840808, testhost.dll, TestPluginCache.DiscoverTestExtensions: Discovering the extensions using allExtensionPaths: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\NUnit3.TestAdapter.dll
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.274, 10927713841295, testhost.dll, AssemblyResolver.AddSearchDirectories: Adding more searchDirectories C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.278, 10927713878164, testhost.dll, TestPluginCache: Discovered the extensions using extension path ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.278, 10927713879365, testhost.dll, TestPluginCache: Discoverers are 'NUnit.VisualStudio.TestAdapter.NUnit3TestDiscoverer, NUnit3.TestAdapter, Version=3.17.0.0, Culture=neutral, PublicKeyToken=4cb40d35494691ac'.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.278, 10927713879705, testhost.dll, TestPluginCache: Executors are 'executor://NUnit3TestExecutor'.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.278, 10927713879973, testhost.dll, TestPluginCache: Executors2 are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.278, 10927713880220, testhost.dll, TestPluginCache: Setting providers are ''.
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.278, 10927713880530, testhost.dll, TestPluginCache: Loggers are ''.
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.288, 10927713979190, testhost.dll, PEReaderHelper.GetAssemblyType: Determined assemblyType:'Managed' for source: 'C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\MTCG_Tests.dll'
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.294, 10927714039664, testhost.dll, BaseRunTests.RunTestInternalWithExecutors: Running tests for executor://NUnit3TestExecutor
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.296, 10927714053830, testhost.dll, AssemblyResolver.OnResolve: nunit.engine: Resolving assembly.
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.296, 10927714060925, testhost.dll, AssemblyResolver.OnResolve: Resolved assembly: nunit.engine, from path: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\nunit.engine.dll
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.296, 10927714061903, testhost.dll, AssemblyResolver.OnResolve: nunit.engine.core: Resolving assembly.
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.297, 10927714067565, testhost.dll, AssemblyResolver.OnResolve: Resolved assembly: nunit.engine.core, from path: C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\nunit.engine.core.dll
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.305, 10927714147816, testhost.dll, NUnit Adapter 3.17.0.0: Test execution started
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.305, 10927714149405, testhost.dll, TestRequestHandler.SendData:  sending data from testhost: {"Version":5,"MessageType":"TestSession.Message","Payload":{"MessageLevel":0,"Message":"NUnit Adapter 3.17.0.0: Test execution started"}}
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.343, 10927714523651, testhost.dll, Running all tests in C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage\build-output\MTCG_Tests.dll
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.343, 10927714525514, testhost.dll, TestRequestHandler.SendData:  sending data from testhost: {"Version":5,"MessageType":"TestSession.Message","Payload":{"MessageLevel":0,"Message":"Running all tests in C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\bin\\Debug\\net5.0\\fine-code-coverage\\build-output\\MTCG_Tests.dll"}}
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.356, 10927714655816, testhost.dll, AssemblyResolver.OnResolve: Mono.Cecil: Resolving assembly.
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.356, 10927714658311, testhost.dll, AssemblyResolver.OnResolve: Mono.Cecil: Failed to load assembly.
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.576, 10927716859752, testhost.dll,    NUnit3TestExecutor discovered 1 of 1 NUnit test cases
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.576, 10927716861553, testhost.dll, TestRequestHandler.SendData:  sending data from testhost: {"Version":5,"MessageType":"TestSession.Message","Payload":{"MessageLevel":0,"Message":"   NUnit3TestExecutor discovered 1 of 1 NUnit test cases"}}
+TpTrace Verbose: 0 : 17512, 12, 2021/10/12, 10:34:28.618, 10927717278097, testhost.dll, TestExecutionRecorder.RecordStart: Starting test: MTCG_Tests.Tests.Test1.
+TpTrace Verbose: 0 : 17512, 12, 2021/10/12, 10:34:28.690, 10927717999605, testhost.dll, TestExecutionRecorder.RecordEnd: test: MTCG_Tests.Tests.Test1 execution completed.
+TpTrace Verbose: 0 : 17512, 12, 2021/10/12, 10:34:28.723, 10927718329906, testhost.dll, TestExecutionRecorder.RecordResult: Received result for test: MTCG_Tests.Tests.Test1.
+TpTrace Warning: 0 : 17512, 12, 2021/10/12, 10:34:28.731, 10927718411354, testhost.dll, TestRunCache: InProgressTests is null
+TpTrace Warning: 0 : 17512, 12, 2021/10/12, 10:34:28.732, 10927718414141, testhost.dll, TestRunCache: No test found corresponding to testResult 'Test1' in inProgress list.
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.738, 10927718477055, testhost.dll, NUnit Adapter 3.17.0.0: Test execution complete
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.738, 10927718479693, testhost.dll, TestRequestHandler.SendData:  sending data from testhost: {"Version":5,"MessageType":"TestSession.Message","Payload":{"MessageLevel":0,"Message":"NUnit Adapter 3.17.0.0: Test execution complete"}}
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.749, 10927718587927, testhost.dll, BaseRunTests.RunTestInternalWithExecutors: Completed running tests for executor://NUnit3TestExecutor
+TpTrace Information: 0 : 17512, 4, 2021/10/12, 10:34:28.755, 10927718650566, testhost.dll, Sending test run complete
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.821, 10927719309698, testhost.dll, TestRequestHandler.SendData:  sending data from testhost: {"Version":5,"MessageType":"TestExecution.Completed","Payload":{"TestRunCompleteArgs":{"TestRunStatistics":{"ExecutedTests":1,"Stats":{"Passed":1}},"IsCanceled":false,"IsAborted":false,"Error":null,"AttachmentSets":[],"ElapsedTimeInRunningTests":"00:00:00.4591045","Metrics":{}},"LastRunTests":{"NewTestResults":[{"TestCase":{"Id":"00fc36e6-00f1-59af-dffd-b223443014bd","FullyQualifiedName":"MTCG_Tests.Tests.Test1","DisplayName":"Test1","ExecutorUri":"executor://NUnit3TestExecutor","Source":"C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\bin\\Debug\\net5.0\\fine-code-coverage\\build-output\\MTCG_Tests.dll","CodeFilePath":null,"LineNumber":0,"Properties":[]},"Attachments":[],"Outcome":1,"ErrorMessage":null,"ErrorStackTrace":null,"DisplayName":"Test1","Messages":[],"ComputerName":"XPS-13","Duration":"00:00:00.0365020","StartTime":"2021-10-12T08:34:28.6172158+00:00","EndTime":"2021-10-12T08:34:28.6535167+00:00","Properties":[]}],"TestRunStatistics":{"ExecutedTests":1,"Stats":{"Passed":1}},"ActiveTests":[]},"RunAttachments":[],"ExecutorUris":["executor://nunit3testexecutor/"]}}
+TpTrace Verbose: 0 : 17512, 4, 2021/10/12, 10:34:28.822, 10927719315005, testhost.dll, BaseRunTests.RunTests: Run is complete.
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:28.823, 10927719323200, testhost.dll, TcpClientExtensions.MessageLoopAsync: NotifyDataAvailable remoteEndPoint: [::ffff:127.0.0.1]:58308 localEndPoint: [::ffff:127.0.0.1]:58310
+TpTrace Information: 0 : 17512, 5, 2021/10/12, 10:34:28.823, 10927719325357, testhost.dll, TestRequestHandler.ProcessRequests: received message: (TestSession.Terminate) -> null
+TpTrace Information: 0 : 17512, 5, 2021/10/12, 10:34:28.823, 10927719325841, testhost.dll, Session End message received from server. Closing the connection.
+TpTrace Information: 0 : 17512, 5, 2021/10/12, 10:34:28.823, 10927719329830, testhost.dll, SocketClient.Stop: Stop communication from server endpoint: 127.0.0.1:058308
+TpTrace Information: 0 : 17512, 5, 2021/10/12, 10:34:28.823, 10927719330506, testhost.dll, SocketClient: Stop: Cancellation requested. Stopping message loop.
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:28.824, 10927719332151, testhost.dll, LengthPrefixCommunicationChannel.Dispose: Dispose reader and writer.
+TpTrace Information: 0 : 17512, 5, 2021/10/12, 10:34:28.824, 10927719332873, testhost.dll, Closing the connection !
+TpTrace Information: 0 : 17512, 5, 2021/10/12, 10:34:28.824, 10927719335871, testhost.dll, SocketClient.PrivateStop: Stop communication from server endpoint: 127.0.0.1:058308, error:
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:28.824, 10927719341186, testhost.dll, LengthPrefixCommunicationChannel.Dispose: Dispose reader and writer.
+TpTrace Verbose: 0 : 17512, 5, 2021/10/12, 10:34:28.825, 10927719342040, testhost.dll, TcpClientExtensions.MessageLoopAsync: exiting MessageLoopAsync remoteEndPoint: [::ffff:127.0.0.1]:58308 localEndPoint: [::ffff:127.0.0.1]:58310
+TpTrace Information: 0 : 17512, 1, 2021/10/12, 10:34:28.824, 10927719341177, testhost.dll, Closing the connection !
+TpTrace Information: 0 : 17512, 1, 2021/10/12, 10:34:28.825, 10927719343333, testhost.dll, SocketClient.Stop: Stop communication from server endpoint: 127.0.0.1:058308
+TpTrace Verbose: 0 : 17512, 1, 2021/10/12, 10:34:28.825, 10927719345059, testhost.dll, LengthPrefixCommunicationChannel.Dispose: Dispose reader and writer.
+TpTrace Information: 0 : 17512, 1, 2021/10/12, 10:34:28.825, 10927719346245, testhost.dll, Testhost process exiting.
