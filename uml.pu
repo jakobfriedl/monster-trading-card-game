@@ -17,14 +17,23 @@ enum MonsterType{
 }
 
 interface IUser{
-    
+    + string Username 
+    + string Password
+    + int Coins 
+    + int Elo
+    + int Wins
+    + int Losses
+    + Stack CardStack
+    + Deck Deck
+    + Register()
+    + Login()
+    + BuyPackage()
+    + SelectCardForDeck()
+    + OfferTrade()
+    + AcceptTrade()
 }
 
 class User{
-    - string Username 
-    - string Password
-    - int Coins 
-    - Stack CardStack
 }
 IUser <|-- User
 
@@ -71,7 +80,10 @@ class Deck{
 User --> Deck : uses
 
 interface ICardCollection{
-
+    + List<ICard> Cards
+    + AddCard()
+    + RemoveCard()
+    + Print()
 }
 Stack --|> ICardCollection
 Package --|> ICardCollection
@@ -84,6 +96,10 @@ class Store{
 User --> Store : trades in
 
 class Battle{
+    - IUser User1
+    - IUser User2
+
+    + Battle(User1, User2)
 
 }
 Deck --> Battle : is used in

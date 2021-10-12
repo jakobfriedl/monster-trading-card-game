@@ -4,7 +4,7 @@ using System.Text;
 using MTCG.Cards;
 
 namespace MTCG.CardCollections {
-    class Deck : ICardCollection {
+    public class Deck : ICardCollection {
 	    public int Capacity { get; } = 4; 
 	    public List<ICard> Cards { get; set; }
 
@@ -17,7 +17,7 @@ namespace MTCG.CardCollections {
 				Cards.Add(card);
 	    }
 
-	    public void PrintDeck() {
+	    public void Print() {
 		    foreach (ICard card in Cards) {
 				Console.WriteLine(card.Name);
 		    }

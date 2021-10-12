@@ -4,7 +4,7 @@ using System.Text;
 using MTCG.Enums;
 
 namespace MTCG.Cards {
-    interface ICard {
+    public interface ICard {
 	    public string Name { get; set; }
 	    public ElementType ElementType { get; set; }
     }

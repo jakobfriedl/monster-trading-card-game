@@ -25,7 +25,9 @@ namespace MTCG {
 
             deck.AddCard(new Spell("asd", 20, ElementType.Fire));
 
-            deck.PrintDeck();
+            deck.Print();
+
+            Console.WriteLine(Environment.Version);
         }
     }
 }
