@@ -5,7 +5,7 @@ using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
 
 namespace monster_trading_card_game.Users {
-    interface IUser {
+    public interface IUser {
 	    string Username { get; set; }
 	    string Password { get; set; }
         int Coins { get; set; }
@@ -17,6 +17,9 @@ namespace monster_trading_card_game.Users {
 
         //Functions
         void Challenge(IUser opponent);
-        ICard ChooseRandomCard(); 
+        ICard ChooseRandomCard();
+        void AddCardToStack(ICard card);
+        void WinGame();
+        void LoseGame();
     }
 }

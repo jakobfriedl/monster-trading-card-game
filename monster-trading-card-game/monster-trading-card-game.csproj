@@ -6,4 +6,8 @@
     <RootNamespace>monster_trading_card_game</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.16.1" />
+  </ItemGroup>
+
 </Project>

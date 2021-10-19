@@ -22,5 +22,10 @@ namespace monster_trading_card_game.CardCollections {
 				Console.WriteLine(card.Name);
 		    }
 	    }
-    }
+
+	    public void RemoveCard(ICard card) {
+
+	    }
+
+	}
 }

@@ -23,22 +23,37 @@ namespace monster_trading_card_game.Users {
 	    public int Losses { get; set; }
 	    public Stack CardStack { get; set; }
 	    public Deck Deck { get; set; }
-
-		public User(string username, string password) {
+	    public User(string username, string password) {
 		    Username = username;
 		    Password = password;
 		    Coins = NumberOfCoins;
 		    Elo = EloStartingValue;
 		    Wins = Losses = DefaultWinLoss;
+		    CardStack = new Stack();
+		    Deck = new Deck(); 
 		}
 
 		public ICard ChooseRandomCard() {
 			Random random = new Random();
-			return CardStack.Cards.ElementAt(random.Next(4)); 
+			return CardStack.Cards.ElementAt(random.Next(CardStack.Count())); 
 		}
 		public void Challenge(IUser opponent) {
 			Battle battle = new Battle(this, opponent);
 			battle.StartBattle(); 
 		}
-    }
+
+		public void AddCardToStack(ICard card) {
+			CardStack.AddCard(card);
+		}
+
+		public void WinGame() {
+			Wins++;
+			Elo += EloIncrement;
+		}
+
+		public void LoseGame() {
+			Losses++;
+			Elo -= EloDecrement; 
+		}
+	}
 }
