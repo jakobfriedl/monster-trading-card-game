@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
+using monster_trading_card_game.Enums;
 
 namespace monster_trading_card_game.Users {
     class User : IUser{
@@ -12,9 +13,10 @@ namespace monster_trading_card_game.Users {
 	    private const int EloStartingValue = 100;
 	    private const int EloDecrement = 5;
 	    private const int EloIncrement = 3;
-	    private const int DefaultWinLoss = 0; 
+	    private const int DefaultWinLoss = 0;
+	    private const int MaxDamage = 100; 
 
-		// Class properties
+	    // Class properties
 	    public string Username { get; set; }
 	    public string Password { get; set; }
 	    public int Coins { get; set; }
@@ -23,6 +25,7 @@ namespace monster_trading_card_game.Users {
 	    public int Losses { get; set; }
 	    public Stack CardStack { get; set; }
 	    public Deck Deck { get; set; }
+
 	    public User(string username, string password) {
 		    Username = username;
 		    Password = password;
@@ -33,17 +36,34 @@ namespace monster_trading_card_game.Users {
 		    Deck = new Deck(); 
 		}
 
+	    public void AutoCreateDeck() {
+		    var rand = new Random();
+		    var randomized = CardStack.Cards.OrderBy(item => rand.Next());
+
+		    for (int i = 0; i < Deck.Capacity; i++) {
+			    Deck.AddCard(randomized.ElementAt(i));
+		    }
+	    }
+
 		public ICard ChooseRandomCard() {
 			Random random = new Random();
-			return CardStack.Cards.ElementAt(random.Next(CardStack.Count())); 
+			return Deck.Cards.ElementAt(random.Next(Deck.Count())); 
 		}
 		public void Challenge(IUser opponent) {
+			// Create Battle Decks
+			AutoCreateDeck();
+			opponent.AutoCreateDeck();
+
 			Battle battle = new Battle(this, opponent);
 			battle.StartBattle(); 
 		}
 
 		public void AddCardToStack(ICard card) {
 			CardStack.AddCard(card);
+		}
+
+		public void AddCardToDeck(ICard card) {
+			Deck.AddCard(card);
 		}
 
 		public void WinGame() {
@@ -54,6 +74,47 @@ namespace monster_trading_card_game.Users {
 		public void LoseGame() {
 			Losses++;
 			Elo -= EloDecrement; 
+		}
+
+		public void GenerateCardStack() {
+			var rand = new Random();
+			int numberOfSpells = rand.Next(25, 75);
+			int numberOfMonsters = CardStack.Capacity - numberOfSpells;
+
+            foreach (var spell in GenerateRandomSpells(numberOfSpells).Cards) {
+                CardStack.AddCard(spell);
+            }
+
+            foreach (var monster in GenerateRandomMonsters(numberOfMonsters).Cards) {
+				CardStack.AddCard(monster);
+			}
+		}
+
+		public Stack GenerateRandomSpells(int count) {
+			Stack spellStack = new Stack(); 
+			var rand = new Random();
+			for (int i = 0; i < count; i++) {
+				int damage = rand.Next(MaxDamage);
+				ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length);
+				string name = $"{element.ToString()} Spell"; 
+
+				spellStack.AddCard(new Spell(name, damage, element));
+			}
+			return spellStack;
+		}
+
+		public Stack GenerateRandomMonsters(int count) {
+			Stack monsterStack = new Stack();
+			var rand = new Random();
+			for (int i = 0; i < count; i++) {
+				int damage = rand.Next(MaxDamage);
+				ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length);
+				MonsterType monster = (MonsterType)rand.Next(Enum.GetNames(typeof(MonsterType)).Length);
+				string name = $"{element.ToString()} {monster.ToString()}";
+
+				monsterStack.AddCard(new Monster(name, damage, element, monster));
+			}
+			return monsterStack;
 		}
 	}
 }

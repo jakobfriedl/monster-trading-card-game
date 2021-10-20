@@ -17,9 +17,14 @@ namespace monster_trading_card_game.Users {
 
         //Functions
         void Challenge(IUser opponent);
+        void AutoCreateDeck();
         ICard ChooseRandomCard();
         void AddCardToStack(ICard card);
+        void AddCardToDeck(ICard card);
         void WinGame();
         void LoseGame();
+        void GenerateCardStack(); 
+        Stack GenerateRandomSpells(int count);
+        Stack GenerateRandomMonsters(int count);
     }
 }

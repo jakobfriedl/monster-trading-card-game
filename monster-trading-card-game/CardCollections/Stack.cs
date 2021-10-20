@@ -6,8 +6,8 @@ using Castle.Core.Internal;
 using monster_trading_card_game.Cards;
 
 namespace monster_trading_card_game.CardCollections {
-    public class Stack : ICardCollection{
-	    public int Capacity { get; }
+    public class Stack : ICardCollection {
+	    public int Capacity { get; } = 100; 
 	    public List<ICard> Cards { get; set; }
 
 	    public Stack() {
@@ -20,7 +20,7 @@ namespace monster_trading_card_game.CardCollections {
 
 	    public void Print() {
 		    foreach (ICard card in Cards) {
-			    Console.WriteLine(card.Name);
+			    Console.WriteLine($"	{card.Name} - {card.Damage}");
 		    }
 	    }
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Q7sNYg6gsXjwoLcpSB06urcCjQvybRIsBxJUT9tIeA0zsPWZ+Ro/R/LQ8YszWe9FHd7MuZ842qUEfHSCrfIP/g==",
+  "dgSpecHash": "M7XjCohWoj+XFomUKf6VzUpxQ9yoBwngQp81Vg5wyRrQK5joAqSe3fotvivFgDpCGVIvYMWEwf+IaFk6JlatNQ==",
   "success": true,
-  "projectFilePath": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\mtcgTests.csproj",
+  "projectFilePath": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\monster-trading-card-game.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jakob\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
     "C:\\Users\\jakob\\.nuget\\packages\\coverlet.collector\\3.0.2\\coverlet.collector.3.0.2.nupkg.sha512",

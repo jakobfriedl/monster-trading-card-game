@@ -10,6 +10,8 @@ namespace monster_trading_card_game.CardCollections {
 
 	    void AddCard(ICard card);
 	    void RemoveCard(ICard card); 
-	    void Print(); 
+	    void Print();
+	    int Count();
+	    bool IsEmpty();
     }
 }

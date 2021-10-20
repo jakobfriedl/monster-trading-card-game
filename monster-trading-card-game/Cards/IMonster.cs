@@ -5,7 +5,5 @@ using monster_trading_card_game.Enums;
 
 namespace monster_trading_card_game.Cards {
     public interface IMonster : ICard {
-	    MonsterType MonsterType { get; set; }
-
     }
 }

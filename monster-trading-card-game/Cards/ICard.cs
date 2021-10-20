@@ -8,7 +8,6 @@ namespace monster_trading_card_game.Cards {
         int Damage { get; }
 	    string Name { get; set; }
 	    ElementType ElementType { get; set; }
-
-        
+	    MonsterType MonsterType { get; set; }
     }
 }
