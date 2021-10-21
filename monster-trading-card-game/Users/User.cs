@@ -41,10 +41,9 @@ namespace monster_trading_card_game.Users {
 
 	    public void AutoCreateDeck() {
 		    var rand = new Random();
-		    var randomized = CardStack.Cards.OrderBy(item => rand.Next());
 
 		    for (int i = 0; i < Deck.Capacity; i++) {
-			    Deck.AddCard(randomized.ElementAt(i));
+			    Deck.AddCard(CardStack.Cards.ElementAt(rand.Next(CardStack.Capacity)));
 		    }
 	    }
 

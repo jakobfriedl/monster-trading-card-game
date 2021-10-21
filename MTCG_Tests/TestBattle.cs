@@ -1,12 +1,15 @@
-using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Moq;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Enums;
 using monster_trading_card_game.Users;
-using NUnit.Framework.Internal;
+using monster_trading_card_game.CardCollections;
+using Stack = monster_trading_card_game.CardCollections.Stack;
 
-namespace mtcgTests {
+namespace MTCG_Tests {
     public class TestBattle {
 	    private Mock<IUser> user1 = new Mock<IUser>();
 	    private Mock<IUser> user2 = new Mock<IUser>();
@@ -14,11 +17,22 @@ namespace mtcgTests {
 
         [SetUp]
         public void Setup() {
+	        //user1.Setup(user => user.CardStack).Returns(new Stack(){Cards = new List<ICard>(){new Monster("Dragon", 100, ElementType.Water, MonsterType.Dragon)}}); 
+	        //user2.Setup(user => user.CardStack).Returns(new Stack(){Cards = new List<ICard>(){new Monster("Goblin", 100, ElementType.Water, MonsterType.Goblin)}}); 
 	        _battle = new Battle(user1.Object, user2.Object); 
         }
 
-		////////// Test MonsterBattle Function //////////////
-		[Test]
+        //[Test]
+        //public void TestStartBattle_Player1Wins() {
+        //    // Act
+        //    IUser winner = _battle.StartBattle();
+
+        //    // Assert
+        //    Assert.AreEqual(user1.Object, winner);
+        //}
+
+        ////////// Test MonsterBattle Function //////////////
+        [Test]
         public void TestMonsterBattleGoblinVsDragon_ReturnsDragon() {
             // Arrange
 	        ICard goblin = new Monster("Goblin", 10, ElementType.Normal, MonsterType.Goblin);
@@ -28,8 +42,9 @@ namespace mtcgTests {
 	        ICard winner = _battle.MonsterBattle(goblin, dragon);
 	        
             // Assert
-            Assert.True(winner == dragon);
+            Assert.AreEqual(dragon, winner);
         }
+
 		[Test]
         public void TestMonsterBattleWizardVsOrc_ReturnsWizard() {
 			// Arrange
@@ -39,9 +54,9 @@ namespace mtcgTests {
 	        // Act
 	        ICard winner = _battle.MonsterBattle(orc, wizard);
 
-	        // Assert
-	        Assert.True(winner == wizard);
-        }
+			// Assert
+			Assert.AreEqual(wizard, winner);
+		}
 
         [Test]
         public void TestMonsterBattleFireElfVsStrongerDragon_ReturnsElf() {
@@ -52,8 +67,8 @@ namespace mtcgTests {
 	        // Act
 	        ICard winner = _battle.MonsterBattle(elf, dragon);
 
-	        // Assert
-	        Assert.True(winner == elf);
+			// Assert
+			Assert.AreEqual(elf, winner);
 		}
 
         [Test]
@@ -65,9 +80,9 @@ namespace mtcgTests {
 	        // Act
 	        ICard winner = _battle.MonsterBattle(elf, dragon);
 
-	        // Assert
-	        Assert.True(winner == dragon);
-        }
+			// Assert
+			Assert.AreEqual(dragon, winner);
+		}
 
         [Test]
         public void TestMonsterBattleDraw_ReturnsNull() {
@@ -91,9 +106,9 @@ namespace mtcgTests {
 	        // Act
 	        ICard winner = _battle.MonsterBattle(kraken, dragon);
 
-	        // Assert
-	        Assert.True(winner == dragon);
-        }
+			// Assert
+			Assert.AreEqual(dragon, winner);
+		}
 
         ////////// Test SpellBattle Function //////////////
         [Test]
@@ -106,8 +121,8 @@ namespace mtcgTests {
 			ICard winner = _battle.SpellBattle(water, fire);
 
 			// Assert
-			Assert.That(winner == water);
-        }
+			Assert.AreEqual(water, winner);
+		}
 
         [Test]
         public void TestSpellBattleFire20VsWater5_ReturnsNull() {
@@ -131,9 +146,9 @@ namespace mtcgTests {
 	        // Act
 	        ICard winner = _battle.SpellBattle(water, fire);
 
-	        // Assert
-	        Assert.True(winner == fire);
-        }
+			// Assert
+			Assert.AreEqual(fire, winner);
+		}
 
 		[Test]
         public void TestSpellBattleFire10VsNormal20_ReturnsFire() {
@@ -144,9 +159,9 @@ namespace mtcgTests {
 	        // Act
 	        ICard winner = _battle.SpellBattle(normal, fire);
 
-	        // Assert
-	        Assert.That(winner == fire);
-        }
+			// Assert
+			Assert.AreEqual(fire, winner);
+		}
 
         [Test]
         public void TestSpellBattleFire5VsNormal20_ReturnsNull() {
@@ -170,9 +185,9 @@ namespace mtcgTests {
 			// Act
 			ICard winner = _battle.SpellBattle(normal, fire);
 
-	        // Assert
-	        Assert.True(winner == normal);
-        }
+			// Assert
+			Assert.AreEqual(normal, winner);
+		}
 
         [Test]
         public void TestSpellBattleNormal10VsWater20_ReturnsNormal() {
@@ -183,11 +198,11 @@ namespace mtcgTests {
 	        // Act
 	        ICard winner = _battle.SpellBattle(normal, water);
 
-	        // Assert
-	        Assert.That(winner == normal);
+			// Assert
+			Assert.AreEqual(normal, winner);
         }
 
-        [Test]
+		[Test]
         public void TestSpellBattleNormal10VsWater40_ReturnsNull() {
 			//Arrange
 			ICard normal = new Spell("Normal Spell", 10, ElementType.Normal);
@@ -209,11 +224,11 @@ namespace mtcgTests {
 	        // Act
 	        ICard winner = _battle.SpellBattle(normal, water);
 
-	        // Assert
-	        Assert.True(winner == water);
+			// Assert
+			Assert.AreEqual(water, winner);
         }
 
-        [Test]
+		[Test]
         public void TestSpellBattleWater100VsWater80_ReturnsWater100() {
 	        //Arrange
 	        ICard water100 = new Spell("Water Spell", 100, ElementType.Water);
@@ -222,25 +237,25 @@ namespace mtcgTests {
 	        // Act
 	        ICard winner = _battle.SpellBattle(water80, water100);
 
-	        // Assert
-	        Assert.True(winner == water100);
-		}
+			// Assert
+			Assert.AreEqual(water100, winner);
+        }
 
-        ////////// Test MixedBattle Function //////////////
-        [Test]
+		////////// Test MixedBattle Function //////////////
+		[Test]
         public void TestMixedBattleFireSpellVsWaterGoblin_ReturnsGoblin() {
 			// Arrange 
 	        ICard goblin = new Monster("Water Goblin", 10, ElementType.Water, MonsterType.Goblin);
 	        ICard fire = new Spell("Fire Spell", 10, ElementType.Fire); 
 
 			// Act
-			ICard winner = _battle.MixedBattle(goblin, fire); 
+			ICard winner = _battle.MixedBattle(goblin, fire);
 
 			// Assert
-			Assert.True(winner == goblin);
+			Assert.AreEqual(goblin, winner);
         }
 
-        [Test]
+		[Test]
         public void TestMixedBattleWaterSpellVsWaterGoblin_ReturnsNull() {
 	        // Arrange 
 	        ICard goblin = new Monster("Water Goblin", 10, ElementType.Water, MonsterType.Goblin);
@@ -262,11 +277,11 @@ namespace mtcgTests {
 	        // Act
 	        ICard winner = _battle.MixedBattle(kraken, normal);
 
-	        // Assert
-	        Assert.True(winner == kraken);
+			// Assert
+			Assert.AreEqual(kraken, winner);
         }
 
-        [Test]
+		[Test]
         public void TestMixedBattleRegularSpellVsRegularKnight_ReturnsKnight() {
 			// Arrange 
 			ICard knight = new Monster("Normal Knight", 15, ElementType.Normal, MonsterType.Knight);
@@ -276,10 +291,10 @@ namespace mtcgTests {
 			ICard winner = _battle.MixedBattle(knight, normal);
 
 			// Assert
-			Assert.True(winner == knight);
-		}
+			Assert.AreEqual(knight, winner);
+        }
 
-        [Test]
+		[Test]
         public void TestMixedBattleWaterSpellVsRegularKnight_ReturnsWater() {
 	        // Arrange 
 	        ICard knight = new Monster("Normal Knight", 100, ElementType.Normal, MonsterType.Knight);
@@ -288,8 +303,8 @@ namespace mtcgTests {
 	        // Act
 	        ICard winner = _battle.MixedBattle(knight, water);
 
-	        // Assert
-	        Assert.True(winner == water);
+			// Assert
+			Assert.AreEqual(water, winner);
         }
 	}
 }

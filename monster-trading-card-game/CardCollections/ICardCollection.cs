@@ -4,7 +4,7 @@ using System.Text;
 using monster_trading_card_game.Cards;
 
 namespace monster_trading_card_game.CardCollections {
-    interface ICardCollection {
+    public interface ICardCollection {
         int Capacity { get; }
 	    List<ICard> Cards { get; set; }
 

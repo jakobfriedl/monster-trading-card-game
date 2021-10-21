@@ -15,8 +15,8 @@ namespace monster_trading_card_game.Users {
 		private readonly IUser _player2;
 
 		public Battle(IUser user1, IUser user2) {
-			this._player1 = user1;
-			this._player2 = user2;
+			_player1 = user1;
+			_player2 = user2;
 		}
 
 		public IUser StartBattle() {

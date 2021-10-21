@@ -5165,9 +5165,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\monster-trading-card-game.Test.csproj",
-      "projectName": "monster-trading-card-game.Test",
-      "projectPath": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\monster-trading-card-game.Test.csproj",
+      "projectUniqueName": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\MTCG_Tests.csproj",
+      "projectName": "MTCG_Tests",
+      "projectPath": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\MTCG_Tests.csproj",
       "packagesPath": "C:\\Users\\jakob\\.nuget\\packages\\",
       "outputPath": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\obj\\",
       "projectStyle": "PackageReference",
