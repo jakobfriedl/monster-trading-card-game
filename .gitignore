@@ -1,1 +1,3 @@
-.\MTCG_Tests\bin\Debug\net5.0\fine-code-coverage
+.*
+*.html
+*.htm

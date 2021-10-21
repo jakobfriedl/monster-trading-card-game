@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.38020000000000004" branch-rate="0.3529" version="1.9" timestamp="1634763100" lines-covered="162" lines-valid="426" branches-covered="24" branches-valid="68">
+<coverage line-rate="0.38020000000000004" branch-rate="0.3529" version="1.9" timestamp="1634801785" lines-covered="162" lines-valid="426" branches-covered="24" branches-valid="68">
   <sources>
     <source>C:\</source>
   </sources>
@@ -14,9 +14,9 @@
                 <line number="10" hits="0" branch="False" />
                 <line number="11" hits="0" branch="False" />
                 <line number="13" hits="0" branch="False" />
+                <line number="14" hits="0" branch="False" />
                 <line number="16" hits="0" branch="False" />
-                <line number="20" hits="0" branch="False" />
-                <line number="21" hits="0" branch="False" />
+                <line number="17" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
@@ -25,9 +25,9 @@
             <line number="10" hits="0" branch="False" />
             <line number="11" hits="0" branch="False" />
             <line number="13" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
             <line number="16" hits="0" branch="False" />
-            <line number="20" hits="0" branch="False" />
-            <line number="21" hits="0" branch="False" />
+            <line number="17" hits="0" branch="False" />
           </lines>
         </class>
         <class name="monster_trading_card_game.Users.Battle" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\Users\Battle.cs" line-rate="0.3289" branch-rate="0.48" complexity="53">
