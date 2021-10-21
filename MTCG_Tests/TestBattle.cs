@@ -10,11 +10,11 @@ namespace mtcgTests {
     public class TestBattle {
 	    private Mock<IUser> user1 = new Mock<IUser>();
 	    private Mock<IUser> user2 = new Mock<IUser>();
-	    private Battle battle; 
+	    private Battle _battle; 
 
         [SetUp]
         public void Setup() {
-	        battle = new Battle(user1.Object, user2.Object); 
+	        _battle = new Battle(user1.Object, user2.Object); 
         }
 
 		////////// Test MonsterBattle Function //////////////
@@ -25,7 +25,7 @@ namespace mtcgTests {
 	        ICard dragon = new Monster("Dragon", 10, ElementType.Normal, MonsterType.Dragon);
 	        
             // Act
-	        ICard winner = battle.MonsterBattle(goblin, dragon);
+	        ICard winner = _battle.MonsterBattle(goblin, dragon);
 	        
             // Assert
             Assert.True(winner == dragon);
@@ -37,7 +37,7 @@ namespace mtcgTests {
 			ICard orc = new Monster("Orc", 10, ElementType.Normal, MonsterType.Orc);
 
 	        // Act
-	        ICard winner = battle.MonsterBattle(orc, wizard);
+	        ICard winner = _battle.MonsterBattle(orc, wizard);
 
 	        // Assert
 	        Assert.True(winner == wizard);
@@ -50,7 +50,7 @@ namespace mtcgTests {
 			ICard dragon = new Monster("Dragon", 20, ElementType.Normal, MonsterType.Dragon);
 
 	        // Act
-	        ICard winner = battle.MonsterBattle(elf, dragon);
+	        ICard winner = _battle.MonsterBattle(elf, dragon);
 
 	        // Assert
 	        Assert.True(winner == elf);
@@ -63,7 +63,7 @@ namespace mtcgTests {
 			ICard dragon = new Monster("Dragon", 20, ElementType.Normal, MonsterType.Dragon);
 
 	        // Act
-	        ICard winner = battle.MonsterBattle(elf, dragon);
+	        ICard winner = _battle.MonsterBattle(elf, dragon);
 
 	        // Assert
 	        Assert.True(winner == dragon);
@@ -76,7 +76,7 @@ namespace mtcgTests {
 			ICard knight = new Monster("Knight", 10, ElementType.Normal, MonsterType.Knight);
 
 	        // Act
-	        ICard winner = battle.MonsterBattle(goblin, knight);
+	        ICard winner = _battle.MonsterBattle(goblin, knight);
 
 	        // Assert
 	        Assert.IsNull(winner);
@@ -89,7 +89,7 @@ namespace mtcgTests {
 			ICard dragon = new Monster("Dragon", 50, ElementType.Normal, MonsterType.Dragon);
 
 	        // Act
-	        ICard winner = battle.MonsterBattle(kraken, dragon);
+	        ICard winner = _battle.MonsterBattle(kraken, dragon);
 
 	        // Assert
 	        Assert.True(winner == dragon);
@@ -103,7 +103,7 @@ namespace mtcgTests {
 	        ICard fire = new Spell("Fire Spell", 10, ElementType.Fire);
 
 			// Act
-			ICard winner = battle.SpellBattle(water, fire);
+			ICard winner = _battle.SpellBattle(water, fire);
 
 			// Assert
 			Assert.That(winner == water);
@@ -116,7 +116,7 @@ namespace mtcgTests {
 	        ICard fire = new Spell("Fire Spell", 20, ElementType.Fire);
 
 	        // Act
-	        ICard winner = battle.SpellBattle(water, fire);
+	        ICard winner = _battle.SpellBattle(water, fire);
 
 	        // Assert
 	        Assert.IsNull(winner);
@@ -129,7 +129,7 @@ namespace mtcgTests {
 	        ICard fire = new Spell("Fire Spell", 90, ElementType.Fire);
 
 	        // Act
-	        ICard winner = battle.SpellBattle(water, fire);
+	        ICard winner = _battle.SpellBattle(water, fire);
 
 	        // Assert
 	        Assert.True(winner == fire);
@@ -142,7 +142,7 @@ namespace mtcgTests {
 	        ICard fire = new Spell("Fire Spell", 10, ElementType.Fire);
 
 	        // Act
-	        ICard winner = battle.SpellBattle(normal, fire);
+	        ICard winner = _battle.SpellBattle(normal, fire);
 
 	        // Assert
 	        Assert.That(winner == fire);
@@ -155,7 +155,7 @@ namespace mtcgTests {
 			ICard fire = new Spell("Fire Spell", 5, ElementType.Fire);
 
 			// Act
-			ICard winner = battle.SpellBattle(normal, fire);
+			ICard winner = _battle.SpellBattle(normal, fire);
 
 	        // Assert
 	        Assert.IsNull(winner);
@@ -168,7 +168,7 @@ namespace mtcgTests {
 			ICard fire = new Spell("Fire Spell", 20, ElementType.Fire);
 
 			// Act
-			ICard winner = battle.SpellBattle(normal, fire);
+			ICard winner = _battle.SpellBattle(normal, fire);
 
 	        // Assert
 	        Assert.True(winner == normal);
@@ -181,7 +181,7 @@ namespace mtcgTests {
 	        ICard water = new Spell("Water Spell", 20, ElementType.Water);
 
 	        // Act
-	        ICard winner = battle.SpellBattle(normal, water);
+	        ICard winner = _battle.SpellBattle(normal, water);
 
 	        // Assert
 	        Assert.That(winner == normal);
@@ -194,7 +194,7 @@ namespace mtcgTests {
 			ICard water = new Spell("Water Spell", 40, ElementType.Water);
 
 			// Act
-			ICard winner = battle.SpellBattle(normal, water);
+			ICard winner = _battle.SpellBattle(normal, water);
 
 			// Assert
 			Assert.IsNull(winner);
@@ -207,7 +207,7 @@ namespace mtcgTests {
 	        ICard water = new Spell("Water Spell", 50, ElementType.Water);
 
 	        // Act
-	        ICard winner = battle.SpellBattle(normal, water);
+	        ICard winner = _battle.SpellBattle(normal, water);
 
 	        // Assert
 	        Assert.True(winner == water);
@@ -220,7 +220,7 @@ namespace mtcgTests {
 	        ICard water80 = new Spell("Water Spell", 80, ElementType.Water);
 
 	        // Act
-	        ICard winner = battle.SpellBattle(water80, water100);
+	        ICard winner = _battle.SpellBattle(water80, water100);
 
 	        // Assert
 	        Assert.True(winner == water100);
@@ -234,7 +234,7 @@ namespace mtcgTests {
 	        ICard fire = new Spell("Fire Spell", 10, ElementType.Fire); 
 
 			// Act
-			ICard winner = battle.MixedBattle(goblin, fire); 
+			ICard winner = _battle.MixedBattle(goblin, fire); 
 
 			// Assert
 			Assert.True(winner == goblin);
@@ -247,7 +247,7 @@ namespace mtcgTests {
 	        ICard water = new Spell("Water Spell", 10, ElementType.Water);
 
 	        // Act
-	        ICard winner = battle.MixedBattle(goblin, water);
+	        ICard winner = _battle.MixedBattle(goblin, water);
 
 	        // Assert
 	        Assert.IsNull(winner);
@@ -260,7 +260,7 @@ namespace mtcgTests {
 	        ICard normal = new Spell("Normal Spell", 100, ElementType.Normal);
 
 	        // Act
-	        ICard winner = battle.MixedBattle(kraken, normal);
+	        ICard winner = _battle.MixedBattle(kraken, normal);
 
 	        // Assert
 	        Assert.True(winner == kraken);
@@ -273,7 +273,7 @@ namespace mtcgTests {
 			ICard normal = new Spell("Normal Spell", 10, ElementType.Normal);
 
 			// Act
-			ICard winner = battle.MixedBattle(knight, normal);
+			ICard winner = _battle.MixedBattle(knight, normal);
 
 			// Assert
 			Assert.True(winner == knight);
@@ -286,7 +286,7 @@ namespace mtcgTests {
 	        ICard water = new Spell("Water Spell", 10, ElementType.Water);
 
 	        // Act
-	        ICard winner = battle.MixedBattle(knight, water);
+	        ICard winner = _battle.MixedBattle(knight, water);
 
 	        // Assert
 	        Assert.True(winner == water);

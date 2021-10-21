@@ -9,6 +9,7 @@ using monster_trading_card_game.Enums;
 namespace monster_trading_card_game.Users {
 	public class Battle {
 		private const int MaxRounds = 100;
+		private const int WeaknessFactor = 2; 
 
 		private readonly IUser _player1;
 		private readonly IUser _player2;
@@ -37,7 +38,7 @@ namespace monster_trading_card_game.Users {
 				Console.WriteLine($"--ROUND {i}: {card1.Name}|{card1.Damage} VS: {card2.Name}|{card2.Damage} --");
 
 				if (card1.GetType().Name == "Monster" && card2.GetType().Name == "Monster") {
-					roundWinner = MonsterBattle((IMonster)card1, (IMonster)card2); 
+					roundWinner = MonsterBattle(card1, card2); 
 				}else if (card1.GetType().Name == "Spell" && card2.GetType().Name == "Spell") {
 					roundWinner = SpellBattle(card1, card2);
 				} else {
@@ -97,19 +98,52 @@ namespace monster_trading_card_game.Users {
 				return card2;
 
 			// Check higher Damage
-			if (card1.Damage > card2.Damage) 
-				return card1;
-			if (card1.Damage < card2.Damage) 
-				return card2;
-			return null; 
+			if (card1.Damage == card2.Damage) return null;
+			return card1.Damage > card2.Damage ? card1 : card2; 
 		}
 
 		public ICard SpellBattle(ICard card1, ICard card2) {
-			return null;
+			int damage1 = card1.Damage;
+			int damage2 = card2.Damage; 
+
+			if (card1.ElementType == card2.ElementWeakness) {
+				damage1 *= WeaknessFactor;
+				damage2 /= WeaknessFactor;
+			}
+
+			if (card2.ElementType == card1.ElementWeakness) {
+				damage1 /= WeaknessFactor;
+				damage2 *= WeaknessFactor; 
+			}
+
+			if (damage1 == damage2) return null;
+			return damage1 > damage2 ? card1 : card2; 
 		}
 
 		public ICard MixedBattle(ICard card1, ICard card2) {
-			return null; 
+			int damage1 = card1.Damage;
+			int damage2 = card2.Damage;
+
+			// Kraken is immune to spells
+			if (card1.MonsterType == MonsterType.Kraken) return card1;
+			if (card2.MonsterType == MonsterType.Kraken) return card2;
+
+			// Knights instantly loose to Water Spells
+			if (card1.MonsterType == MonsterType.Knight && card2.GetType().Name == "Spell" && card2.ElementType == ElementType.Water) return card2; 
+			if (card2.MonsterType == MonsterType.Knight && card1.GetType().Name == "Spell" && card1.ElementType == ElementType.Water) return card1;
+
+			if (card1.ElementType == card2.ElementWeakness) {
+				damage1 *= WeaknessFactor;
+				damage2 /= WeaknessFactor;
+			}
+
+			if (card2.ElementType == card1.ElementWeakness) {
+				damage1 /= WeaknessFactor;
+				damage2 *= WeaknessFactor;
+			}
+
+			if (damage1 == damage2) return null;
+			return damage1 > damage2 ? card1 : card2;
 		}
 	}
 }

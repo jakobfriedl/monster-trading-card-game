@@ -14,10 +14,13 @@ namespace monster_trading_card_game.Users {
 	    private const int EloDecrement = 5;
 	    private const int EloIncrement = 3;
 	    private const int DefaultWinLoss = 0;
-	    private const int MaxDamage = 100; 
+	    private const int MinDamage = 10; 
+	    private const int MaxDamage = 100;
+		private const int MinSpells = 35;
+		private const int MaxSpells = 65;
 
-	    // Class properties
-	    public string Username { get; set; }
+		// Class properties
+		public string Username { get; set; }
 	    public string Password { get; set; }
 	    public int Coins { get; set; }
 	    public int Elo { get; set; }
@@ -78,7 +81,7 @@ namespace monster_trading_card_game.Users {
 
 		public void GenerateCardStack() {
 			var rand = new Random();
-			int numberOfSpells = rand.Next(25, 75);
+			int numberOfSpells = rand.Next(MinSpells, MaxSpells);
 			int numberOfMonsters = CardStack.Capacity - numberOfSpells;
 
             foreach (var spell in GenerateRandomSpells(numberOfSpells).Cards) {
@@ -94,7 +97,7 @@ namespace monster_trading_card_game.Users {
 			Stack spellStack = new Stack(); 
 			var rand = new Random();
 			for (int i = 0; i < count; i++) {
-				int damage = rand.Next(MaxDamage);
+				int damage = rand.Next(MinDamage, MaxDamage);
 				ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length);
 				string name = $"{element.ToString()} Spell"; 
 
@@ -107,7 +110,7 @@ namespace monster_trading_card_game.Users {
 			Stack monsterStack = new Stack();
 			var rand = new Random();
 			for (int i = 0; i < count; i++) {
-				int damage = rand.Next(MaxDamage);
+				int damage = rand.Next(MinDamage, MaxDamage);
 				ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length);
 				MonsterType monster = (MonsterType)rand.Next(Enum.GetNames(typeof(MonsterType)).Length);
 				string name = $"{element.ToString()} {monster.ToString()}";
