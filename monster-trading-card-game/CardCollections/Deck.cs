@@ -12,17 +12,14 @@ namespace monster_trading_card_game.CardCollections {
 	    public Deck() {
 		    Cards = new List<ICard>(Capacity); 
 	    }
-
 	    public void AddCard(ICard card) {
 		    Cards.Add(card);
 	    }
-
 	    public void Print() {
 		    foreach (ICard card in Cards) {
 				Console.WriteLine($"	{card.Name} - {card.Damage}");
 		    }
 	    }
-
 	    public void RemoveCard(ICard card) {
 		    Cards.Remove(card);
 		}

@@ -32,3 +32,4 @@ C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-
 C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\obj\Debug\net5.0\monster-trading-card-game.genruntimeconfig.cache
 C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\bin\Debug\net5.0\Castle.Core.dll
 C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\bin\Debug\net5.0\Moq.dll
+C:\.Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\bin\Debug\net5.0\Newtonsoft.Json.dll

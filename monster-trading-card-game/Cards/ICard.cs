@@ -9,6 +9,5 @@ namespace monster_trading_card_game.Cards {
 	    string Name { get; set; }
 	    ElementType ElementType { get; set; }
 	    MonsterType MonsterType { get; set; }
-        ElementType ElementWeakness { get; }
     }
 }

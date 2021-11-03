@@ -7,7 +7,7 @@ using monster_trading_card_game.Enums;
 
 namespace MTCG_Tests {
 	public class TestCardCollection {
-		private ICardCollection _stack = new Stack();
+		private ICardCollection _stack = new CardStack();
 
 		private const int CardCountTest = 2; 
 

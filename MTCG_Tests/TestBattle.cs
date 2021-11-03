@@ -1,13 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using NUnit.Framework;
 using Moq;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Enums;
 using monster_trading_card_game.Users;
 using monster_trading_card_game.CardCollections;
-using Stack = monster_trading_card_game.CardCollections.Stack;
 
 namespace MTCG_Tests {
     public class TestBattle {
@@ -17,19 +18,8 @@ namespace MTCG_Tests {
 
         [SetUp]
         public void Setup() {
-	        //user1.Setup(user => user.CardStack).Returns(new Stack(){Cards = new List<ICard>(){new Monster("Dragon", 100, ElementType.Water, MonsterType.Dragon)}}); 
-	        //user2.Setup(user => user.CardStack).Returns(new Stack(){Cards = new List<ICard>(){new Monster("Goblin", 100, ElementType.Water, MonsterType.Goblin)}}); 
 	        _battle = new Battle(user1.Object, user2.Object); 
         }
-
-        //[Test]
-        //public void TestStartBattle_Player1Wins() {
-        //    // Act
-        //    IUser winner = _battle.StartBattle();
-
-        //    // Assert
-        //    Assert.AreEqual(user1.Object, winner);
-        //}
 
         ////////// Test MonsterBattle Function //////////////
         [Test]
