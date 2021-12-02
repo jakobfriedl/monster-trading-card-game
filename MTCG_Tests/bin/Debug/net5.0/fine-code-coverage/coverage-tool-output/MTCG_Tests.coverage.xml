@@ -1,58 +1,276 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.3531" branch-rate="0.47159999999999996" version="1.9" timestamp="1635968387" lines-covered="220" lines-valid="623" branches-covered="50" branches-valid="106">
+<coverage line-rate="0.4296" branch-rate="0.3105" version="1.9" timestamp="1638472399" lines-covered="220" lines-valid="512" branches-covered="50" branches-valid="161">
   <sources>
     <source>C:\</source>
   </sources>
   <packages>
-    <package name="monster-trading-card-game" line-rate="0.2706" branch-rate="0.47159999999999996" complexity="154">
+    <package name="monster-trading-card-game" line-rate="0.22399999999999998" branch-rate="0.3105" complexity="217">
       <classes>
-        <class name="monster_trading_card_game.Program" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\Program.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="monster_trading_card_game.Program" filename=".Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\Program.cs" line-rate="0" branch-rate="0" complexity="13">
           <methods>
-            <method name="Main" signature="(System.String[])" line-rate="0" branch-rate="1" complexity="1">
+            <method name="Main" signature="(System.String[])" line-rate="0" branch-rate="0" complexity="13">
               <lines>
-                <line number="9" hits="0" branch="False" />
-                <line number="10" hits="0" branch="False" />
-                <line number="11" hits="0" branch="False" />
-                <line number="13" hits="0" branch="False" />
                 <line number="14" hits="0" branch="False" />
-                <line number="16" hits="0" branch="False" />
-                <line number="18" hits="0" branch="False" />
-                <line number="19" hits="0" branch="False" />
-                <line number="21" hits="0" branch="False" />
-                <line number="22" hits="0" branch="False" />
-                <line number="23" hits="0" branch="False" />
-                <line number="24" hits="0" branch="False" />
+                <line number="15" hits="0" branch="False" />
+                <line number="22" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="186" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="23" hits="0" branch="True" condition-coverage="0% (0/11)">
+                  <conditions>
+                    <condition number="22" type="switch" coverage="0%" />
+                  </conditions>
+                </line>
                 <line number="25" hits="0" branch="False" />
                 <line number="26" hits="0" branch="False" />
                 <line number="27" hits="0" branch="False" />
-                <line number="28" hits="0" branch="False" />
                 <line number="29" hits="0" branch="False" />
                 <line number="30" hits="0" branch="False" />
+                <line number="31" hits="0" branch="False" />
+                <line number="33" hits="0" branch="False" />
+                <line number="34" hits="0" branch="False" />
+                <line number="36" hits="0" branch="False" />
+                <line number="38" hits="0" branch="False" />
+                <line number="39" hits="0" branch="False" />
+                <line number="40" hits="0" branch="False" />
+                <line number="41" hits="0" branch="False" />
+                <line number="43" hits="0" branch="False" />
+                <line number="45" hits="0" branch="False" />
+                <line number="47" hits="0" branch="False" />
+                <line number="49" hits="0" branch="False" />
+                <line number="51" hits="0" branch="False" />
+                <line number="62" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="9" hits="0" branch="False" />
-            <line number="10" hits="0" branch="False" />
-            <line number="11" hits="0" branch="False" />
-            <line number="13" hits="0" branch="False" />
             <line number="14" hits="0" branch="False" />
-            <line number="16" hits="0" branch="False" />
-            <line number="18" hits="0" branch="False" />
-            <line number="19" hits="0" branch="False" />
-            <line number="21" hits="0" branch="False" />
-            <line number="22" hits="0" branch="False" />
-            <line number="23" hits="0" branch="False" />
-            <line number="24" hits="0" branch="False" />
+            <line number="15" hits="0" branch="False" />
+            <line number="22" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="186" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="23" hits="0" branch="True" condition-coverage="0% (0/11)">
+              <conditions>
+                <condition number="22" type="switch" coverage="0%" />
+              </conditions>
+            </line>
             <line number="25" hits="0" branch="False" />
             <line number="26" hits="0" branch="False" />
             <line number="27" hits="0" branch="False" />
-            <line number="28" hits="0" branch="False" />
             <line number="29" hits="0" branch="False" />
             <line number="30" hits="0" branch="False" />
+            <line number="31" hits="0" branch="False" />
+            <line number="33" hits="0" branch="False" />
+            <line number="34" hits="0" branch="False" />
+            <line number="36" hits="0" branch="False" />
+            <line number="38" hits="0" branch="False" />
+            <line number="39" hits="0" branch="False" />
+            <line number="40" hits="0" branch="False" />
+            <line number="41" hits="0" branch="False" />
+            <line number="43" hits="0" branch="False" />
+            <line number="45" hits="0" branch="False" />
+            <line number="47" hits="0" branch="False" />
+            <line number="49" hits="0" branch="False" />
+            <line number="51" hits="0" branch="False" />
+            <line number="62" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="monster_trading_card_game.Users.Battle" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\Users\Battle.cs" line-rate="0.4476" branch-rate="0.6097" complexity="83">
+        <class name="monster_trading_card_game.UI" filename=".Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\UI.cs" line-rate="0" branch-rate="0" complexity="47">
+          <methods>
+            <method name="get_IsLoggedIn" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="11" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_LoggedInUser" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="12" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="GetUserCommand" signature="()" line-rate="0" branch-rate="0" complexity="42">
+              <lines>
+                <line number="18" hits="0" branch="False" />
+                <line number="19" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="12" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="20" hits="0" branch="False" />
+                <line number="22" hits="0" branch="False" />
+                <line number="24" hits="0" branch="False" />
+                <line number="25" hits="0" branch="False" />
+                <line number="27" hits="0" branch="True" condition-coverage="0% (0/2)">
+                  <conditions>
+                    <condition number="66" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="28" hits="0" branch="True" condition-coverage="0% (0/6)">
+                  <conditions>
+                    <condition number="91" type="jump" coverage="0%" />
+                    <condition number="104" type="jump" coverage="0%" />
+                    <condition number="117" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="30" hits="0" branch="False" />
+                <line number="32" hits="0" branch="False" />
+                <line number="34" hits="0" branch="False" />
+                <line number="36" hits="0" branch="False" />
+                <line number="37" hits="0" branch="False" />
+                <line number="39" hits="0" branch="False" />
+                <line number="40" hits="0" branch="True" condition-coverage="0% (0/32)">
+                  <conditions>
+                    <condition number="193" type="jump" coverage="0%" />
+                    <condition number="202" type="jump" coverage="0%" />
+                    <condition number="213" type="jump" coverage="0%" />
+                    <condition number="241" type="jump" coverage="0%" />
+                    <condition number="250" type="jump" coverage="0%" />
+                    <condition number="275" type="jump" coverage="0%" />
+                    <condition number="227" type="jump" coverage="0%" />
+                    <condition number="286" type="jump" coverage="0%" />
+                    <condition number="261" type="jump" coverage="0%" />
+                    <condition number="305" type="jump" coverage="0%" />
+                    <condition number="324" type="jump" coverage="0%" />
+                    <condition number="340" type="jump" coverage="0%" />
+                    <condition number="356" type="jump" coverage="0%" />
+                    <condition number="372" type="jump" coverage="0%" />
+                    <condition number="388" type="jump" coverage="0%" />
+                    <condition number="404" type="jump" coverage="0%" />
+                  </conditions>
+                </line>
+                <line number="42" hits="0" branch="False" />
+                <line number="44" hits="0" branch="False" />
+                <line number="46" hits="0" branch="False" />
+                <line number="48" hits="0" branch="False" />
+                <line number="50" hits="0" branch="False" />
+                <line number="52" hits="0" branch="False" />
+                <line number="54" hits="0" branch="False" />
+                <line number="56" hits="0" branch="False" />
+                <line number="57" hits="0" branch="False" />
+                <line number="59" hits="0" branch="False" />
+                <line number="61" hits="0" branch="False" />
+                <line number="62" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="RegisterUser" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="64" hits="0" branch="False" />
+                <line number="65" hits="0" branch="False" />
+                <line number="66" hits="0" branch="False" />
+                <line number="67" hits="0" branch="False" />
+                <line number="68" hits="0" branch="False" />
+                <line number="70" hits="0" branch="False" />
+                <line number="71" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="LoginUser" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="73" hits="0" branch="False" />
+                <line number="74" hits="0" branch="False" />
+                <line number="75" hits="0" branch="False" />
+                <line number="76" hits="0" branch="False" />
+                <line number="77" hits="0" branch="False" />
+                <line number="79" hits="0" branch="False" />
+                <line number="80" hits="0" branch="False" />
+                <line number="81" hits="0" branch="False" />
+                <line number="82" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="14" hits="0" branch="False" />
+                <line number="15" hits="0" branch="False" />
+                <line number="16" hits="0" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="11" hits="0" branch="False" />
+            <line number="12" hits="0" branch="False" />
+            <line number="18" hits="0" branch="False" />
+            <line number="19" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="12" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="20" hits="0" branch="False" />
+            <line number="22" hits="0" branch="False" />
+            <line number="24" hits="0" branch="False" />
+            <line number="25" hits="0" branch="False" />
+            <line number="27" hits="0" branch="True" condition-coverage="0% (0/2)">
+              <conditions>
+                <condition number="66" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="28" hits="0" branch="True" condition-coverage="0% (0/6)">
+              <conditions>
+                <condition number="91" type="jump" coverage="0%" />
+                <condition number="104" type="jump" coverage="0%" />
+                <condition number="117" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="30" hits="0" branch="False" />
+            <line number="32" hits="0" branch="False" />
+            <line number="34" hits="0" branch="False" />
+            <line number="36" hits="0" branch="False" />
+            <line number="37" hits="0" branch="False" />
+            <line number="39" hits="0" branch="False" />
+            <line number="40" hits="0" branch="True" condition-coverage="0% (0/32)">
+              <conditions>
+                <condition number="193" type="jump" coverage="0%" />
+                <condition number="202" type="jump" coverage="0%" />
+                <condition number="213" type="jump" coverage="0%" />
+                <condition number="241" type="jump" coverage="0%" />
+                <condition number="250" type="jump" coverage="0%" />
+                <condition number="275" type="jump" coverage="0%" />
+                <condition number="227" type="jump" coverage="0%" />
+                <condition number="286" type="jump" coverage="0%" />
+                <condition number="261" type="jump" coverage="0%" />
+                <condition number="305" type="jump" coverage="0%" />
+                <condition number="324" type="jump" coverage="0%" />
+                <condition number="340" type="jump" coverage="0%" />
+                <condition number="356" type="jump" coverage="0%" />
+                <condition number="372" type="jump" coverage="0%" />
+                <condition number="388" type="jump" coverage="0%" />
+                <condition number="404" type="jump" coverage="0%" />
+              </conditions>
+            </line>
+            <line number="42" hits="0" branch="False" />
+            <line number="44" hits="0" branch="False" />
+            <line number="46" hits="0" branch="False" />
+            <line number="48" hits="0" branch="False" />
+            <line number="50" hits="0" branch="False" />
+            <line number="52" hits="0" branch="False" />
+            <line number="54" hits="0" branch="False" />
+            <line number="56" hits="0" branch="False" />
+            <line number="57" hits="0" branch="False" />
+            <line number="59" hits="0" branch="False" />
+            <line number="61" hits="0" branch="False" />
+            <line number="62" hits="0" branch="False" />
+            <line number="64" hits="0" branch="False" />
+            <line number="65" hits="0" branch="False" />
+            <line number="66" hits="0" branch="False" />
+            <line number="67" hits="0" branch="False" />
+            <line number="68" hits="0" branch="False" />
+            <line number="70" hits="0" branch="False" />
+            <line number="71" hits="0" branch="False" />
+            <line number="73" hits="0" branch="False" />
+            <line number="74" hits="0" branch="False" />
+            <line number="75" hits="0" branch="False" />
+            <line number="76" hits="0" branch="False" />
+            <line number="77" hits="0" branch="False" />
+            <line number="79" hits="0" branch="False" />
+            <line number="80" hits="0" branch="False" />
+            <line number="81" hits="0" branch="False" />
+            <line number="82" hits="0" branch="False" />
+            <line number="14" hits="0" branch="False" />
+            <line number="15" hits="0" branch="False" />
+            <line number="16" hits="0" branch="False" />
+          </lines>
+        </class>
+        <class name="monster_trading_card_game.Users.Battle" filename=".Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\Users\Battle.cs" line-rate="0.4476" branch-rate="0.6097" complexity="83">
           <methods>
             <method name="StartBattle" signature="()" line-rate="0" branch-rate="0" complexity="6">
               <lines>
@@ -70,7 +288,7 @@
                 <line number="37" hits="0" branch="False" />
                 <line number="39" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
-                    <condition number="339" type="jump" coverage="0%" />
+                    <condition number="438" type="jump" coverage="0%" />
                   </conditions>
                 </line>
                 <line number="40" hits="0" branch="False" />
@@ -79,7 +297,7 @@
                 <line number="45" hits="0" branch="False" />
                 <line number="47" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
-                    <condition number="209" type="jump" coverage="0%" />
+                    <condition number="273" type="jump" coverage="0%" />
                   </conditions>
                 </line>
                 <line number="48" hits="0" branch="False" />
@@ -88,7 +306,7 @@
                 <line number="51" hits="0" branch="False" />
                 <line number="54" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
-                    <condition number="277" type="jump" coverage="0%" />
+                    <condition number="360" type="jump" coverage="0%" />
                   </conditions>
                 </line>
                 <line number="55" hits="0" branch="False" />
@@ -132,7 +350,7 @@
                 <line number="80" hits="0" branch="False" />
                 <line number="81" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
-                    <condition number="335" type="jump" coverage="0%" />
+                    <condition number="381" type="jump" coverage="0%" />
                   </conditions>
                 </line>
                 <line number="82" hits="0" branch="False" />
@@ -321,7 +539,7 @@
             <line number="37" hits="0" branch="False" />
             <line number="39" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
-                <condition number="339" type="jump" coverage="0%" />
+                <condition number="438" type="jump" coverage="0%" />
               </conditions>
             </line>
             <line number="40" hits="0" branch="False" />
@@ -330,7 +548,7 @@
             <line number="45" hits="0" branch="False" />
             <line number="47" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
-                <condition number="209" type="jump" coverage="0%" />
+                <condition number="273" type="jump" coverage="0%" />
               </conditions>
             </line>
             <line number="48" hits="0" branch="False" />
@@ -339,7 +557,7 @@
             <line number="51" hits="0" branch="False" />
             <line number="54" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
-                <condition number="277" type="jump" coverage="0%" />
+                <condition number="360" type="jump" coverage="0%" />
               </conditions>
             </line>
             <line number="55" hits="0" branch="False" />
@@ -379,7 +597,7 @@
             <line number="80" hits="0" branch="False" />
             <line number="81" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
-                <condition number="335" type="jump" coverage="0%" />
+                <condition number="381" type="jump" coverage="0%" />
               </conditions>
             </line>
             <line number="82" hits="0" branch="False" />
@@ -536,191 +754,216 @@
             <line number="21" hits="21" branch="False" />
           </lines>
         </class>
-        <class name="monster_trading_card_game.Users.User" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\Users\User.cs" line-rate="0" branch-rate="0" complexity="27">
+        <class name="monster_trading_card_game.Users.User" filename=".Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\Users\User.cs" line-rate="0" branch-rate="0" complexity="31">
           <methods>
-            <method name="get_Username" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="24" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="get_Password" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="get_id" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="25" hits="0" branch="False" />
               </lines>
             </method>
-            <method name="get_Coins" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="get_Username" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="26" hits="0" branch="False" />
               </lines>
             </method>
-            <method name="get_Elo" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="get_Password" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="27" hits="0" branch="False" />
               </lines>
             </method>
-            <method name="get_Wins" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="get_Coins" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="28" hits="0" branch="False" />
               </lines>
             </method>
-            <method name="get_Losses" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="get_Elo" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="29" hits="0" branch="False" />
               </lines>
             </method>
-            <method name="get_CardStack" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="get_Wins" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="30" hits="0" branch="False" />
               </lines>
             </method>
-            <method name="get_Deck" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="get_Losses" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
                 <line number="31" hits="0" branch="False" />
               </lines>
             </method>
+            <method name="get_CardStack" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="32" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="get_Deck" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="33" hits="0" branch="False" />
+              </lines>
+            </method>
             <method name="AutoCreateDeck" signature="()" line-rate="0" branch-rate="0" complexity="4">
               <lines>
-                <line number="43" hits="0" branch="False" />
-                <line number="51" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="50" hits="0" branch="False" />
+                <line number="58" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="65" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="52" hits="0" branch="False" />
-                <line number="53" hits="0" branch="False" />
-                <line number="54" hits="0" branch="False" />
-                <line number="55" hits="0" branch="False" />
-                <line number="57" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="59" hits="0" branch="False" />
+                <line number="60" hits="0" branch="False" />
+                <line number="61" hits="0" branch="False" />
+                <line number="62" hits="0" branch="False" />
+                <line number="64" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="119" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="58" hits="0" branch="False" />
-                <line number="59" hits="0" branch="False" />
-                <line number="60" hits="0" branch="False" />
+                <line number="65" hits="0" branch="False" />
+                <line number="66" hits="0" branch="False" />
+                <line number="67" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="BuildDeck" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="69" hits="0" branch="False" />
+                <line number="71" hits="0" branch="False" />
               </lines>
             </method>
             <method name="ChooseRandomCard" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="62" hits="0" branch="False" />
-                <line number="63" hits="0" branch="False" />
-                <line number="64" hits="0" branch="False" />
-                <line number="65" hits="0" branch="False" />
+                <line number="73" hits="0" branch="False" />
+                <line number="74" hits="0" branch="False" />
+                <line number="75" hits="0" branch="False" />
+                <line number="76" hits="0" branch="False" />
               </lines>
             </method>
             <method name="Challenge" signature="(monster_trading_card_game.Users.IUser)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="66" hits="0" branch="False" />
-                <line number="67" hits="0" branch="False" />
-                <line number="68" hits="0" branch="False" />
-                <line number="69" hits="0" branch="False" />
+                <line number="77" hits="0" branch="False" />
+                <line number="78" hits="0" branch="False" />
+                <line number="79" hits="0" branch="False" />
+                <line number="80" hits="0" branch="False" />
               </lines>
             </method>
             <method name="AddCardToStack" signature="(monster_trading_card_game.Cards.ICard)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="71" hits="0" branch="False" />
-                <line number="72" hits="0" branch="False" />
-                <line number="73" hits="0" branch="False" />
+                <line number="82" hits="0" branch="False" />
+                <line number="83" hits="0" branch="False" />
+                <line number="84" hits="0" branch="False" />
               </lines>
             </method>
             <method name="AddCardToDeck" signature="(monster_trading_card_game.Cards.ICard)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="75" hits="0" branch="False" />
-                <line number="76" hits="0" branch="False" />
-                <line number="77" hits="0" branch="False" />
+                <line number="86" hits="0" branch="False" />
+                <line number="87" hits="0" branch="False" />
+                <line number="88" hits="0" branch="False" />
               </lines>
             </method>
             <method name="WinGame" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="79" hits="0" branch="False" />
-                <line number="80" hits="0" branch="False" />
-                <line number="81" hits="0" branch="False" />
-                <line number="82" hits="0" branch="False" />
+                <line number="90" hits="0" branch="False" />
+                <line number="91" hits="0" branch="False" />
+                <line number="92" hits="0" branch="False" />
+                <line number="93" hits="0" branch="False" />
               </lines>
             </method>
             <method name="LoseGame" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="84" hits="0" branch="False" />
-                <line number="85" hits="0" branch="False" />
-                <line number="86" hits="0" branch="False" />
-                <line number="87" hits="0" branch="False" />
+                <line number="95" hits="0" branch="False" />
+                <line number="96" hits="0" branch="False" />
+                <line number="97" hits="0" branch="False" />
+                <line number="98" hits="0" branch="False" />
               </lines>
             </method>
             <method name="GenerateCardStack" signature="()" line-rate="0" branch-rate="0" complexity="4">
               <lines>
-                <line number="89" hits="0" branch="False" />
-                <line number="94" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="100" hits="0" branch="False" />
+                <line number="105" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="52" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="95" hits="0" branch="False" />
-                <line number="96" hits="0" branch="False" />
-                <line number="98" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="106" hits="0" branch="False" />
+                <line number="107" hits="0" branch="False" />
+                <line number="109" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="122" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="99" hits="0" branch="False" />
-                <line number="100" hits="0" branch="False" />
-                <line number="101" hits="0" branch="False" />
+                <line number="110" hits="0" branch="False" />
+                <line number="111" hits="0" branch="False" />
+                <line number="112" hits="0" branch="False" />
               </lines>
             </method>
             <method name="GenerateRandomSpells" signature="(System.Int32)" line-rate="0" branch-rate="0" complexity="2">
               <lines>
-                <line number="103" hits="0" branch="False" />
-                <line number="104" hits="0" branch="False" />
-                <line number="105" hits="0" branch="False" />
-                <line number="106" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="114" hits="0" branch="False" />
+                <line number="115" hits="0" branch="False" />
+                <line number="116" hits="0" branch="False" />
+                <line number="117" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="109" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="107" hits="0" branch="False" />
-                <line number="108" hits="0" branch="False" />
-                <line number="109" hits="0" branch="False" />
-                <line number="111" hits="0" branch="False" />
-                <line number="112" hits="0" branch="False" />
-                <line number="113" hits="0" branch="False" />
-                <line number="114" hits="0" branch="False" />
+                <line number="118" hits="0" branch="False" />
+                <line number="119" hits="0" branch="False" />
+                <line number="120" hits="0" branch="False" />
+                <line number="122" hits="0" branch="False" />
+                <line number="123" hits="0" branch="False" />
+                <line number="124" hits="0" branch="False" />
+                <line number="125" hits="0" branch="False" />
               </lines>
             </method>
             <method name="GenerateRandomMonsters" signature="(System.Int32)" line-rate="0" branch-rate="0" complexity="2">
               <lines>
-                <line number="116" hits="0" branch="False" />
-                <line number="117" hits="0" branch="False" />
-                <line number="118" hits="0" branch="False" />
-                <line number="119" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="127" hits="0" branch="False" />
+                <line number="128" hits="0" branch="False" />
+                <line number="129" hits="0" branch="False" />
+                <line number="130" hits="0" branch="True" condition-coverage="0% (0/2)">
                   <conditions>
                     <condition number="149" type="jump" coverage="0%" />
                   </conditions>
                 </line>
-                <line number="120" hits="0" branch="False" />
-                <line number="121" hits="0" branch="False" />
-                <line number="122" hits="0" branch="False" />
-                <line number="123" hits="0" branch="False" />
-                <line number="125" hits="0" branch="False" />
-                <line number="126" hits="0" branch="False" />
-                <line number="127" hits="0" branch="False" />
-                <line number="128" hits="0" branch="False" />
+                <line number="131" hits="0" branch="False" />
+                <line number="132" hits="0" branch="False" />
+                <line number="133" hits="0" branch="False" />
+                <line number="134" hits="0" branch="False" />
+                <line number="136" hits="0" branch="False" />
+                <line number="137" hits="0" branch="False" />
+                <line number="138" hits="0" branch="False" />
+                <line number="139" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name="Print" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="141" hits="0" branch="False" />
+                <line number="142" hits="0" branch="False" />
+                <line number="143" hits="0" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
+              <lines>
+                <line number="35" hits="0" branch="False" />
+                <line number="37" hits="0" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="(System.String,System.String)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="33" hits="0" branch="False" />
-                <line number="34" hits="0" branch="False" />
-                <line number="35" hits="0" branch="False" />
-                <line number="36" hits="0" branch="False" />
-                <line number="37" hits="0" branch="False" />
                 <line number="38" hits="0" branch="False" />
                 <line number="39" hits="0" branch="False" />
                 <line number="40" hits="0" branch="False" />
                 <line number="41" hits="0" branch="False" />
+                <line number="42" hits="0" branch="False" />
+                <line number="43" hits="0" branch="False" />
+                <line number="44" hits="0" branch="False" />
+                <line number="45" hits="0" branch="False" />
+                <line number="46" hits="0" branch="False" />
+                <line number="47" hits="0" branch="False" />
+                <line number="48" hits="0" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="24" hits="0" branch="False" />
             <line number="25" hits="0" branch="False" />
             <line number="26" hits="0" branch="False" />
             <line number="27" hits="0" branch="False" />
@@ -728,105 +971,116 @@
             <line number="29" hits="0" branch="False" />
             <line number="30" hits="0" branch="False" />
             <line number="31" hits="0" branch="False" />
-            <line number="43" hits="0" branch="False" />
-            <line number="51" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="32" hits="0" branch="False" />
+            <line number="33" hits="0" branch="False" />
+            <line number="50" hits="0" branch="False" />
+            <line number="58" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="65" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="52" hits="0" branch="False" />
-            <line number="53" hits="0" branch="False" />
-            <line number="54" hits="0" branch="False" />
-            <line number="55" hits="0" branch="False" />
-            <line number="57" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="59" hits="0" branch="False" />
+            <line number="60" hits="0" branch="False" />
+            <line number="61" hits="0" branch="False" />
+            <line number="62" hits="0" branch="False" />
+            <line number="64" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="119" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="58" hits="0" branch="False" />
-            <line number="59" hits="0" branch="False" />
-            <line number="60" hits="0" branch="False" />
-            <line number="62" hits="0" branch="False" />
-            <line number="63" hits="0" branch="False" />
-            <line number="64" hits="0" branch="False" />
             <line number="65" hits="0" branch="False" />
             <line number="66" hits="0" branch="False" />
             <line number="67" hits="0" branch="False" />
-            <line number="68" hits="0" branch="False" />
             <line number="69" hits="0" branch="False" />
             <line number="71" hits="0" branch="False" />
-            <line number="72" hits="0" branch="False" />
             <line number="73" hits="0" branch="False" />
+            <line number="74" hits="0" branch="False" />
             <line number="75" hits="0" branch="False" />
             <line number="76" hits="0" branch="False" />
             <line number="77" hits="0" branch="False" />
+            <line number="78" hits="0" branch="False" />
             <line number="79" hits="0" branch="False" />
             <line number="80" hits="0" branch="False" />
-            <line number="81" hits="0" branch="False" />
             <line number="82" hits="0" branch="False" />
+            <line number="83" hits="0" branch="False" />
             <line number="84" hits="0" branch="False" />
-            <line number="85" hits="0" branch="False" />
             <line number="86" hits="0" branch="False" />
             <line number="87" hits="0" branch="False" />
-            <line number="89" hits="0" branch="False" />
-            <line number="94" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="88" hits="0" branch="False" />
+            <line number="90" hits="0" branch="False" />
+            <line number="91" hits="0" branch="False" />
+            <line number="92" hits="0" branch="False" />
+            <line number="93" hits="0" branch="False" />
+            <line number="95" hits="0" branch="False" />
+            <line number="96" hits="0" branch="False" />
+            <line number="97" hits="0" branch="False" />
+            <line number="98" hits="0" branch="False" />
+            <line number="100" hits="0" branch="False" />
+            <line number="105" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="52" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="95" hits="0" branch="False" />
-            <line number="96" hits="0" branch="False" />
-            <line number="98" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="106" hits="0" branch="False" />
+            <line number="107" hits="0" branch="False" />
+            <line number="109" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="122" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="99" hits="0" branch="False" />
-            <line number="100" hits="0" branch="False" />
-            <line number="101" hits="0" branch="False" />
-            <line number="103" hits="0" branch="False" />
-            <line number="104" hits="0" branch="False" />
-            <line number="105" hits="0" branch="False" />
-            <line number="106" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="110" hits="0" branch="False" />
+            <line number="111" hits="0" branch="False" />
+            <line number="112" hits="0" branch="False" />
+            <line number="114" hits="0" branch="False" />
+            <line number="115" hits="0" branch="False" />
+            <line number="116" hits="0" branch="False" />
+            <line number="117" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="109" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="107" hits="0" branch="False" />
-            <line number="108" hits="0" branch="False" />
-            <line number="109" hits="0" branch="False" />
-            <line number="111" hits="0" branch="False" />
-            <line number="112" hits="0" branch="False" />
-            <line number="113" hits="0" branch="False" />
-            <line number="114" hits="0" branch="False" />
-            <line number="116" hits="0" branch="False" />
-            <line number="117" hits="0" branch="False" />
             <line number="118" hits="0" branch="False" />
-            <line number="119" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="119" hits="0" branch="False" />
+            <line number="120" hits="0" branch="False" />
+            <line number="122" hits="0" branch="False" />
+            <line number="123" hits="0" branch="False" />
+            <line number="124" hits="0" branch="False" />
+            <line number="125" hits="0" branch="False" />
+            <line number="127" hits="0" branch="False" />
+            <line number="128" hits="0" branch="False" />
+            <line number="129" hits="0" branch="False" />
+            <line number="130" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
                 <condition number="149" type="jump" coverage="0%" />
               </conditions>
             </line>
-            <line number="120" hits="0" branch="False" />
-            <line number="121" hits="0" branch="False" />
-            <line number="122" hits="0" branch="False" />
-            <line number="123" hits="0" branch="False" />
-            <line number="125" hits="0" branch="False" />
-            <line number="126" hits="0" branch="False" />
-            <line number="127" hits="0" branch="False" />
-            <line number="128" hits="0" branch="False" />
-            <line number="33" hits="0" branch="False" />
-            <line number="34" hits="0" branch="False" />
+            <line number="131" hits="0" branch="False" />
+            <line number="132" hits="0" branch="False" />
+            <line number="133" hits="0" branch="False" />
+            <line number="134" hits="0" branch="False" />
+            <line number="136" hits="0" branch="False" />
+            <line number="137" hits="0" branch="False" />
+            <line number="138" hits="0" branch="False" />
+            <line number="139" hits="0" branch="False" />
+            <line number="141" hits="0" branch="False" />
+            <line number="142" hits="0" branch="False" />
+            <line number="143" hits="0" branch="False" />
             <line number="35" hits="0" branch="False" />
-            <line number="36" hits="0" branch="False" />
             <line number="37" hits="0" branch="False" />
             <line number="38" hits="0" branch="False" />
             <line number="39" hits="0" branch="False" />
             <line number="40" hits="0" branch="False" />
             <line number="41" hits="0" branch="False" />
+            <line number="42" hits="0" branch="False" />
+            <line number="43" hits="0" branch="False" />
+            <line number="44" hits="0" branch="False" />
+            <line number="45" hits="0" branch="False" />
+            <line number="46" hits="0" branch="False" />
+            <line number="47" hits="0" branch="False" />
+            <line number="48" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="monster_trading_card_game.Enums.Weakness" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\Enums\Weakness.cs" line-rate="1" branch-rate="1" complexity="1">
+        <class name="monster_trading_card_game.Enums.Weakness" filename=".Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\Enums\Weakness.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
             <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -846,7 +1100,7 @@
             <line number="13" hits="21" branch="False" />
           </lines>
         </class>
-        <class name="monster_trading_card_game.Cards.Monster" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\Cards\Monster.cs" line-rate="1" branch-rate="1" complexity="5">
+        <class name="monster_trading_card_game.Cards.Monster" filename=".Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\Cards\Monster.cs" line-rate="1" branch-rate="1" complexity="5">
           <methods>
             <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -892,7 +1146,7 @@
             <line number="19" hits="17" branch="False" />
           </lines>
         </class>
-        <class name="monster_trading_card_game.Cards.Spell" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\Cards\Spell.cs" line-rate="1" branch-rate="1" complexity="5">
+        <class name="monster_trading_card_game.Cards.Spell" filename=".Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\Cards\Spell.cs" line-rate="1" branch-rate="1" complexity="5">
           <methods>
             <method name="get_Name" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -936,7 +1190,7 @@
             <line number="17" hits="26" branch="False" />
           </lines>
         </class>
-        <class name="monster_trading_card_game.CardCollections.CardStack" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\CardCollections\CardStack.cs" line-rate="0.3666" branch-rate="0" complexity="13">
+        <class name="monster_trading_card_game.CardCollections.CardStack" filename=".Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\CardCollections\CardStack.cs" line-rate="0.3666" branch-rate="0" complexity="13">
           <methods>
             <method name="get_Capacity" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -1062,7 +1316,7 @@
             <line number="16" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="monster_trading_card_game.CardCollections.Deck" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\CardCollections\Deck.cs" line-rate="0" branch-rate="0" complexity="9">
+        <class name="monster_trading_card_game.CardCollections.Deck" filename=".Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\CardCollections\Deck.cs" line-rate="0" branch-rate="0" complexity="9">
           <methods>
             <method name="get_Capacity" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1152,7 +1406,7 @@
             <line number="14" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="monster_trading_card_game.CardCollections.Package" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\monster-trading-card-game\CardCollections\Package.cs" line-rate="0" branch-rate="0" complexity="10">
+        <class name="monster_trading_card_game.CardCollections.Package" filename=".Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\CardCollections\Package.cs" line-rate="0" branch-rate="0" complexity="10">
           <methods>
             <method name="get_Capacity" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1256,518 +1510,6 @@
         </class>
       </classes>
     </package>
-    <package name="monster-trading-card-game.Test" line-rate="0" branch-rate="1" complexity="24">
-      <classes>
-        <class name="AutoGeneratedProgram" filename="Users\jakob\.nuget\packages\microsoft.net.test.sdk\16.9.4\build\netcoreapp2.1\Microsoft.NET.Test.Sdk.Program.cs" line-rate="0" branch-rate="1" complexity="1">
-          <methods>
-            <method name="Main" signature="(System.String[])" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="4" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="4" hits="0" branch="False" />
-          </lines>
-        </class>
-        <class name="mtcgTests.TestBattle" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\TestBattle.cs" line-rate="0" branch-rate="1" complexity="23">
-          <methods>
-            <method name="Setup" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="16" hits="0" branch="False" />
-                <line number="17" hits="0" branch="False" />
-                <line number="18" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestMonsterBattleGoblinVsDragon_ReturnsDragon" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="22" hits="0" branch="False" />
-                <line number="24" hits="0" branch="False" />
-                <line number="25" hits="0" branch="False" />
-                <line number="28" hits="0" branch="False" />
-                <line number="31" hits="0" branch="False" />
-                <line number="32" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestMonsterBattleWizardVsOrc_ReturnsWizard" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="34" hits="0" branch="False" />
-                <line number="36" hits="0" branch="False" />
-                <line number="37" hits="0" branch="False" />
-                <line number="40" hits="0" branch="False" />
-                <line number="43" hits="0" branch="False" />
-                <line number="44" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestMonsterBattleFireElfVsStrongerDragon_ReturnsElf" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="47" hits="0" branch="False" />
-                <line number="49" hits="0" branch="False" />
-                <line number="50" hits="0" branch="False" />
-                <line number="53" hits="0" branch="False" />
-                <line number="56" hits="0" branch="False" />
-                <line number="57" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestMonsterBattleRegElfVsStrongerDragon_ReturnsDragon" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="60" hits="0" branch="False" />
-                <line number="62" hits="0" branch="False" />
-                <line number="63" hits="0" branch="False" />
-                <line number="66" hits="0" branch="False" />
-                <line number="69" hits="0" branch="False" />
-                <line number="70" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestMonsterBattleDraw_ReturnsNull" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="73" hits="0" branch="False" />
-                <line number="75" hits="0" branch="False" />
-                <line number="76" hits="0" branch="False" />
-                <line number="79" hits="0" branch="False" />
-                <line number="82" hits="0" branch="False" />
-                <line number="83" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestKrakenVsStrongerDragon_ReturnsDragon" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="86" hits="0" branch="False" />
-                <line number="88" hits="0" branch="False" />
-                <line number="89" hits="0" branch="False" />
-                <line number="92" hits="0" branch="False" />
-                <line number="95" hits="0" branch="False" />
-                <line number="96" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestSpellBattleFire10VsWater20_ReturnsWater" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="100" hits="0" branch="False" />
-                <line number="102" hits="0" branch="False" />
-                <line number="103" hits="0" branch="False" />
-                <line number="106" hits="0" branch="False" />
-                <line number="109" hits="0" branch="False" />
-                <line number="110" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestSpellBattleFire20VsWater5_ReturnsNull" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="113" hits="0" branch="False" />
-                <line number="115" hits="0" branch="False" />
-                <line number="116" hits="0" branch="False" />
-                <line number="119" hits="0" branch="False" />
-                <line number="122" hits="0" branch="False" />
-                <line number="123" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestSpellBattleFire90VsWater5_ReturnsFire" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="126" hits="0" branch="False" />
-                <line number="128" hits="0" branch="False" />
-                <line number="129" hits="0" branch="False" />
-                <line number="132" hits="0" branch="False" />
-                <line number="135" hits="0" branch="False" />
-                <line number="136" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestSpellBattleFire10VsNormal20_ReturnsFire" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="139" hits="0" branch="False" />
-                <line number="141" hits="0" branch="False" />
-                <line number="142" hits="0" branch="False" />
-                <line number="145" hits="0" branch="False" />
-                <line number="148" hits="0" branch="False" />
-                <line number="149" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestSpellBattleFire5VsNormal20_ReturnsNull" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="152" hits="0" branch="False" />
-                <line number="154" hits="0" branch="False" />
-                <line number="155" hits="0" branch="False" />
-                <line number="158" hits="0" branch="False" />
-                <line number="161" hits="0" branch="False" />
-                <line number="162" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestSpellBattleFire20VsNormal100_ReturnsNormal" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="165" hits="0" branch="False" />
-                <line number="167" hits="0" branch="False" />
-                <line number="168" hits="0" branch="False" />
-                <line number="171" hits="0" branch="False" />
-                <line number="174" hits="0" branch="False" />
-                <line number="175" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestSpellBattleNormal10VsWater20_ReturnsNormal" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="178" hits="0" branch="False" />
-                <line number="180" hits="0" branch="False" />
-                <line number="181" hits="0" branch="False" />
-                <line number="184" hits="0" branch="False" />
-                <line number="187" hits="0" branch="False" />
-                <line number="188" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestSpellBattleNormal10VsWater40_ReturnsNull" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="191" hits="0" branch="False" />
-                <line number="193" hits="0" branch="False" />
-                <line number="194" hits="0" branch="False" />
-                <line number="197" hits="0" branch="False" />
-                <line number="200" hits="0" branch="False" />
-                <line number="201" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestSpellBattleNormal10VsWater50_ReturnsWater" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="204" hits="0" branch="False" />
-                <line number="206" hits="0" branch="False" />
-                <line number="207" hits="0" branch="False" />
-                <line number="210" hits="0" branch="False" />
-                <line number="213" hits="0" branch="False" />
-                <line number="214" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestSpellBattleWater100VsWater80_ReturnsWater100" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="217" hits="0" branch="False" />
-                <line number="219" hits="0" branch="False" />
-                <line number="220" hits="0" branch="False" />
-                <line number="223" hits="0" branch="False" />
-                <line number="226" hits="0" branch="False" />
-                <line number="227" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestMixedBattleFireSpellVsWaterGoblin_ReturnsGoblin" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="231" hits="0" branch="False" />
-                <line number="233" hits="0" branch="False" />
-                <line number="234" hits="0" branch="False" />
-                <line number="237" hits="0" branch="False" />
-                <line number="240" hits="0" branch="False" />
-                <line number="241" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestMixedBattleWaterSpellVsWaterGoblin_ReturnsNull" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="244" hits="0" branch="False" />
-                <line number="246" hits="0" branch="False" />
-                <line number="247" hits="0" branch="False" />
-                <line number="250" hits="0" branch="False" />
-                <line number="253" hits="0" branch="False" />
-                <line number="254" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestMixedBattleRegularSpellVsKraken_ReturnsKraken" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="257" hits="0" branch="False" />
-                <line number="259" hits="0" branch="False" />
-                <line number="260" hits="0" branch="False" />
-                <line number="263" hits="0" branch="False" />
-                <line number="266" hits="0" branch="False" />
-                <line number="267" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestMixedBattleRegularSpellVsRegularKnight_ReturnsKnight" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="270" hits="0" branch="False" />
-                <line number="272" hits="0" branch="False" />
-                <line number="273" hits="0" branch="False" />
-                <line number="276" hits="0" branch="False" />
-                <line number="279" hits="0" branch="False" />
-                <line number="280" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestMixedBattleWaterSpellVsRegularKnight_ReturnsWater" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="283" hits="0" branch="False" />
-                <line number="285" hits="0" branch="False" />
-                <line number="286" hits="0" branch="False" />
-                <line number="289" hits="0" branch="False" />
-                <line number="292" hits="0" branch="False" />
-                <line number="293" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="11" hits="0" branch="False" />
-                <line number="12" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="16" hits="0" branch="False" />
-            <line number="17" hits="0" branch="False" />
-            <line number="18" hits="0" branch="False" />
-            <line number="22" hits="0" branch="False" />
-            <line number="24" hits="0" branch="False" />
-            <line number="25" hits="0" branch="False" />
-            <line number="28" hits="0" branch="False" />
-            <line number="31" hits="0" branch="False" />
-            <line number="32" hits="0" branch="False" />
-            <line number="34" hits="0" branch="False" />
-            <line number="36" hits="0" branch="False" />
-            <line number="37" hits="0" branch="False" />
-            <line number="40" hits="0" branch="False" />
-            <line number="43" hits="0" branch="False" />
-            <line number="44" hits="0" branch="False" />
-            <line number="47" hits="0" branch="False" />
-            <line number="49" hits="0" branch="False" />
-            <line number="50" hits="0" branch="False" />
-            <line number="53" hits="0" branch="False" />
-            <line number="56" hits="0" branch="False" />
-            <line number="57" hits="0" branch="False" />
-            <line number="60" hits="0" branch="False" />
-            <line number="62" hits="0" branch="False" />
-            <line number="63" hits="0" branch="False" />
-            <line number="66" hits="0" branch="False" />
-            <line number="69" hits="0" branch="False" />
-            <line number="70" hits="0" branch="False" />
-            <line number="73" hits="0" branch="False" />
-            <line number="75" hits="0" branch="False" />
-            <line number="76" hits="0" branch="False" />
-            <line number="79" hits="0" branch="False" />
-            <line number="82" hits="0" branch="False" />
-            <line number="83" hits="0" branch="False" />
-            <line number="86" hits="0" branch="False" />
-            <line number="88" hits="0" branch="False" />
-            <line number="89" hits="0" branch="False" />
-            <line number="92" hits="0" branch="False" />
-            <line number="95" hits="0" branch="False" />
-            <line number="96" hits="0" branch="False" />
-            <line number="100" hits="0" branch="False" />
-            <line number="102" hits="0" branch="False" />
-            <line number="103" hits="0" branch="False" />
-            <line number="106" hits="0" branch="False" />
-            <line number="109" hits="0" branch="False" />
-            <line number="110" hits="0" branch="False" />
-            <line number="113" hits="0" branch="False" />
-            <line number="115" hits="0" branch="False" />
-            <line number="116" hits="0" branch="False" />
-            <line number="119" hits="0" branch="False" />
-            <line number="122" hits="0" branch="False" />
-            <line number="123" hits="0" branch="False" />
-            <line number="126" hits="0" branch="False" />
-            <line number="128" hits="0" branch="False" />
-            <line number="129" hits="0" branch="False" />
-            <line number="132" hits="0" branch="False" />
-            <line number="135" hits="0" branch="False" />
-            <line number="136" hits="0" branch="False" />
-            <line number="139" hits="0" branch="False" />
-            <line number="141" hits="0" branch="False" />
-            <line number="142" hits="0" branch="False" />
-            <line number="145" hits="0" branch="False" />
-            <line number="148" hits="0" branch="False" />
-            <line number="149" hits="0" branch="False" />
-            <line number="152" hits="0" branch="False" />
-            <line number="154" hits="0" branch="False" />
-            <line number="155" hits="0" branch="False" />
-            <line number="158" hits="0" branch="False" />
-            <line number="161" hits="0" branch="False" />
-            <line number="162" hits="0" branch="False" />
-            <line number="165" hits="0" branch="False" />
-            <line number="167" hits="0" branch="False" />
-            <line number="168" hits="0" branch="False" />
-            <line number="171" hits="0" branch="False" />
-            <line number="174" hits="0" branch="False" />
-            <line number="175" hits="0" branch="False" />
-            <line number="178" hits="0" branch="False" />
-            <line number="180" hits="0" branch="False" />
-            <line number="181" hits="0" branch="False" />
-            <line number="184" hits="0" branch="False" />
-            <line number="187" hits="0" branch="False" />
-            <line number="188" hits="0" branch="False" />
-            <line number="191" hits="0" branch="False" />
-            <line number="193" hits="0" branch="False" />
-            <line number="194" hits="0" branch="False" />
-            <line number="197" hits="0" branch="False" />
-            <line number="200" hits="0" branch="False" />
-            <line number="201" hits="0" branch="False" />
-            <line number="204" hits="0" branch="False" />
-            <line number="206" hits="0" branch="False" />
-            <line number="207" hits="0" branch="False" />
-            <line number="210" hits="0" branch="False" />
-            <line number="213" hits="0" branch="False" />
-            <line number="214" hits="0" branch="False" />
-            <line number="217" hits="0" branch="False" />
-            <line number="219" hits="0" branch="False" />
-            <line number="220" hits="0" branch="False" />
-            <line number="223" hits="0" branch="False" />
-            <line number="226" hits="0" branch="False" />
-            <line number="227" hits="0" branch="False" />
-            <line number="231" hits="0" branch="False" />
-            <line number="233" hits="0" branch="False" />
-            <line number="234" hits="0" branch="False" />
-            <line number="237" hits="0" branch="False" />
-            <line number="240" hits="0" branch="False" />
-            <line number="241" hits="0" branch="False" />
-            <line number="244" hits="0" branch="False" />
-            <line number="246" hits="0" branch="False" />
-            <line number="247" hits="0" branch="False" />
-            <line number="250" hits="0" branch="False" />
-            <line number="253" hits="0" branch="False" />
-            <line number="254" hits="0" branch="False" />
-            <line number="257" hits="0" branch="False" />
-            <line number="259" hits="0" branch="False" />
-            <line number="260" hits="0" branch="False" />
-            <line number="263" hits="0" branch="False" />
-            <line number="266" hits="0" branch="False" />
-            <line number="267" hits="0" branch="False" />
-            <line number="270" hits="0" branch="False" />
-            <line number="272" hits="0" branch="False" />
-            <line number="273" hits="0" branch="False" />
-            <line number="276" hits="0" branch="False" />
-            <line number="279" hits="0" branch="False" />
-            <line number="280" hits="0" branch="False" />
-            <line number="283" hits="0" branch="False" />
-            <line number="285" hits="0" branch="False" />
-            <line number="286" hits="0" branch="False" />
-            <line number="289" hits="0" branch="False" />
-            <line number="292" hits="0" branch="False" />
-            <line number="293" hits="0" branch="False" />
-            <line number="11" hits="0" branch="False" />
-            <line number="12" hits="0" branch="False" />
-          </lines>
-        </class>
-      </classes>
-    </package>
-    <package name="mtcgTests" line-rate="0" branch-rate="1" complexity="9">
-      <classes>
-        <class name="AutoGeneratedProgram" filename="Users\jakob\.nuget\packages\microsoft.net.test.sdk\16.9.4\build\netcoreapp2.1\Microsoft.NET.Test.Sdk.Program.cs" line-rate="0" branch-rate="1" complexity="1">
-          <methods>
-            <method name="Main" signature="(System.String[])" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="4" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="4" hits="0" branch="False" />
-          </lines>
-        </class>
-        <class name="mtcgTests.TestBattle" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\TestBattle.cs" line-rate="0" branch-rate="1" complexity="8">
-          <methods>
-            <method name="Setup" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="16" hits="0" branch="False" />
-                <line number="17" hits="0" branch="False" />
-                <line number="18" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestGoblinVsDragon_ReturnsDragon" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="21" hits="0" branch="False" />
-                <line number="23" hits="0" branch="False" />
-                <line number="24" hits="0" branch="False" />
-                <line number="27" hits="0" branch="False" />
-                <line number="30" hits="0" branch="False" />
-                <line number="31" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestWizardVsOrc_ReturnsWizard" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="33" hits="0" branch="False" />
-                <line number="35" hits="0" branch="False" />
-                <line number="36" hits="0" branch="False" />
-                <line number="39" hits="0" branch="False" />
-                <line number="42" hits="0" branch="False" />
-                <line number="43" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestFireElfVsStrongerDragon_ReturnsElf" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="46" hits="0" branch="False" />
-                <line number="47" hits="0" branch="False" />
-                <line number="48" hits="0" branch="False" />
-                <line number="51" hits="0" branch="False" />
-                <line number="54" hits="0" branch="False" />
-                <line number="55" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestRegElfVsStrongerDragon_ReturnsDragon" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="58" hits="0" branch="False" />
-                <line number="59" hits="0" branch="False" />
-                <line number="60" hits="0" branch="False" />
-                <line number="63" hits="0" branch="False" />
-                <line number="66" hits="0" branch="False" />
-                <line number="67" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestDraw_ReturnsNull" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="70" hits="0" branch="False" />
-                <line number="71" hits="0" branch="False" />
-                <line number="72" hits="0" branch="False" />
-                <line number="75" hits="0" branch="False" />
-                <line number="78" hits="0" branch="False" />
-                <line number="79" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="TestKrakenVsStrongerDragon_ReturnsDragon" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="82" hits="0" branch="False" />
-                <line number="83" hits="0" branch="False" />
-                <line number="84" hits="0" branch="False" />
-                <line number="87" hits="0" branch="False" />
-                <line number="90" hits="0" branch="False" />
-                <line number="91" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name=".ctor" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="11" hits="0" branch="False" />
-                <line number="12" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="16" hits="0" branch="False" />
-            <line number="17" hits="0" branch="False" />
-            <line number="18" hits="0" branch="False" />
-            <line number="21" hits="0" branch="False" />
-            <line number="23" hits="0" branch="False" />
-            <line number="24" hits="0" branch="False" />
-            <line number="27" hits="0" branch="False" />
-            <line number="30" hits="0" branch="False" />
-            <line number="31" hits="0" branch="False" />
-            <line number="33" hits="0" branch="False" />
-            <line number="35" hits="0" branch="False" />
-            <line number="36" hits="0" branch="False" />
-            <line number="39" hits="0" branch="False" />
-            <line number="42" hits="0" branch="False" />
-            <line number="43" hits="0" branch="False" />
-            <line number="46" hits="0" branch="False" />
-            <line number="47" hits="0" branch="False" />
-            <line number="48" hits="0" branch="False" />
-            <line number="51" hits="0" branch="False" />
-            <line number="54" hits="0" branch="False" />
-            <line number="55" hits="0" branch="False" />
-            <line number="58" hits="0" branch="False" />
-            <line number="59" hits="0" branch="False" />
-            <line number="60" hits="0" branch="False" />
-            <line number="63" hits="0" branch="False" />
-            <line number="66" hits="0" branch="False" />
-            <line number="67" hits="0" branch="False" />
-            <line number="70" hits="0" branch="False" />
-            <line number="71" hits="0" branch="False" />
-            <line number="72" hits="0" branch="False" />
-            <line number="75" hits="0" branch="False" />
-            <line number="78" hits="0" branch="False" />
-            <line number="79" hits="0" branch="False" />
-            <line number="82" hits="0" branch="False" />
-            <line number="83" hits="0" branch="False" />
-            <line number="84" hits="0" branch="False" />
-            <line number="87" hits="0" branch="False" />
-            <line number="90" hits="0" branch="False" />
-            <line number="91" hits="0" branch="False" />
-            <line number="11" hits="0" branch="False" />
-            <line number="12" hits="0" branch="False" />
-          </lines>
-        </class>
-      </classes>
-    </package>
     <package name="MTCG_Tests" line-rate="0.9451999999999999" branch-rate="1" complexity="28">
       <classes>
         <class name="AutoGeneratedProgram" filename="Users\jakob\.nuget\packages\microsoft.net.test.sdk\16.9.4\build\netcoreapp2.1\Microsoft.NET.Test.Sdk.Program.cs" line-rate="0" branch-rate="1" complexity="1">
@@ -1782,7 +1524,7 @@
             <line number="4" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="MTCG_Tests.TestBattle" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\TestBattle.cs" line-rate="1" branch-rate="1" complexity="23">
+        <class name="MTCG_Tests.TestBattle" filename=".Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\MTCG_Tests\TestBattle.cs" line-rate="1" branch-rate="1" complexity="23">
           <methods>
             <method name="Setup" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -2142,7 +1884,7 @@
             <line number="16" hits="1" branch="False" />
           </lines>
         </class>
-        <class name="MTCG_Tests.TestCardCollection" filename=".Jakob\FHTW\3_Semester\Sofware_Engineering\monster-trading-card-game\MTCG_Tests\TestCardCollection.cs" line-rate="0.5" branch-rate="1" complexity="4">
+        <class name="MTCG_Tests.TestCardCollection" filename=".Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\MTCG_Tests\TestCardCollection.cs" line-rate="0.5" branch-rate="1" complexity="4">
           <methods>
             <method name="Setup" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>

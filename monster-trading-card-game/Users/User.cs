@@ -45,6 +45,7 @@ namespace monster_trading_card_game.Users {
 		    CardStack = new CardStack();
 			GenerateCardStack();
 		    Deck = new Deck(); 
+			AutoCreateDeck();
 		}
 
 	    public void AutoCreateDeck() {

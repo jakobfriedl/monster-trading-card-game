@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\MTCG_Tests.csproj": {}
+    "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\monster-trading-card-game\\MTCG_Tests\\MTCG_Tests.csproj": {}
   },
   "projects": {
-    "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\monster-trading-card-game\\monster-trading-card-game.csproj": {
+    "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\monster-trading-card-game\\monster-trading-card-game\\monster-trading-card-game.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\monster-trading-card-game\\monster-trading-card-game.csproj",
+        "projectUniqueName": "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\monster-trading-card-game\\monster-trading-card-game\\monster-trading-card-game.csproj",
         "projectName": "monster-trading-card-game",
-        "projectPath": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\monster-trading-card-game\\monster-trading-card-game.csproj",
+        "projectPath": "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\monster-trading-card-game\\monster-trading-card-game\\monster-trading-card-game.csproj",
         "packagesPath": "C:\\Users\\jakob\\.nuget\\packages\\",
-        "outputPath": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\monster-trading-card-game\\obj\\",
+        "outputPath": "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\monster-trading-card-game\\monster-trading-card-game\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jakob\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -47,6 +47,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[6.0.0, )"
             }
           },
           "imports": [
@@ -68,14 +72,14 @@
         }
       }
     },
-    "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\MTCG_Tests.csproj": {
+    "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\monster-trading-card-game\\MTCG_Tests\\MTCG_Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\MTCG_Tests.csproj",
+        "projectUniqueName": "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\monster-trading-card-game\\MTCG_Tests\\MTCG_Tests.csproj",
         "projectName": "MTCG_Tests",
-        "projectPath": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\MTCG_Tests.csproj",
+        "projectPath": "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\monster-trading-card-game\\MTCG_Tests\\MTCG_Tests.csproj",
         "packagesPath": "C:\\Users\\jakob\\.nuget\\packages\\",
-        "outputPath": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\MTCG_Tests\\obj\\",
+        "outputPath": "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\monster-trading-card-game\\MTCG_Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jakob\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -92,8 +96,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\monster-trading-card-game\\monster-trading-card-game.csproj": {
-                "projectPath": "C:\\.Jakob\\FHTW\\3_Semester\\Sofware_Engineering\\monster-trading-card-game\\monster-trading-card-game\\monster-trading-card-game.csproj"
+              "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\monster-trading-card-game\\monster-trading-card-game\\monster-trading-card-game.csproj": {
+                "projectPath": "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\monster-trading-card-game\\monster-trading-card-game\\monster-trading-card-game.csproj"
               }
             }
           }

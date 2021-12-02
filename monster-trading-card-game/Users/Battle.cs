@@ -21,12 +21,7 @@ namespace monster_trading_card_game.Users {
 		}
 
 		public IUser StartBattle(){
-
-			// Create Battle Decks
-			_player1.AutoCreateDeck();
-			_player2.AutoCreateDeck();
-
-            Console.WriteLine($"{_player1.Username} Stack:");
+			Console.WriteLine($"{_player1.Username} Stack:");
             _player1.CardStack.Print();
             Console.WriteLine($"{_player2.Username} Stack:");
             _player2.CardStack.Print();

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using monster_trading_card_game.Database;
 using monster_trading_card_game.Enums;
 using monster_trading_card_game.Users;
 
 namespace monster_trading_card_game {
     class UI {
 	    public bool IsLoggedIn { get; set; } 
-		public IUser loggedInUser { get; set; }
+		public IUser LoggedInUser { get; set; }
 
         public UI() {
 	        IsLoggedIn = false; 
@@ -22,7 +23,7 @@ namespace monster_trading_card_game {
 				Console.WriteLine("[ DECK | BATTLE | TRADE | BUY | SCORES | LOGOUT | QUIT ]");
 
 	        Console.Write(" >> ");
-	        string command = Console.ReadLine();
+	        string command = Console.ReadLine(); 
 
 	        if (!IsLoggedIn) {
 		        switch (command.ToUpper()) {
@@ -61,13 +62,14 @@ namespace monster_trading_card_game {
 	        return Command.Invalid; 
         }
 
-        public IUser RegisterUser() {
+        public void RegisterUser() {
 	        Console.Write("Username: ");
 	        string username = Console.ReadLine();
 	        Console.Write("Password: ");
 	        string password = Console.ReadLine();
 
-	        return new User(username, password); 
+	        DBUser db = new DBUser();
+	        db.RegisterUser(new User(username, password));
         }
 
         public IUser LoginUser() {
@@ -76,9 +78,14 @@ namespace monster_trading_card_game {
 			Console.Write("Password: ");
 			string password = Console.ReadLine();
 
+			LoggedInUser = new User(username, password);
 			IsLoggedIn = true;
-			loggedInUser = new User(username, password);
-			return loggedInUser; 
+			return LoggedInUser; 
+        }
+
+        public void LogoutUser() {
+	        IsLoggedIn = false;
+	        LoggedInUser = null; 
         }
     }
 }
