@@ -62,25 +62,32 @@ namespace monster_trading_card_game {
 	        return Command.Invalid; 
         }
 
-        public void RegisterUser() {
+        public bool RegisterUser() {
 	        Console.Write("Username: ");
 	        string username = Console.ReadLine();
 	        Console.Write("Password: ");
 	        string password = Console.ReadLine();
 
 	        DBUser db = new DBUser();
-	        db.RegisterUser(new User(username, password));
+	        return db.RegisterUser(new User(username, password));
         }
 
-        public IUser LoginUser() {
+        public bool LoginUser() {
 			Console.Write("Username: ");
 			string username = Console.ReadLine();
 			Console.Write("Password: ");
 			string password = Console.ReadLine();
 
-			LoggedInUser = new User(username, password);
-			IsLoggedIn = true;
-			return LoggedInUser; 
+			DBUser db = new DBUser(); 
+			
+
+			// LoggedInUser = db.LoginUser(username, password);
+			if (LoggedInUser != null) {
+				IsLoggedIn = true;
+				return true; 
+			} 
+			IsLoggedIn = false;
+			return false; 
         }
 
         public void LogoutUser() {

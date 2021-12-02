@@ -4,7 +4,7 @@ using System.Text;
 
 namespace monster_trading_card_game.Enums {
 	public enum MonsterType {
-		Goblin,
+		Goblin = 1,
 		Dragon,
 		Wizard,
 		Orc,

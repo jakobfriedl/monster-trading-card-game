@@ -117,7 +117,7 @@ namespace monster_trading_card_game.Users {
 			var rand = new Random();
 			for (int i = 0; i < count; i++) {
 				int damage = rand.Next(MinDamage, MaxDamage);
-				ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length);
+				ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length); 
 				string name = $"{element.ToString()} Spell"; 
 
 				spellStack.AddCard(new Spell(name, damage, element));
@@ -131,7 +131,7 @@ namespace monster_trading_card_game.Users {
 			for (int i = 0; i < count; i++) {
 				int damage = rand.Next(MinDamage, MaxDamage);
 				ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length);
-				MonsterType monster = (MonsterType)rand.Next(Enum.GetNames(typeof(MonsterType)).Length);
+				MonsterType monster = (MonsterType)rand.Next(Enum.GetNames(typeof(MonsterType)).Length)+1;
 				string name = $"{element.ToString()} {monster.ToString()}";
 
 				monsterStack.AddCard(new Monster(name, damage, element, monster));

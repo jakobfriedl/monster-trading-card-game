@@ -1,0 +1,29 @@
+[
+  {
+    "user_id": 15,
+    "username": "a",
+    "password": "a",
+    "coins": 20,
+    "elo": 100,
+    "wins": 0,
+    "losses": 0
+  },
+  {
+    "user_id": 16,
+    "username": "b",
+    "password": "b",
+    "coins": 20,
+    "elo": 100,
+    "wins": 0,
+    "losses": 0
+  },
+  {
+    "user_id": 17,
+    "username": "c",
+    "password": "c",
+    "coins": 20,
+    "elo": 100,
+    "wins": 0,
+    "losses": 0
+  }
+]

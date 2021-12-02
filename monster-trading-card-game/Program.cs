@@ -23,11 +23,18 @@ namespace monster_trading_card_game {
             while ((cmd = ui.GetUserCommand()) != Command.Quit) {
 	            switch (cmd) {
                     case Command.Register:
-	                    ui.RegisterUser();
+	                    if (ui.RegisterUser()) {
+		                    Console.WriteLine("Registration successful");
+	                    } else {
+		                    Console.WriteLine("Registration failed");
+	                    }
 	                    break;
                     case Command.Login:
-	                    IUser loginUser = ui.LoginUser();
-	                    loginUser.Print(); 
+	                    if (ui.LoginUser()) {
+		                    Console.WriteLine("Login successful");
+	                    } else {
+		                    Console.WriteLine("Login failed");
+	                    }
 	                    break;
                     case Command.Deck:
                         ui.LoggedInUser.BuildDeck();
