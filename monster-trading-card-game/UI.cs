@@ -48,8 +48,8 @@ namespace monster_trading_card_game {
 					case "BUY":
 						return Command.Buy;
 					case "SCORES":
-						return Command.Scores; 
-					case "LOGOUT":
+						return Command.Scores;
+			        case "LOGOUT":
 						return Command.Logout;
 					case "QUIT":
 						return Command.Quit;
@@ -80,8 +80,7 @@ namespace monster_trading_card_game {
 
 			DBUser db = new DBUser(); 
 			
-
-			// LoggedInUser = db.LoginUser(username, password);
+			LoggedInUser = db.LoginUser(username, password);
 			if (LoggedInUser != null) {
 				IsLoggedIn = true;
 				return true; 

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Castle.DynamicProxy.Generators;
+using monster_trading_card_game.Cards;
 using monster_trading_card_game.Users;
-using monster_trading_card_game.Database;
+using monster_trading_card_game.Enums;
 using Npgsql;
 
 namespace monster_trading_card_game.Database {
@@ -25,11 +21,10 @@ namespace monster_trading_card_game.Database {
 					userCmd.Parameters.AddWithValue("elo", user.Elo);
 					userCmd.Parameters.AddWithValue("wins", user.Wins);
 					userCmd.Parameters.AddWithValue("losses", user.Losses);
-
+					userCmd.Prepare();
 					if (userCmd.ExecuteNonQuery() < 0) return false;
 				}
-			}
-			catch (PostgresException) {
+			} catch (PostgresException) {
 				return false; 
 			}
 
@@ -46,6 +41,7 @@ namespace monster_trading_card_game.Database {
 					    cardCmd.Parameters.AddWithValue("element_type", (int)card.ElementType);
 					    cardCmd.Parameters.AddWithValue("monster_type", (int)card.MonsterType);
 					    cardCmd.Parameters.AddWithValue("user_id", latestUser);
+					    
 					    // Check if Card is in Deck
 					    if (user.Deck.Cards.Contains(card)) {
 						    cardCmd.Parameters.AddWithValue("in_deck", true);
@@ -53,9 +49,10 @@ namespace monster_trading_card_game.Database {
 						    cardCmd.Parameters.AddWithValue("in_deck", false);
 					    }
 
+					    cardCmd.Prepare();
 					    if (cardCmd.ExecuteNonQuery() < 0) return false;
 				    }
-			    }catch(PostgresException) {
+			    } catch(PostgresException) {
 				    return false; 
 			    }
 			}
@@ -64,30 +61,40 @@ namespace monster_trading_card_game.Database {
 		    return true; 
 		}
 
-		//public IUser LoginUser(string username, string password) {
-		//	var conn = dbConn.Connect(); 
+        public IUser LoginUser(string username, string password) {
+            var conn = dbConn.Connect();
 
-		//	// Get User by Username
-		//	try {
-		//		var cmd = new NpgsqlCommand("select * from \"user\" where username=@username", conn);
-		//		cmd.Parameters.AddWithValue("username", username);
+            User user = new User();
 
-		//		using (var reader = cmd.ExecuteReader()) {
-		//			while (reader.Read()) {
-		//				// Console.WriteLine($"{reader["username"]}\t{reader["password"]}");
-		//				// Check if Passwords match
-		//				if (password != (string)reader["password"]) return null;
+            // Get User by Username
+            try {
+                var userCmd = new NpgsqlCommand("select * from \"user\" where username=@username", conn);
+                userCmd.Parameters.AddWithValue("username", username);
+                userCmd.Prepare();
+                using (var reader = userCmd.ExecuteReader()) {
+                    while (reader.Read()) {
+	                    user = new User(
+							(int)reader["user_id"],
+		                    (string)reader["username"], 
+		                    (string)reader["password"], 
+		                    (int)reader["coins"],
+		                    (int)reader["elo"],
+		                    (int)reader["wins"], 
+		                    (int)reader["losses"]); 
+                    }
+				}
+            } catch (PostgresException) {
+                return null;
+            }
 
+            var dbCard = new DBCard();
 
-		//			}
-		//		}
+            user.CardStack = dbCard.GetCardStackFromId(user.Id);
+            user.Deck = dbCard.GetDeckFromId(user.Id);
 
-		//	} catch (PostgresException) {
-		//		return null;
-		//	}
+            conn.Close();
 
-
-		//	conn.Close(); 
-		//}
-	}
+            return user; 
+        }
+    }
 }

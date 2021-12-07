@@ -22,7 +22,7 @@ namespace monster_trading_card_game.Users {
 
 		// Class properties
 
-		public Guid id { get; set; }
+		public int Id { get; set; }
 		public string Username { get; set; }
 	    public string Password { get; set; }
 	    public int Coins { get; set; }
@@ -36,7 +36,7 @@ namespace monster_trading_card_game.Users {
 
 	    }
 	    public User(string username, string password) {
-			id = Guid.NewGuid();
+		    Id = 0; 
 		    Username = username;
 		    Password = password;
 		    Coins = NumberOfCoins;
@@ -47,6 +47,18 @@ namespace monster_trading_card_game.Users {
 		    Deck = new Deck(); 
 			AutoCreateDeck();
 		}
+
+	    public User(int id, string username, string password, int coins, int elo, int wins, int losses) {
+		    Id = id; 
+		    Username = username;
+		    Password = password;
+		    Coins = coins;
+		    Elo = elo;
+		    Wins = wins;
+		    Losses = losses;
+		    CardStack = new CardStack();
+		    Deck = new Deck(); 
+	    }
 
 	    public void AutoCreateDeck() {
 		    // Random Cards
@@ -140,7 +152,7 @@ namespace monster_trading_card_game.Users {
 		}
 
 		public void Print() {
-			Console.WriteLine($"[{id}] -- {Username}:{Password} - Coins: {Coins}, Cards: {CardStack.Count()}");
+			Console.WriteLine($"{Id} -- {Username}:{Password} - Coins: {Coins}");
 		}
 	}
 }

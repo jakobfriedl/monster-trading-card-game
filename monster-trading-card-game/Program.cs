@@ -18,7 +18,6 @@ namespace monster_trading_card_game {
 	        DBConnection db = new DBConnection(); 
             db.Connect();
 
-
             Command cmd; 
             while ((cmd = ui.GetUserCommand()) != Command.Quit) {
 	            switch (cmd) {
