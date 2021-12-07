@@ -15,6 +15,7 @@ namespace monster_trading_card_game.Enums {
         Buy,
         Trade,
         Scores,
+        Profile,
         Invalid
     }
 }

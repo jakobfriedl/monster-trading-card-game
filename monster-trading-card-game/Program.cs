@@ -13,44 +13,45 @@ using Newtonsoft.Json;
 namespace monster_trading_card_game {
     class Program {
         static void Main(string[] args) {
-	        UI ui = new UI();
+	        CLI cli = new CLI();
 
 	        DBConnection db = new DBConnection(); 
             db.Connect();
 
             Command cmd; 
-            while ((cmd = ui.GetUserCommand()) != Command.Quit) {
+            while ((cmd = cli.GetUserCommand()) != Command.Quit) {
 	            switch (cmd) {
                     case Command.Register:
-	                    if (ui.RegisterUser()) {
+	                    if (cli.RegisterUser()) {
 		                    Console.WriteLine("Registration successful");
 	                    } else {
 		                    Console.WriteLine("Registration failed");
 	                    }
 	                    break;
                     case Command.Login:
-	                    if (ui.LoginUser()) {
+	                    if (cli.LoginUser()) {
 		                    Console.WriteLine("Login successful");
 	                    } else {
 		                    Console.WriteLine("Login failed");
 	                    }
 	                    break;
                     case Command.Deck:
-                        ui.LoggedInUser.BuildDeck();
+                        cli.LoggedInUser.BuildDeck();
 	                    break;
                     case Command.Trade:
 	                    break; 
                     case Command.Battle:
-	                    IUser bot = new User("Bot", "da39a3ee5e6b4b0d3255bfef95601890afd80709");
-                        ui.LoggedInUser.Print();
-                        ui.LoggedInUser.Challenge(bot);
+	                    cli.Battle();
 	                    break;
                     case Command.Buy:
 	                    break;
                     case Command.Scores:
 	                    break;
+					case Command.Profile:
+						cli.Profile();
+						break;
                     case Command.Logout:
-	                    ui.LogoutUser();
+	                    cli.LogoutUser();
 	                    break; 
                     case Command.Quit:
 	                    break; 

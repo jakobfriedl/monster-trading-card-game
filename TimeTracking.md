@@ -6,5 +6,5 @@
 3/11/2021	2h UI User Commands and other changes
 28/11/2021	2h Database Design
 2/12/2021	3h Database Implementation (Register)
-
+7/12/2021   2h Database Implementation (Login)
 

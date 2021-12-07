@@ -20,18 +20,9 @@ namespace monster_trading_card_game.Users {
 			_player2 = user2;
 		}
 
-		public IUser StartBattle(){
-			Console.WriteLine($"{_player1.Username} Stack:");
-            _player1.CardStack.Print();
-            Console.WriteLine($"{_player2.Username} Stack:");
-            _player2.CardStack.Print();
-            Console.WriteLine($"{_player1.Username}Deck:");
-            _player1.Deck.Print();
-            Console.WriteLine($"{_player2.Username} Deck:");
-            _player2.Deck.Print();
-            Console.WriteLine();
+		public IUser StartBattle() {
 
-            for (int i = 0; i < MaxRounds; i++) {
+			for (int i = 0; i < MaxRounds; i++) {
 				ICard card1 = _player1.ChooseRandomCard();
 				ICard card2 = _player2.ChooseRandomCard();
 
@@ -43,13 +34,15 @@ namespace monster_trading_card_game.Users {
 					Console.WriteLine($"{_player2.Username} wins the game!");
 					_player2.WinGame();
 					_player1.LoseGame();
+
 					return _player2; 
 				}
 
 				if (_player2.Deck.IsEmpty()) {
-					Console.WriteLine($"{_player2.Username} wins the game!");
+					Console.WriteLine($"{_player1.Username} wins the game!");
 					_player1.WinGame();
 					_player2.LoseGame();
+
 					return _player1;
 				}
 			}

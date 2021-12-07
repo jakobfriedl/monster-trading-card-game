@@ -1,4 +1,5 @@
 ﻿using Castle.DynamicProxy.Generators;
+using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Users;
 using monster_trading_card_game.Enums;
@@ -94,7 +95,27 @@ namespace monster_trading_card_game.Database {
 
             conn.Close();
 
-            return user; 
+            return user;
+        }
+
+        public bool UpdateStats(IUser user) {
+	        var conn = dbConn.Connect();
+
+	        try {
+		        var updateUserCmd = new NpgsqlCommand("update \"user\" set wins=@wins, losses=@losses, elo=@elo where user_id=@user_id", conn);
+		        updateUserCmd.Parameters.AddWithValue("wins", user.Wins);
+		        updateUserCmd.Parameters.AddWithValue("losses", user.Losses);
+		        updateUserCmd.Parameters.AddWithValue("elo", user.Elo);
+		        updateUserCmd.Parameters.AddWithValue("user_id", user.Id);
+				updateUserCmd.Prepare();
+
+				updateUserCmd.ExecuteNonQuery(); 
+
+	        } catch (PostgresException) {
+		        return false; 
+	        }
+
+	        return true; 
         }
     }
 }

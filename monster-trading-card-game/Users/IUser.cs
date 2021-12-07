@@ -6,6 +6,7 @@ using monster_trading_card_game.Cards;
 
 namespace monster_trading_card_game.Users {
     public interface IUser {
+        int Id { get; set; }
 	    string Username { get; set; }
 	    string Password { get; set; }
         int Coins { get; set; }

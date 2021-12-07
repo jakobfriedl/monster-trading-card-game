@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
+using monster_trading_card_game.Database;
 using monster_trading_card_game.Enums;
+using Newtonsoft.Json;
 
 namespace monster_trading_card_game.Users {
     class User : IUser{
@@ -14,11 +16,11 @@ namespace monster_trading_card_game.Users {
 	    private const int EloDecrement = 5;
 	    private const int EloIncrement = 3;
 	    private const int DefaultWinLoss = 0;
-	    private const int MinDamage = 10; 
+	    private const int MinDamage = 50; 
 	    private const int MaxDamage = 100;
-	    private const int InitialStackCapacity = 16; 
-		private const int NumSpells = 8;
-		private const int NumMonsters = 8;
+	    private const int InitialStackCapacity = 8; 
+		private const int NumSpells = 4;
+		private const int NumMonsters = 4;
 
 		// Class properties
 
@@ -80,10 +82,55 @@ namespace monster_trading_card_game.Users {
 	    }
 
 	    public void BuildDeck() {
+		    Console.WriteLine("Current Deck: ");
+			Deck.Print();
+			Console.Write("Recreate Deck? [y|n]: ");
+			if (Console.ReadLine().ToLower() != "y") {
+				return;
+			}
+			Console.Clear();
 
+			DBUser dbUser = new DBUser(); 
+			DBCard dbCard = new DBCard();
+			var cards = dbCard.GetAllCardsFromId(Id); 
+
+			cards.Print();
+
+			Deck newDeck = new Deck(); 
+			int i = 1; 
+			while (i <= Deck.Capacity) {
+				Console.Write($"Enter ID of Card #{i} (x to go back): ");
+				int cardId;
+				try {
+					var input = Console.ReadLine();
+					if (input.ToLower() == "x") return; 
+
+					cardId = Convert.ToInt32(input);
+				} catch (FormatException) {
+					Console.WriteLine("Invalid Card-ID");
+					continue; 
+				}
+
+				if (Id == dbCard.GetCardOwner(cardId)) {
+					if (!newDeck.Cards.Any(c => c.Id == cardId)) {
+						newDeck.AddCard(dbCard.GetCardByCardId(cardId));
+					} else {
+						Console.WriteLine("You cannot use the same card twice!");
+						continue; 
+					}
+				} else {
+					Console.WriteLine("Invalid Card-ID");
+					continue; 
+				}
+
+				i++; 
+			}
+
+			if (dbCard.UpdateDeck(Id, newDeck))
+				Deck = newDeck; 
 	    }
 
-	    public ICard ChooseRandomCard() {
+		public ICard ChooseRandomCard() {
 			Random random = new Random();
 			return Deck.Cards.ElementAt(random.Next(Deck.Count()-1)); 
 		}
@@ -103,11 +150,17 @@ namespace monster_trading_card_game.Users {
 		public void WinGame() {
 			Wins++;
 			Elo += EloIncrement;
+
+			var dbUser = new DBUser();
+			dbUser.UpdateStats(this); 
 		}
 
 		public void LoseGame() {
 			Losses++;
-			Elo -= EloDecrement; 
+			Elo -= EloDecrement;
+
+			var dbUser = new DBUser();
+			dbUser.UpdateStats(this);
 		}
 
 		public void GenerateCardStack() {
@@ -132,7 +185,7 @@ namespace monster_trading_card_game.Users {
 				ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length); 
 				string name = $"{element.ToString()} Spell"; 
 
-				spellStack.AddCard(new Spell(name, damage, element));
+				spellStack.AddCard(new Spell(0, name, damage, element));
 			}
 			return spellStack;
 		}
@@ -146,7 +199,7 @@ namespace monster_trading_card_game.Users {
 				MonsterType monster = (MonsterType)rand.Next(Enum.GetNames(typeof(MonsterType)).Length)+1;
 				string name = $"{element.ToString()} {monster.ToString()}";
 
-				monsterStack.AddCard(new Monster(name, damage, element, monster));
+				monsterStack.AddCard(new Monster(0, name, damage, element, monster));
 			}
 			return monsterStack;
 		}
@@ -154,5 +207,5 @@ namespace monster_trading_card_game.Users {
 		public void Print() {
 			Console.WriteLine($"{Id} -- {Username}:{Password} - Coins: {Coins}");
 		}
-	}
+    }
 }
