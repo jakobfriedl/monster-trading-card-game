@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
@@ -18,7 +19,6 @@ namespace monster_trading_card_game.Users {
 	    private const int DefaultWinLoss = 0;
 	    private const int MinDamage = 50; 
 	    private const int MaxDamage = 100;
-	    private const int InitialStackCapacity = 8; 
 		private const int NumSpells = 4;
 		private const int NumMonsters = 4;
 
@@ -92,7 +92,7 @@ namespace monster_trading_card_game.Users {
 
 			DBUser dbUser = new DBUser(); 
 			DBCard dbCard = new DBCard();
-			var cards = dbCard.GetAllCardsFromId(Id); 
+			var cards = dbCard.GetAllCardsFromUserId(Id); 
 
 			cards.Print();
 
@@ -183,7 +183,7 @@ namespace monster_trading_card_game.Users {
 			for (int i = 0; i < count; i++) {
 				int damage = rand.Next(MinDamage, MaxDamage);
 				ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length); 
-				string name = $"{element.ToString()} Spell"; 
+				string name = $"{element} Spell"; 
 
 				spellStack.AddCard(new Spell(0, name, damage, element));
 			}
@@ -197,7 +197,7 @@ namespace monster_trading_card_game.Users {
 				int damage = rand.Next(MinDamage, MaxDamage);
 				ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length);
 				MonsterType monster = (MonsterType)rand.Next(Enum.GetNames(typeof(MonsterType)).Length)+1;
-				string name = $"{element.ToString()} {monster.ToString()}";
+				string name = $"{element} {monster}";
 
 				monsterStack.AddCard(new Monster(0, name, damage, element, monster));
 			}
@@ -206,6 +206,15 @@ namespace monster_trading_card_game.Users {
 
 		public void Print() {
 			Console.WriteLine($"{Id} -- {Username}:{Password} - Coins: {Coins}");
+		}
+
+		public void BuyPackage(Package package) {
+			Coins -= package.Cost;
+
+			var dbUser = new DBUser();
+
+			dbUser.BuyPackage(package, this);
+
 		}
     }
 }

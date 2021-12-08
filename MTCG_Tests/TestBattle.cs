@@ -25,8 +25,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestMonsterBattleGoblinVsDragon_ReturnsDragon() {
             // Arrange
-	        ICard goblin = new Monster("Goblin", 10, ElementType.Normal, MonsterType.Goblin);
-	        ICard dragon = new Monster("Dragon", 10, ElementType.Normal, MonsterType.Dragon);
+	        ICard goblin = new Monster(0, "Goblin", 10, ElementType.Normal, MonsterType.Goblin);
+	        ICard dragon = new Monster(0, "Dragon", 10, ElementType.Normal, MonsterType.Dragon);
 	        
             // Act
 	        ICard winner = _battle.MonsterBattle(goblin, dragon);
@@ -38,8 +38,8 @@ namespace MTCG_Tests {
 		[Test]
         public void TestMonsterBattleWizardVsOrc_ReturnsWizard() {
 			// Arrange
-			ICard wizard = new Monster("Wizard", 10, ElementType.Normal, MonsterType.Wizard);
-			ICard orc = new Monster("Orc", 10, ElementType.Normal, MonsterType.Orc);
+			ICard wizard = new Monster(0, "Wizard", 10, ElementType.Normal, MonsterType.Wizard);
+			ICard orc = new Monster(0, "Orc", 10, ElementType.Normal, MonsterType.Orc);
 
 	        // Act
 	        ICard winner = _battle.MonsterBattle(orc, wizard);
@@ -51,8 +51,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestMonsterBattleFireElfVsStrongerDragon_ReturnsElf() {
 			//Arrange
-			ICard elf = new Monster("Elf", 10, ElementType.Fire, MonsterType.Elf);
-			ICard dragon = new Monster("Dragon", 20, ElementType.Normal, MonsterType.Dragon);
+			ICard elf = new Monster(0, "Elf", 10, ElementType.Fire, MonsterType.Elf);
+			ICard dragon = new Monster(0, "Dragon", 20, ElementType.Normal, MonsterType.Dragon);
 
 	        // Act
 	        ICard winner = _battle.MonsterBattle(elf, dragon);
@@ -64,8 +64,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestMonsterBattleRegElfVsStrongerDragon_ReturnsDragon() {
 			//Arrange
-			ICard elf = new Monster("Elf", 10, ElementType.Normal, MonsterType.Elf);
-			ICard dragon = new Monster("Dragon", 20, ElementType.Normal, MonsterType.Dragon);
+			ICard elf = new Monster(0, "Elf", 10, ElementType.Normal, MonsterType.Elf);
+			ICard dragon = new Monster(0, "Dragon", 20, ElementType.Normal, MonsterType.Dragon);
 
 	        // Act
 	        ICard winner = _battle.MonsterBattle(elf, dragon);
@@ -77,8 +77,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestMonsterBattleDraw_ReturnsNull() {
 			//Arrange
-			ICard goblin = new Monster("Goblin", 10, ElementType.Normal, MonsterType.Goblin);
-			ICard knight = new Monster("Knight", 10, ElementType.Normal, MonsterType.Knight);
+			ICard goblin = new Monster(0, "Goblin", 10, ElementType.Normal, MonsterType.Goblin);
+			ICard knight = new Monster(0, "Knight", 10, ElementType.Normal, MonsterType.Knight);
 
 	        // Act
 	        ICard winner = _battle.MonsterBattle(goblin, knight);
@@ -90,8 +90,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestKrakenVsStrongerDragon_ReturnsDragon(){
 			//Arrange
-			ICard kraken = new Monster("Kraken", 10, ElementType.Normal, MonsterType.Kraken);
-			ICard dragon = new Monster("Dragon", 50, ElementType.Normal, MonsterType.Dragon);
+			ICard kraken = new Monster(0, "Kraken", 10, ElementType.Normal, MonsterType.Kraken);
+			ICard dragon = new Monster(0, "Dragon", 50, ElementType.Normal, MonsterType.Dragon);
 
 	        // Act
 	        ICard winner = _battle.MonsterBattle(kraken, dragon);
@@ -104,8 +104,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestSpellBattleFire10VsWater20_ReturnsWater() {
 			//Arrange
-	        ICard water = new Spell("Water Spell", 20, ElementType.Water);
-	        ICard fire = new Spell("Fire Spell", 10, ElementType.Fire);
+	        ICard water = new Spell(0, "Water Spell", 20, ElementType.Water);
+	        ICard fire = new Spell(0, "Fire Spell", 10, ElementType.Fire);
 
 			// Act
 			ICard winner = _battle.SpellBattle(water, fire);
@@ -117,8 +117,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestSpellBattleFire20VsWater5_ReturnsNull() {
 	        //Arrange
-	        ICard water = new Spell("Water Spell", 5, ElementType.Water);
-	        ICard fire = new Spell("Fire Spell", 20, ElementType.Fire);
+	        ICard water = new Spell(0, "Water Spell", 5, ElementType.Water);
+	        ICard fire = new Spell(0, "Fire Spell", 20, ElementType.Fire);
 
 	        // Act
 	        ICard winner = _battle.SpellBattle(water, fire);
@@ -130,8 +130,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestSpellBattleFire90VsWater5_ReturnsFire() {
 	        //Arrange
-	        ICard water = new Spell("Water Spell", 5, ElementType.Water);
-	        ICard fire = new Spell("Fire Spell", 90, ElementType.Fire);
+	        ICard water = new Spell(0, "Water Spell", 5, ElementType.Water);
+	        ICard fire = new Spell(0, "Fire Spell", 90, ElementType.Fire);
 
 	        // Act
 	        ICard winner = _battle.SpellBattle(water, fire);
@@ -143,8 +143,8 @@ namespace MTCG_Tests {
 		[Test]
         public void TestSpellBattleFire10VsNormal20_ReturnsFire() {
 	        //Arrange
-	        ICard normal = new Spell("Normal Spell", 20, ElementType.Normal);
-	        ICard fire = new Spell("Fire Spell", 10, ElementType.Fire);
+	        ICard normal = new Spell(0, "Normal Spell", 20, ElementType.Normal);
+	        ICard fire = new Spell(0, "Fire Spell", 10, ElementType.Fire);
 
 	        // Act
 	        ICard winner = _battle.SpellBattle(normal, fire);
@@ -156,8 +156,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestSpellBattleFire5VsNormal20_ReturnsNull() {
 			//Arrange
-			ICard normal = new Spell("Normal Spell", 20, ElementType.Normal);
-			ICard fire = new Spell("Fire Spell", 5, ElementType.Fire);
+			ICard normal = new Spell(0, "Normal Spell", 20, ElementType.Normal);
+			ICard fire = new Spell(0, "Fire Spell", 5, ElementType.Fire);
 
 			// Act
 			ICard winner = _battle.SpellBattle(normal, fire);
@@ -169,8 +169,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestSpellBattleFire20VsNormal100_ReturnsNormal() {
 			//Arrange
-			ICard normal = new Spell("Normal Spell", 100, ElementType.Normal);
-			ICard fire = new Spell("Fire Spell", 20, ElementType.Fire);
+			ICard normal = new Spell(0, "Normal Spell", 100, ElementType.Normal);
+			ICard fire = new Spell(0, "Fire Spell", 20, ElementType.Fire);
 
 			// Act
 			ICard winner = _battle.SpellBattle(normal, fire);
@@ -182,8 +182,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestSpellBattleNormal10VsWater20_ReturnsNormal() {
 	        //Arrange
-	        ICard normal = new Spell("Normal Spell", 10, ElementType.Normal);
-	        ICard water = new Spell("Water Spell", 20, ElementType.Water);
+	        ICard normal = new Spell(0, "Normal Spell", 10, ElementType.Normal);
+	        ICard water = new Spell(0, "Water Spell", 20, ElementType.Water);
 
 	        // Act
 	        ICard winner = _battle.SpellBattle(normal, water);
@@ -195,8 +195,8 @@ namespace MTCG_Tests {
 		[Test]
         public void TestSpellBattleNormal10VsWater40_ReturnsNull() {
 			//Arrange
-			ICard normal = new Spell("Normal Spell", 10, ElementType.Normal);
-			ICard water = new Spell("Water Spell", 40, ElementType.Water);
+			ICard normal = new Spell(0, "Normal Spell", 10, ElementType.Normal);
+			ICard water = new Spell(0, "Water Spell", 40, ElementType.Water);
 
 			// Act
 			ICard winner = _battle.SpellBattle(normal, water);
@@ -208,8 +208,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestSpellBattleNormal10VsWater50_ReturnsWater() {
 	        //Arrange
-	        ICard normal = new Spell("Normal Spell", 10, ElementType.Normal);
-	        ICard water = new Spell("Water Spell", 50, ElementType.Water);
+	        ICard normal = new Spell(0, "Normal Spell", 10, ElementType.Normal);
+	        ICard water = new Spell(0, "Water Spell", 50, ElementType.Water);
 
 	        // Act
 	        ICard winner = _battle.SpellBattle(normal, water);
@@ -221,8 +221,8 @@ namespace MTCG_Tests {
 		[Test]
         public void TestSpellBattleWater100VsWater80_ReturnsWater100() {
 	        //Arrange
-	        ICard water100 = new Spell("Water Spell", 100, ElementType.Water);
-	        ICard water80 = new Spell("Water Spell", 80, ElementType.Water);
+	        ICard water100 = new Spell(0, "Water Spell", 100, ElementType.Water);
+	        ICard water80 = new Spell(0, "Water Spell", 80, ElementType.Water);
 
 	        // Act
 	        ICard winner = _battle.SpellBattle(water80, water100);
@@ -235,8 +235,8 @@ namespace MTCG_Tests {
 		[Test]
         public void TestMixedBattleFireSpellVsWaterGoblin_ReturnsGoblin() {
 			// Arrange 
-	        ICard goblin = new Monster("Water Goblin", 10, ElementType.Water, MonsterType.Goblin);
-	        ICard fire = new Spell("Fire Spell", 10, ElementType.Fire); 
+	        ICard goblin = new Monster(0, "Water Goblin", 10, ElementType.Water, MonsterType.Goblin);
+	        ICard fire = new Spell(0, "Fire Spell", 10, ElementType.Fire); 
 
 			// Act
 			ICard winner = _battle.MixedBattle(goblin, fire);
@@ -248,8 +248,8 @@ namespace MTCG_Tests {
 		[Test]
         public void TestMixedBattleWaterSpellVsWaterGoblin_ReturnsNull() {
 	        // Arrange 
-	        ICard goblin = new Monster("Water Goblin", 10, ElementType.Water, MonsterType.Goblin);
-	        ICard water = new Spell("Water Spell", 10, ElementType.Water);
+	        ICard goblin = new Monster(0, "Water Goblin", 10, ElementType.Water, MonsterType.Goblin);
+	        ICard water = new Spell(0, "Water Spell", 10, ElementType.Water);
 
 	        // Act
 	        ICard winner = _battle.MixedBattle(goblin, water);
@@ -261,8 +261,8 @@ namespace MTCG_Tests {
         [Test]
         public void TestMixedBattleRegularSpellVsKraken_ReturnsKraken() {
 	        // Arrange 
-	        ICard kraken = new Monster("Fire Kraken", 50, ElementType.Fire, MonsterType.Kraken);
-	        ICard normal = new Spell("Normal Spell", 100, ElementType.Normal);
+	        ICard kraken = new Monster(0, "Fire Kraken", 50, ElementType.Fire, MonsterType.Kraken);
+	        ICard normal = new Spell(0, "Normal Spell", 100, ElementType.Normal);
 
 	        // Act
 	        ICard winner = _battle.MixedBattle(kraken, normal);
@@ -274,8 +274,8 @@ namespace MTCG_Tests {
 		[Test]
         public void TestMixedBattleRegularSpellVsRegularKnight_ReturnsKnight() {
 			// Arrange 
-			ICard knight = new Monster("Normal Knight", 15, ElementType.Normal, MonsterType.Knight);
-			ICard normal = new Spell("Normal Spell", 10, ElementType.Normal);
+			ICard knight = new Monster(0, "Normal Knight", 15, ElementType.Normal, MonsterType.Knight);
+			ICard normal = new Spell(0, "Normal Spell", 10, ElementType.Normal);
 
 			// Act
 			ICard winner = _battle.MixedBattle(knight, normal);
@@ -287,8 +287,8 @@ namespace MTCG_Tests {
 		[Test]
         public void TestMixedBattleWaterSpellVsRegularKnight_ReturnsWater() {
 	        // Arrange 
-	        ICard knight = new Monster("Normal Knight", 100, ElementType.Normal, MonsterType.Knight);
-	        ICard water = new Spell("Water Spell", 10, ElementType.Water);
+	        ICard knight = new Monster(0, "Normal Knight", 100, ElementType.Normal, MonsterType.Knight);
+	        ICard water = new Spell(0, "Water Spell", 10, ElementType.Water);
 
 	        // Act
 	        ICard winner = _battle.MixedBattle(knight, water);

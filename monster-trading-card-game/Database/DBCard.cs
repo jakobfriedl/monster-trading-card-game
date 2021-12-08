@@ -13,7 +13,7 @@ namespace monster_trading_card_game.Database {
     class DBCard {
 	    private readonly DBConnection dbConn = new DBConnection();
 
-	    public CardStack GetCardStackFromId(int id) {
+	    public CardStack GetCardStackFromUserId(int id) {
 		    var conn = dbConn.Connect(); 
 
 		    CardStack stack = new CardStack(); 
@@ -55,7 +55,7 @@ namespace monster_trading_card_game.Database {
 		    return stack; 
 	    }
 
-	    public Deck GetDeckFromId(int id) {
+	    public Deck GetDeckFromUserId(int id) {
 		    var conn = dbConn.Connect(); 
 		    Deck deck = new Deck();
 
@@ -96,7 +96,7 @@ namespace monster_trading_card_game.Database {
 		    return deck; 
 	    }
 
-	    public CardStack GetAllCardsFromId(int id) {
+	    public CardStack GetAllCardsFromUserId(int id) {
 		    var conn = dbConn.Connect();
 		    CardStack cards = new CardStack();
 
@@ -207,8 +207,8 @@ namespace monster_trading_card_game.Database {
 			    resetDeckCmd.Parameters.AddWithValue("user_id", userId);
 			    resetDeckCmd.Prepare();
 
-			    resetDeckCmd.ExecuteNonQuery();
-		    } catch (PostgresException) {
+				if (resetDeckCmd.ExecuteNonQuery() < 0) return false;
+			} catch (PostgresException) {
 			    return false; 
 		    }
 
@@ -220,13 +220,37 @@ namespace monster_trading_card_game.Database {
 				    updateDeckCmd.Parameters.AddWithValue("card_id", card.Id);
 				    updateDeckCmd.Prepare();
 
-				    updateDeckCmd.ExecuteNonQuery();
+				    if (updateDeckCmd.ExecuteNonQuery() < 0) return false;
 			    } catch {
 				    return false;
 			    }
 		    }
 
 		    return true;
+	    }
+
+	    public bool AddPackageToCards(Package package, int userId) {
+		    var conn = dbConn.Connect();
+
+		    foreach (var card in package.Cards) {
+			    try {
+				    using (var addPackageCmd = new NpgsqlCommand("insert into \"card\"(name, damage, element_type, monster_type, user_id, in_deck) values (@name, @damage, @element_type, @monster_type, @user_id, @in_deck)", conn)) {
+					    addPackageCmd.Parameters.AddWithValue("name", card.Name);
+					    addPackageCmd.Parameters.AddWithValue("damage", card.Damage);
+					    addPackageCmd.Parameters.AddWithValue("element_type", (int)card.ElementType);
+					    addPackageCmd.Parameters.AddWithValue("monster_type", (int)card.MonsterType);
+					    addPackageCmd.Parameters.AddWithValue("user_id", userId);
+					    addPackageCmd.Parameters.AddWithValue("in_deck", false); 
+
+					    addPackageCmd.Prepare();
+					    if (addPackageCmd.ExecuteNonQuery() < 0) return false;
+				    }
+			    } catch (PostgresException) {
+				    return false;
+			    }
+		    }
+
+			return true;
 	    }
 	}
 }

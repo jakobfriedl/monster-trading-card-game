@@ -44,6 +44,7 @@ namespace monster_trading_card_game {
 	                    cli.Battle();
 	                    break;
                     case Command.Buy:
+	                    cli.GetPackage(); 
 	                    break;
                     case Command.Scores:
 	                    break;

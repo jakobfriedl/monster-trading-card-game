@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using System.Xml;
+using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Database;
 using monster_trading_card_game.Enums;
 using monster_trading_card_game.Users;
@@ -102,7 +104,7 @@ namespace monster_trading_card_game {
 			LoggedInUser.Challenge(bot);
 
 			var dbCard = new DBCard();
-			LoggedInUser.Deck = dbCard.GetDeckFromId(LoggedInUser.Id); 
+			LoggedInUser.Deck = dbCard.GetDeckFromUserId(LoggedInUser.Id); 
         }
 
         public void Profile() {
@@ -111,10 +113,36 @@ namespace monster_trading_card_game {
 	        Console.WriteLine($"Elo: {LoggedInUser.Elo}");
 	        Console.WriteLine($"Wins: {LoggedInUser.Wins}");
 	        Console.WriteLine($"Losses: {LoggedInUser.Losses}");
+	        var dbCard = new DBCard();
+	        Console.WriteLine($"Cards: {dbCard.GetAllCardsFromUserId(LoggedInUser.Id).Count()}");
 	        Console.WriteLine("Deck:");
-	        LoggedInUser.Deck.Print(); 
-			Console.WriteLine("Unused Cards:");
-			LoggedInUser.CardStack.Print();
+	        dbCard.GetDeckFromUserId(LoggedInUser.Id).Print();
+	        Console.WriteLine("Unused Cards:");
+			dbCard.GetCardStackFromUserId(LoggedInUser.Id).Print();
+
+        }
+
+        public void GetPackage() {
+			Console.Clear();
+	        Console.WriteLine($"Choose a package to buy (5 Coins): \n" +
+	                          "		[1] Fire Package \n" +
+	                          "		[2] Water Package \n" +
+	                          "		[3] Normal Package \n" +
+	                          "		[4] Monster Package \n" +
+	                          "		[5] Spell Package");
+	        Console.Write("Package Number (x to go back): ");
+	        var package = Console.ReadLine();
+
+	        if (package == "x") return;
+
+	        Package p = new Package((PackageType)(Convert.ToInt32(package)-1));
+
+	        if (LoggedInUser.Coins < p.Cost) {
+		        Console.WriteLine("You don't have enough coins to purchase this package.");
+		        return; 
+	        }
+
+	        LoggedInUser.BuyPackage(p);
         }
     }
 }

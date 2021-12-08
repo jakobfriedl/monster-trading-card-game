@@ -1,4 +1,5 @@
-﻿using Castle.DynamicProxy.Generators;
+﻿using System;
+using Castle.DynamicProxy.Generators;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Users;
@@ -67,12 +68,13 @@ namespace monster_trading_card_game.Database {
 
             User user = new User();
 
-            // Get User by Username
-            try {
+			// Get User by Username
+			try {
                 var userCmd = new NpgsqlCommand("select * from \"user\" where username=@username", conn);
                 userCmd.Parameters.AddWithValue("username", username);
                 userCmd.Prepare();
-                using (var reader = userCmd.ExecuteReader()) {
+
+				using (var reader = userCmd.ExecuteReader()) {
                     while (reader.Read()) {
 	                    user = new User(
 							(int)reader["user_id"],
@@ -81,17 +83,20 @@ namespace monster_trading_card_game.Database {
 		                    (int)reader["coins"],
 		                    (int)reader["elo"],
 		                    (int)reader["wins"], 
-		                    (int)reader["losses"]); 
+		                    (int)reader["losses"]);
+
+	                    if (user.Password != password) return null; 
                     }
 				}
             } catch (PostgresException) {
                 return null;
             }
+            if (user.Username == null) return null;
 
-            var dbCard = new DBCard();
+			var dbCard = new DBCard();
 
-            user.CardStack = dbCard.GetCardStackFromId(user.Id);
-            user.Deck = dbCard.GetDeckFromId(user.Id);
+            user.CardStack = dbCard.GetCardStackFromUserId(user.Id);
+            user.Deck = dbCard.GetDeckFromUserId(user.Id);
 
             conn.Close();
 
@@ -109,7 +114,7 @@ namespace monster_trading_card_game.Database {
 		        updateUserCmd.Parameters.AddWithValue("user_id", user.Id);
 				updateUserCmd.Prepare();
 
-				updateUserCmd.ExecuteNonQuery(); 
+				if (updateUserCmd.ExecuteNonQuery() < 0) return false;
 
 	        } catch (PostgresException) {
 		        return false; 
@@ -117,5 +122,24 @@ namespace monster_trading_card_game.Database {
 
 	        return true; 
         }
+
+        public bool BuyPackage(Package package, IUser user) {
+	        var conn = dbConn.Connect();
+
+	        try {
+		        var updateUserCmd = new NpgsqlCommand("update \"user\" set coins=@coins where user_id=@user_id", conn);
+		        updateUserCmd.Parameters.AddWithValue("coins", user.Coins);
+		        updateUserCmd.Parameters.AddWithValue("user_id", user.Id);
+		        updateUserCmd.Prepare();
+		        
+		        if(updateUserCmd.ExecuteNonQuery() < 0) return false;
+
+	        } catch (PostgresException) {
+		        return false;
+	        }
+
+	        var dbCard = new DBCard();
+	        return dbCard.AddPackageToCards(package, user.Id);
+		}
     }
 }

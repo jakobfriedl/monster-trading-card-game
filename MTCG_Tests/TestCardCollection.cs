@@ -18,7 +18,7 @@ namespace MTCG_Tests {
 		[Test]
 		public void TestIsEmpty_ReturnsFalse() {
 			// Arrange
-			_stack.AddCard(new Spell("Test", 0, ElementType.Water));
+			_stack.AddCard(new Spell(0, "Test", 0, ElementType.Water));
 
 			// Assert
 			Assert.IsFalse(_stack.IsEmpty());
@@ -26,9 +26,9 @@ namespace MTCG_Tests {
 
 		public void TestCount_Returns2() {
 			// Arrange
-			_stack.AddCard(new Spell("Test", 0, ElementType.Water));
-			_stack.AddCard(new Spell("Test", 0, ElementType.Water));
-			_stack.AddCard(new Spell("Test", 0, ElementType.Water));
+			_stack.AddCard(new Spell(0, "Test", 0, ElementType.Water));
+			_stack.AddCard(new Spell(0, "Test", 0, ElementType.Water));
+			_stack.AddCard(new Spell(0, "Test", 0, ElementType.Water));
 			_stack.RemoveCard(_stack.Cards.ElementAt(0));
 
 			// Assert
