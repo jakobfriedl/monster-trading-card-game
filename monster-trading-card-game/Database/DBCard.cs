@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Enums;
@@ -52,6 +48,7 @@ namespace monster_trading_card_game.Database {
 			    return null;
 		    }
 
+			conn.Close();
 		    return stack; 
 	    }
 
@@ -93,6 +90,7 @@ namespace monster_trading_card_game.Database {
 			    return null;
 		    }
 
+			conn.Close();
 		    return deck; 
 	    }
 
@@ -133,6 +131,7 @@ namespace monster_trading_card_game.Database {
 			    return null;
 		    }
 
+		    conn.Close();
 		    return cards;
 	    }
 
@@ -155,6 +154,7 @@ namespace monster_trading_card_game.Database {
 			    return -1; 
 		    }
 
+		    conn.Close();
 		    return owner; 
 	    }
 
@@ -194,6 +194,7 @@ namespace monster_trading_card_game.Database {
 			    return null;
 		    }
 
+			conn.Close();
 		    return null; 
 	    }
 
@@ -226,6 +227,7 @@ namespace monster_trading_card_game.Database {
 			    }
 		    }
 
+		    conn.Close();
 		    return true;
 	    }
 
@@ -250,6 +252,7 @@ namespace monster_trading_card_game.Database {
 			    }
 		    }
 
+		    conn.Close();
 			return true;
 	    }
 	}

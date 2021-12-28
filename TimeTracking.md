@@ -7,4 +7,5 @@
 28/11/2021	2h Database Design
 2/12/2021	3h Database Implementation (Register)
 7/12/2021   2h Database Implementation (Login)
-
+11/12/2021	2h Database Implementation (Buy)
+28/12/2021	3h PW Hash, Design, Profile, ...

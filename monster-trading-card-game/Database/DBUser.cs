@@ -1,9 +1,8 @@
 ﻿using System;
-using Castle.DynamicProxy.Generators;
+using System.Security.Cryptography;
 using monster_trading_card_game.CardCollections;
-using monster_trading_card_game.Cards;
 using monster_trading_card_game.Users;
-using monster_trading_card_game.Enums;
+using monster_trading_card_game.Security;
 using Npgsql;
 
 namespace monster_trading_card_game.Database {
@@ -14,11 +13,13 @@ namespace monster_trading_card_game.Database {
 		public bool RegisterUser(IUser user) {
 		    var conn = dbConn.Connect();
 
-			// Insert new User
+		    var hashedPassword = PasswordHasher.Hash(user.Password);
+
+		    // Insert new User
 			try {
 				using (var userCmd = new NpgsqlCommand("insert into \"user\"(username, password, coins, elo, wins, losses) values (@username, @password, @coins, @elo, @wins, @losses)", conn)) {
 					userCmd.Parameters.AddWithValue("username", user.Username);
-					userCmd.Parameters.AddWithValue("password", user.Password);
+					userCmd.Parameters.AddWithValue("password", hashedPassword);
 					userCmd.Parameters.AddWithValue("coins", user.Coins);
 					userCmd.Parameters.AddWithValue("elo", user.Elo);
 					userCmd.Parameters.AddWithValue("wins", user.Wins);
@@ -76,16 +77,17 @@ namespace monster_trading_card_game.Database {
 
 				using (var reader = userCmd.ExecuteReader()) {
                     while (reader.Read()) {
+	                    if (!PasswordHasher.Verify(password, (string)reader["password"])) return null; 
+	                    
 	                    user = new User(
 							(int)reader["user_id"],
 		                    (string)reader["username"], 
-		                    (string)reader["password"], 
+		                    password, 
 		                    (int)reader["coins"],
 		                    (int)reader["elo"],
 		                    (int)reader["wins"], 
 		                    (int)reader["losses"]);
 
-	                    if (user.Password != password) return null; 
                     }
 				}
             } catch (PostgresException) {
@@ -99,7 +101,6 @@ namespace monster_trading_card_game.Database {
             user.Deck = dbCard.GetDeckFromUserId(user.Id);
 
             conn.Close();
-
             return user;
         }
 
@@ -139,6 +140,8 @@ namespace monster_trading_card_game.Database {
 	        }
 
 	        var dbCard = new DBCard();
+
+			conn.Close();
 	        return dbCard.AddPackageToCards(package, user.Id);
 		}
     }

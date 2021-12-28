@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Runtime.CompilerServices;
-using monster_trading_card_game.Users;
-using Npgsql;
+﻿using Npgsql;
 
 namespace monster_trading_card_game.Database {
 	class DBConnection {
 
 		const string ConnString = "Host=localhost;Username=postgres;Password=postgres;Database=mtcgdb";
-		private NpgsqlConnection connection; 
+		private NpgsqlConnection _connection; 
 
 		public NpgsqlConnection Connect() {
-			connection = new NpgsqlConnection(ConnString);
-			connection.Open();
-			return connection;
+			_connection = new NpgsqlConnection(ConnString);
+			_connection.Open();
+			return _connection;
 		}
 	}
 }

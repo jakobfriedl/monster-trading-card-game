@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "LWwT/tGtZ+WJ5kyU1acTEgTG5Rtt6hD4+0wouGNPZACOMs/EzQYjcfy0Qb14ZrnAobPsyDBbj2YvXAi4Yu/svg==",
+  "dgSpecHash": "LoMOd1iepbG2uuRV3ryDWSvHU+52qHf54shpq/Pq1g8ef1GxxxeTP0a28bTUWgS5+uIbEF7Mebfy1Bgr2gwHeg==",
   "success": true,
   "projectFilePath": "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\monster-trading-card-game\\monster-trading-card-game\\monster-trading-card-game.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jakob\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
+    "C:\\Users\\jakob\\.nuget\\packages\\colorful.console\\1.2.15\\colorful.console.1.2.15.nupkg.sha512",
+    "C:\\Users\\jakob\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
     "C:\\Users\\jakob\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\jakob\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\jakob\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",

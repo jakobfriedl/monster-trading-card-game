@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Principal;
-using System.Text;
+using System.Drawing;
 using monster_trading_card_game.Enums;
+using Colorful;
+using Console = Colorful.Console; 
 
 namespace monster_trading_card_game.Cards {
     public class Spell : ISpell{
@@ -17,6 +17,10 @@ namespace monster_trading_card_game.Cards {
 		    Name = name;
 		    Damage = damage;
 		    ElementType = type;
+		}
+		public void PrintCardName() {
+			Console.Write(ElementType, ElementType == ElementType.Fire ? Color.Firebrick : ElementType == ElementType.Water ? Color.DodgerBlue : Color.Gray);
+			Console.Write(" Spell", Color.DarkViolet);
 		}
 	}
 }

@@ -1,40 +1,37 @@
 ﻿using System;
-using System.IO;
-using System.Text.Json.Serialization;
-using Castle.DynamicProxy.Generators;
-using Microsoft.VisualBasic.CompilerServices;
-using monster_trading_card_game.CardCollections;
-using monster_trading_card_game.Cards;
 using monster_trading_card_game.Enums;
-using monster_trading_card_game.Users;
 using monster_trading_card_game.Database;
-using Newtonsoft.Json;
+using Colorful;
+using System.Drawing;
+using System.Threading;
+using Console = Colorful.Console; 
 
 namespace monster_trading_card_game {
     class Program {
         static void Main(string[] args) {
 	        CLI cli = new CLI();
 
-	        DBConnection db = new DBConnection(); 
-            db.Connect();
-
-            Command cmd; 
+	        Command cmd; 
             while ((cmd = cli.GetUserCommand()) != Command.Quit) {
 	            switch (cmd) {
                     case Command.Register:
 	                    if (cli.RegisterUser()) {
-		                    Console.WriteLine("Registration successful");
+		                    Console.WriteLine("\nRegistration successful", Color.ForestGreen);
+							Thread.Sleep(1000);
 	                    } else {
-		                    Console.WriteLine("Registration failed");
+		                    Console.WriteLine("\nRegistration failed", Color.Red);
+							Thread.Sleep(1000);
 	                    }
 	                    break;
                     case Command.Login:
 	                    if (cli.LoginUser()) {
-		                    Console.WriteLine("Login successful");
+		                    Console.WriteLine("\nLogin successful", Color.ForestGreen);
+		                    Thread.Sleep(1000);
 	                    } else {
-		                    Console.WriteLine("Login failed");
+		                    Console.WriteLine("\nLogin failed", Color.Red);
+		                    Thread.Sleep(1000);
 	                    }
-	                    break;
+						break;
                     case Command.Deck:
                         cli.LoggedInUser.BuildDeck();
 	                    break;

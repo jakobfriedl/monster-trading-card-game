@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Drawing;
 using monster_trading_card_game.Enums;
+using Colorful;
+using Console = Colorful.Console;
 
 namespace monster_trading_card_game.Cards {
     public class Monster : IMonster {
@@ -17,7 +18,11 @@ namespace monster_trading_card_game.Cards {
 		    Damage = damage;
 		    ElementType = eType;
 		    MonsterType = mType;
-			
+		}
+
+		public void PrintCardName() {
+			Console.Write(ElementType, ElementType == ElementType.Fire ? Color.Firebrick : ElementType == ElementType.Water ? Color.DodgerBlue : Color.Gray);
+			Console.Write(" " + MonsterType, Color.Green);
 		}
 	}
 }

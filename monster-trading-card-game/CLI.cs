@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
-using System.Xml;
+using System.Drawing;
+using System.Threading;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Database;
 using monster_trading_card_game.Enums;
 using monster_trading_card_game.Users;
+using Colorful;
+using Console = Colorful.Console;  
 
 namespace monster_trading_card_game {
     class CLI {
@@ -20,12 +18,13 @@ namespace monster_trading_card_game {
         }
 
         public Command GetUserCommand() {
+			Console.Clear();
 	        if(!IsLoggedIn)
-				Console.WriteLine("[ REGISTER | LOGIN | QUIT ]");
+				Console.WriteLine("[ REGISTER | LOGIN | QUIT ]", Color.Silver);
             else
-				Console.WriteLine("[ DECK | BATTLE | TRADE | BUY | SCORES | PROFILE | LOGOUT | QUIT ]");
+				Console.WriteLine("[ DECK | BATTLE | TRADE | BUY | SCORES | PROFILE | LOGOUT | QUIT ]", Color.Silver);
 
-	        Console.Write(" >> ");
+	        Console.Write(" >> ", Color.Silver);
 	        string command = Console.ReadLine(); 
 
 	        if (!IsLoggedIn) {
@@ -68,20 +67,47 @@ namespace monster_trading_card_game {
         }
 
         public bool RegisterUser() {
-	        Console.Write("Username: ");
+	        Console.Write("Username: ", Color.Silver);
 	        string username = Console.ReadLine();
-	        Console.Write("Password: ");
-	        string password = Console.ReadLine();
+	        Console.Write("Password: ", Color.Silver);
+			var password = string.Empty;
+			ConsoleKey key;
+			do {
+				var keyInfo = Console.ReadKey(true);
+				key = keyInfo.Key;
 
-	        DBUser db = new DBUser();
+				if (key == ConsoleKey.Backspace && password.Length > 0) {
+					Console.Write("\b \b");
+					password = password[0..^1];
+				} else if (!char.IsControl(keyInfo.KeyChar)) {
+					Console.Write("*");
+					password += keyInfo.KeyChar;
+				}
+			} while (key != ConsoleKey.Enter);
+
+			DBUser db = new DBUser();
 	        return db.RegisterUser(new User(username, password));
         }
 
         public bool LoginUser() {
-			Console.Write("Username: ");
+			Console.Write("Username: ", Color.Silver);
 			string username = Console.ReadLine();
-			Console.Write("Password: ");
-			string password = Console.ReadLine();
+			Console.Write("Password: ", Color.Silver);
+
+			var password = string.Empty;
+			ConsoleKey key;
+			do {
+				var keyInfo = Console.ReadKey(true);
+				key = keyInfo.Key;
+
+				if (key == ConsoleKey.Backspace && password.Length > 0) {
+					Console.Write("\b \b");
+					password = password[0..^1];
+				} else if (!char.IsControl(keyInfo.KeyChar)) {
+					Console.Write("*");
+					password += keyInfo.KeyChar;
+				}
+			} while (key != ConsoleKey.Enter);
 
 			DBUser db = new DBUser(); 
 			
@@ -108,29 +134,69 @@ namespace monster_trading_card_game {
         }
 
         public void Profile() {
-	        Console.WriteLine($"Profile of {LoggedInUser.Username}:");
-	        Console.WriteLine($"Coins: {LoggedInUser.Coins}");
-	        Console.WriteLine($"Elo: {LoggedInUser.Elo}");
-	        Console.WriteLine($"Wins: {LoggedInUser.Wins}");
-	        Console.WriteLine($"Losses: {LoggedInUser.Losses}");
-	        var dbCard = new DBCard();
-	        Console.WriteLine($"Cards: {dbCard.GetAllCardsFromUserId(LoggedInUser.Id).Count()}");
-	        Console.WriteLine("Deck:");
-	        dbCard.GetDeckFromUserId(LoggedInUser.Id).Print();
-	        Console.WriteLine("Unused Cards:");
-			dbCard.GetCardStackFromUserId(LoggedInUser.Id).Print();
+	        string action = ""; 
+			while(action != "X"){
 
+				var dbCard = new DBCard();
+
+				Console.Write("  [I] "); Console.WriteLine("Show Profile Information");
+				Console.Write("  [D] "); Console.WriteLine("Show Deck");
+				Console.Write("  [C] "); Console.WriteLine("Show All Cards");
+				Console.Write("  [P] "); Console.WriteLine("Change Password");
+				Console.Write("  [X] "); Console.WriteLine("Leave Profile Settings");
+
+				Console.Write(">> ");
+				action = Console.ReadLine().ToUpper();
+
+				switch (action) {
+					case "I":
+						Console.Clear();
+						Console.Write("Username: ", Color.Silver);
+						Console.WriteLine(LoggedInUser.Username);
+						Console.Write("Coins: ", Color.Silver);
+						Console.WriteLine(LoggedInUser.Coins);
+						Console.Write("Elo: ", Color.Silver);
+						Console.WriteLine(LoggedInUser.Elo);
+						Console.Write("Wins: ", Color.ForestGreen);
+						Console.WriteLine(LoggedInUser.Wins);
+						Console.Write("Losses: ", Color.Red);
+						Console.WriteLine(LoggedInUser.Losses);
+
+						Console.Write("Cards: ", Color.Silver);
+						Console.WriteLine(dbCard.GetAllCardsFromUserId(LoggedInUser.Id).Count() + "\n");
+						break;
+					case "D":
+						Console.Clear();
+						dbCard.GetDeckFromUserId(LoggedInUser.Id).Print();
+						Console.WriteLine();
+						break;
+					case "C":
+						Console.Clear();
+						dbCard.GetAllCardsFromUserId(LoggedInUser.Id).Print();
+						Console.WriteLine();
+						break;
+					case "P":
+						Console.Clear(); 
+						break;
+					case "X":
+						return;
+					default:
+						Console.Clear();
+						Console.WriteLine("Invalid input.\n", Color.Red);
+						break;
+				}
+			}
         }
 
-        public void GetPackage() {
-			Console.Clear();
-	        Console.WriteLine($"Choose a package to buy (5 Coins): \n" +
-	                          "		[1] Fire Package \n" +
-	                          "		[2] Water Package \n" +
-	                          "		[3] Normal Package \n" +
-	                          "		[4] Monster Package \n" +
-	                          "		[5] Spell Package");
-	        Console.Write("Package Number (x to go back): ");
+		public void GetPackage() {
+			Console.WriteLine($"Choose a package to buy (5 Coins):");
+			Console.Write("  [1] "); Console.WriteLine("Fire Package", Color.Firebrick);
+			Console.Write("  [2] "); Console.WriteLine("Water Package", Color.DodgerBlue);
+			Console.Write("  [3] "); Console.WriteLine("Normal Package", Color.Gray);
+			Console.Write("  [4] "); Console.WriteLine("Monster Package", Color.Green);
+			Console.Write("  [5] "); Console.WriteLine("Spell Package", Color.DarkViolet);
+
+			Console.Write("Package Number (x to go back): ");
 	        var package = Console.ReadLine();
 
 	        if (package == "x") return;
@@ -138,10 +204,10 @@ namespace monster_trading_card_game {
 	        Package p = new Package((PackageType)(Convert.ToInt32(package)-1));
 
 	        if (LoggedInUser.Coins < p.Cost) {
-		        Console.WriteLine("You don't have enough coins to purchase this package.");
+		        Console.WriteLine("You don't have enough coins to purchase this package.", Color.Red);
+				Thread.Sleep(1000);
 		        return; 
 	        }
-
 	        LoggedInUser.BuyPackage(p);
         }
     }

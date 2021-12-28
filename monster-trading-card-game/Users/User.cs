@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Database;
 using monster_trading_card_game.Enums;
-using Newtonsoft.Json;
+using Colorful;
+using Console = Colorful.Console; 
 
 namespace monster_trading_card_game.Users {
     class User : IUser{
@@ -19,11 +18,10 @@ namespace monster_trading_card_game.Users {
 	    private const int DefaultWinLoss = 0;
 	    private const int MinDamage = 50; 
 	    private const int MaxDamage = 100;
-		private const int NumSpells = 4;
-		private const int NumMonsters = 4;
+		private const int NumSpells = 2;
+		private const int NumMonsters = 2;
 
 		// Class properties
-
 		public int Id { get; set; }
 		public string Username { get; set; }
 	    public string Password { get; set; }
@@ -83,18 +81,24 @@ namespace monster_trading_card_game.Users {
 
 	    public void BuildDeck() {
 		    Console.WriteLine("Current Deck: ");
+
 			Deck.Print();
+			
 			Console.Write("Recreate Deck? [y|n]: ");
 			if (Console.ReadLine().ToLower() != "y") {
 				return;
 			}
 			Console.Clear();
 
-			DBUser dbUser = new DBUser(); 
 			DBCard dbCard = new DBCard();
-			var cards = dbCard.GetAllCardsFromUserId(Id); 
+			var cards = dbCard.GetAllCardsFromUserId(Id);
 
-			cards.Print();
+			int j = 1;
+			for (; j <= cards.Cards.Count; j++) {
+				Console.Write($"[{j}] ");
+				cards.Cards[j - 1].PrintCardName(); 
+				Console.WriteLine($" - {cards.Cards[j - 1].Damage}");
+			}
 
 			Deck newDeck = new Deck(); 
 			int i = 1; 
@@ -105,8 +109,8 @@ namespace monster_trading_card_game.Users {
 					var input = Console.ReadLine();
 					if (input.ToLower() == "x") return; 
 
-					cardId = Convert.ToInt32(input);
-				} catch (FormatException) {
+					cardId = cards.Cards[Convert.ToInt32(input)-1].Id;
+				} catch (Exception) {
 					Console.WriteLine("Invalid Card-ID");
 					continue; 
 				}
@@ -212,9 +216,7 @@ namespace monster_trading_card_game.Users {
 			Coins -= package.Cost;
 
 			var dbUser = new DBUser();
-
 			dbUser.BuyPackage(package, this);
-
 		}
     }
 }
