@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
+using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Users;
 using monster_trading_card_game.Security;
@@ -104,16 +107,36 @@ namespace monster_trading_card_game.Database {
             return user;
         }
 
+        public string GetUsernameByUserId(int id) {
+	        var conn = dbConn.Connect();
+
+	        string username; 
+	        // Get Username by ID
+	        try {
+		        var userCmd = new NpgsqlCommand("select username from \"user\" where user_id=@user_id", conn);
+		        userCmd.Parameters.AddWithValue("user_id", id);
+		        userCmd.Prepare();
+
+		        username = (string)userCmd.ExecuteScalar(); 
+	        } catch (PostgresException) {
+		        return null;
+	        }
+
+	        conn.Close();
+	        return username;
+		}
+
         public bool UpdateStats(IUser user) {
 	        var conn = dbConn.Connect();
 
 	        try {
-		        var updateUserCmd = new NpgsqlCommand("update \"user\" set wins=@wins, losses=@losses, elo=@elo where user_id=@user_id", conn);
+		        var updateUserCmd = new NpgsqlCommand("update \"user\" set wins=@wins, losses=@losses, elo=@elo, coins=@coins where user_id=@user_id", conn);
 		        updateUserCmd.Parameters.AddWithValue("wins", user.Wins);
 		        updateUserCmd.Parameters.AddWithValue("losses", user.Losses);
 		        updateUserCmd.Parameters.AddWithValue("elo", user.Elo);
+		        updateUserCmd.Parameters.AddWithValue("coins", user.Coins);
 		        updateUserCmd.Parameters.AddWithValue("user_id", user.Id);
-				updateUserCmd.Prepare();
+		        updateUserCmd.Prepare();
 
 				if (updateUserCmd.ExecuteNonQuery() < 0) return false;
 
@@ -144,5 +167,32 @@ namespace monster_trading_card_game.Database {
 			conn.Close();
 	        return dbCard.AddPackageToCards(package, user.Id);
 		}
+
+        public List<Tuple<string, int, int, int>> GetAllUsers() {
+	        var conn = dbConn.Connect();
+
+	        var users = new List<Tuple<string, int, int, int>>();
+
+	        try {
+		        var selectUsersCmd = new NpgsqlCommand("select username, elo, wins, losses from \"user\" order by elo desc", conn);
+
+		        using (var reader = selectUsersCmd.ExecuteReader()) {
+			        while (reader.Read()) {
+
+				        var stats = new Tuple<string, int, int, int>((string)reader["username"], (int)reader["elo"],
+					        (int)reader["wins"],
+					        (int)reader["losses"]);
+
+				        users.Add(stats);
+			        }
+		        }
+	        }
+	        catch (PostgresException) {
+		        return null; 
+	        }
+
+	        conn.Close(); 
+	        return users; 
+        } 
     }
 }

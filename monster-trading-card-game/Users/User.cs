@@ -1,17 +1,21 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Database;
 using monster_trading_card_game.Enums;
 using Colorful;
+using monster_trading_card_game.Trade;
 using Console = Colorful.Console; 
 
 namespace monster_trading_card_game.Users {
     class User : IUser{
 		// Constant Values
 	    private const int NumberOfCoins = 20;
+	    private const int CoinIncrement = 1; 
 	    private const int EloStartingValue = 100;
 	    private const int EloDecrement = 5;
 	    private const int EloIncrement = 3;
@@ -81,8 +85,7 @@ namespace monster_trading_card_game.Users {
 
 	    public void BuildDeck() {
 		    Console.WriteLine("Current Deck: ");
-
-			Deck.Print();
+		    Deck.Print();
 			
 			Console.Write("Recreate Deck? [y|n]: ");
 			if (Console.ReadLine().ToLower() != "y") {
@@ -94,8 +97,8 @@ namespace monster_trading_card_game.Users {
 			var cards = dbCard.GetAllCardsFromUserId(Id);
 
 			int j = 1;
-			for (; j <= cards.Cards.Count; j++) {
-				Console.Write($"[{j}] ");
+			for (; j <= cards.Count(); j++) {
+				Console.Write($"  [{j.ToString().PadLeft(2)}]  ");
 				cards.Cards[j - 1].PrintCardName(); 
 				Console.WriteLine($" - {cards.Cards[j - 1].Damage}");
 			}
@@ -111,7 +114,7 @@ namespace monster_trading_card_game.Users {
 
 					cardId = cards.Cards[Convert.ToInt32(input)-1].Id;
 				} catch (Exception) {
-					Console.WriteLine("Invalid Card-ID");
+					Console.WriteLine("Invalid Card-ID", Color.Red);
 					continue; 
 				}
 
@@ -119,11 +122,11 @@ namespace monster_trading_card_game.Users {
 					if (!newDeck.Cards.Any(c => c.Id == cardId)) {
 						newDeck.AddCard(dbCard.GetCardByCardId(cardId));
 					} else {
-						Console.WriteLine("You cannot use the same card twice!");
+						Console.WriteLine("You cannot use the same card twice!", Color.Red);
 						continue; 
 					}
 				} else {
-					Console.WriteLine("Invalid Card-ID");
+					Console.WriteLine("Invalid Card-ID", Color.Red);
 					continue; 
 				}
 
@@ -154,6 +157,7 @@ namespace monster_trading_card_game.Users {
 		public void WinGame() {
 			Wins++;
 			Elo += EloIncrement;
+			Coins += CoinIncrement;
 
 			var dbUser = new DBUser();
 			dbUser.UpdateStats(this); 
@@ -217,6 +221,61 @@ namespace monster_trading_card_game.Users {
 
 			var dbUser = new DBUser();
 			dbUser.BuyPackage(package, this);
+		}
+		public void OfferCard() {
+			var dbCard = new DBCard();
+
+			var cards = dbCard.GetCardStackFromUserId(Id);
+			if (cards.Count() <= 0) {
+				Console.WriteLine("You don't have cards to trade.\n", Color.Red);
+				return; 
+			}
+			for (int i = 1; i <= cards.Count(); i++) {
+				Console.Write($"  [{i}] ");
+				cards.Cards[i - 1].PrintCardName();
+				Console.WriteLine($" - {cards.Cards[i - 1].Damage}");
+			}
+
+			int cardId;
+			while (true) {
+				Console.Write("Enter ID of Card you want to offer (x to go back): ");
+
+				try {
+					var input = Console.ReadLine();
+					if (input.ToLower() == "x") return;
+
+					cardId = cards.Cards[Convert.ToInt32(input) - 1].Id;
+
+					if (Id != dbCard.GetCardOwner(cardId)) {
+						Console.Write("Invalid Card-ID. ", Color.Red);
+					}
+
+					break; 
+				} catch (Exception) {
+					Console.Write("Invalid Card-ID. ", Color.Red);
+				}
+			}
+
+			int price;
+			Console.Write("Enter an alternative price for the card (default: 5 coins): ");
+			try {
+				price = Convert.ToInt32(Console.ReadLine());
+			} catch {
+				price = 5;
+			}
+
+			var offer = new Offer(0, Id, cardId, price);
+
+			var dbOffer = new DBOffer();
+			if (dbOffer.CreateNewOffer(offer)) {
+				Console.WriteLine("Offer successful!", Color.ForestGreen);
+				Thread.Sleep(1000);
+				Console.Clear();
+			} else {
+				Console.WriteLine("Offer failed!", Color.Red);
+				Thread.Sleep(1000);
+				Console.Clear();
+			}
 		}
     }
 }

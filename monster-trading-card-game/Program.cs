@@ -36,6 +36,7 @@ namespace monster_trading_card_game {
                         cli.LoggedInUser.BuildDeck();
 	                    break;
                     case Command.Trade:
+	                    cli.Trade(); 
 	                    break; 
                     case Command.Battle:
 	                    cli.Battle();
@@ -44,6 +45,7 @@ namespace monster_trading_card_game {
 	                    cli.GetPackage(); 
 	                    break;
                     case Command.Scores:
+	                    cli.Scores(); 
 	                    break;
 					case Command.Profile:
 						cli.Profile();

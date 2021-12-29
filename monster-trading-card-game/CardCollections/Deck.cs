@@ -18,7 +18,7 @@ namespace monster_trading_card_game.CardCollections {
 	    public void Print() {
 		    foreach (ICard card in Cards) {
 			    card.PrintCardName();
-			    Console.WriteLine($" - {card.Damage}");
+			    Console.WriteLine($" -   {card.Damage}");
 			}
 	    }
 	    public void RemoveCard(ICard card) {

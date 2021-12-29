@@ -15,9 +15,11 @@ namespace monster_trading_card_game.Database {
 		    CardStack stack = new CardStack(); 
 
 		    try {
-				var cardCmd = new NpgsqlCommand("select * from \"card\" where user_id=@user_id and in_deck=@in_deck", conn);
+				// Only select cards that are not used in the deck or in offers
+				var cardCmd = new NpgsqlCommand("select * from \"card\" where user_id=@user_id and in_deck=@in_deck and card_id not in (select card.card_id from( select card_id from offer where user_id=@user_id_2) as card)", conn);
 			    cardCmd.Parameters.AddWithValue("user_id", id);
 			    cardCmd.Parameters.AddWithValue("in_deck", false);
+			    cardCmd.Parameters.AddWithValue("user_id_2", id);
 			    cardCmd.Prepare();
 
 			    using (var reader = cardCmd.ExecuteReader()) {

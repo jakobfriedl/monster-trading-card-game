@@ -21,6 +21,7 @@ namespace monster_trading_card_game.Cards {
 		public void PrintCardName() {
 			Console.Write(ElementType, ElementType == ElementType.Fire ? Color.Firebrick : ElementType == ElementType.Water ? Color.DodgerBlue : Color.Gray);
 			Console.Write(" Spell", Color.DarkViolet);
+			Console.Write(" ".PadRight(15 - (ElementType.ToString().Length + "Spell".Length + 1)));
 		}
 	}
 }

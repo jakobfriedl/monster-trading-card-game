@@ -30,5 +30,6 @@ namespace monster_trading_card_game.Users {
 		CardStack GenerateRandomMonsters(int count);
 		void Print();
 		void BuyPackage(Package package);
+		void OfferCard();
 	}
 }

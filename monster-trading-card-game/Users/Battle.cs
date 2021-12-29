@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Drawing;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Enums;
+using Console = Colorful.Console; 
 
 namespace monster_trading_card_game.Users {
 	public class Battle {
@@ -27,7 +29,7 @@ namespace monster_trading_card_game.Users {
 				Console.WriteLine();
 
 				if (_player1.Deck.IsEmpty()) {
-					Console.WriteLine($"{_player2.Username} wins the game!");
+					Console.WriteLine($"{_player2.Username} wins the game!", Color.CornflowerBlue);
 					_player2.WinGame();
 					_player1.LoseGame();
 
@@ -35,20 +37,27 @@ namespace monster_trading_card_game.Users {
 				}
 
 				if (_player2.Deck.IsEmpty()) {
-					Console.WriteLine($"{_player1.Username} wins the game!");
+					Console.WriteLine($"{_player1.Username} wins the game!", Color.IndianRed);
 					_player1.WinGame();
 					_player2.LoseGame();
 
 					return _player1;
 				}
 			}
-			Console.WriteLine($"{MaxRounds} rounds are over. No one wins!");
+			Console.WriteLine($"{MaxRounds} rounds are over. No one wins!", Color.DarkGoldenrod);
 			return null; 
 		}
 
 		public void Round(int round, ICard card1, ICard card2) {
 			ICard roundWinner;
-			Console.WriteLine($"--ROUND {round}: {card1.Name}|{card1.Damage} VS: {card2.Name}|{card2.Damage} --");
+
+			Console.WriteLine($"ROUND {round}");
+			Console.WriteLine("Cards used in this round:");
+			Console.Write($"  {_player1.Username}: ", Color.IndianRed); card1.PrintCardName();
+			Console.Write($" - {card1.Damage}");
+			Console.Write("    VS    ");
+			Console.Write($"{_player2.Username}: ", Color.CornflowerBlue); card2.PrintCardName();
+			Console.WriteLine($" - {card2.Damage}");
 
 			if (card1.GetType().Name == "Monster" && card2.GetType().Name == "Monster") {
 				roundWinner = MonsterBattle(card1, card2);
@@ -61,13 +70,13 @@ namespace monster_trading_card_game.Users {
 			if (roundWinner == card1) {
 				_player2.Deck.RemoveCard(card2);
 				_player1.AddCardToDeck(card2);
-				Console.WriteLine($"{_player1.Username} won round {round}! He now has {_player1.Deck.Count()} cards while {_player2.Username} has {_player2.Deck.Count()}.");
+				Console.WriteLine($"{_player1.Username} won round {round}! They now has {_player1.Deck.Count()} cards while {_player2.Username} has {_player2.Deck.Count()}.", Color.IndianRed);
 			} else if (roundWinner == card2) {
 				_player1.Deck.RemoveCard(card1);
 				_player2.AddCardToDeck(card1);
-				Console.WriteLine($"{_player2.Username} won round {round}! He now has {_player2.Deck.Count()} cards while { _player1.Username} has {_player1.Deck.Count()}.");
+				Console.WriteLine($"{_player2.Username} won round {round}! They now has {_player2.Deck.Count()} cards while { _player1.Username} has {_player1.Deck.Count()}.", Color.CornflowerBlue);
 			} else {
-				Console.WriteLine($"Draw in round {round}!");
+				Console.WriteLine($"Draw in round {round}!", Color.DarkGoldenrod);
 			}
 		}
 
@@ -91,6 +100,13 @@ namespace monster_trading_card_game.Users {
 			if ((card2.MonsterType == MonsterType.Elf && card2.ElementType == ElementType.Fire && card1.MonsterType == MonsterType.Dragon))
 				return card2;
 
+            Console.WriteLine("After damage calculation:");
+			Console.Write($"  {_player1.Username}: ", Color.IndianRed); card1.PrintCardName();
+			Console.Write($" - {card1.Damage}");
+			Console.Write("    VS    ");
+			Console.Write($"{_player2.Username}: ", Color.CornflowerBlue); card2.PrintCardName();
+			Console.WriteLine($" - {card2.Damage}");
+
 			// Check higher Damage
 			if (card1.Damage == card2.Damage) return null;
 			return card1.Damage > card2.Damage ? card1 : card2; 
@@ -109,6 +125,13 @@ namespace monster_trading_card_game.Users {
 				damage1 /= WeaknessFactor;
 				damage2 *= WeaknessFactor; 
 			}
+
+			Console.WriteLine("After damage calculation:");
+			Console.Write($"  {_player1.Username}: ", Color.IndianRed); card1.PrintCardName();
+			Console.Write($" - {damage1}");
+			Console.Write("    VS    ");
+			Console.Write($"{_player2.Username}: ", Color.CornflowerBlue); card2.PrintCardName();
+			Console.WriteLine($" - {damage2}");
 
 			if (damage1 == damage2) return null;
 			return damage1 > damage2 ? card1 : card2; 
@@ -135,6 +158,13 @@ namespace monster_trading_card_game.Users {
 				damage1 /= WeaknessFactor;
 				damage2 *= WeaknessFactor;
 			}
+
+			Console.WriteLine("After damage calculation:");
+			Console.Write($"  {_player1.Username}: ", Color.IndianRed); card1.PrintCardName();
+			Console.Write($" - {damage1}");
+			Console.Write("    VS    ");
+			Console.Write($"{_player2.Username}: ", Color.CornflowerBlue); card2.PrintCardName();
+			Console.WriteLine($" - {damage2}");
 
 			if (damage1 == damage2) return null;
 			return damage1 > damage2 ? card1 : card2;
