@@ -21,7 +21,7 @@ namespace monster_trading_card_game.Users {
 	    private const int EloIncrement = 3;
 	    private const int DefaultWinLoss = 0;
 	    private const int MinDamage = 50; 
-	    private const int MaxDamage = 100;
+	    private const int MaxDamage = 101;
 		private const int NumSpells = 2;
 		private const int NumMonsters = 2;
 
@@ -226,12 +226,12 @@ namespace monster_trading_card_game.Users {
 			var dbCard = new DBCard();
 
 			var cards = dbCard.GetCardStackFromUserId(Id);
-			if (cards.Count() <= 0) {
+			if (cards.IsEmpty()) {
 				Console.WriteLine("You don't have cards to trade.\n", Color.Red);
 				return; 
 			}
 			for (int i = 1; i <= cards.Count(); i++) {
-				Console.Write($"  [{i}] ");
+				Console.Write($"  [{i.ToString().PadLeft(2)}] ");
 				cards.Cards[i - 1].PrintCardName();
 				Console.WriteLine($" - {cards.Cards[i - 1].Damage}");
 			}
@@ -242,7 +242,7 @@ namespace monster_trading_card_game.Users {
 
 				try {
 					var input = Console.ReadLine();
-					if (input.ToLower() == "x") return;
+					if (input.ToLower() == "x") { Console.Clear(); return; }
 
 					cardId = cards.Cards[Convert.ToInt32(input) - 1].Id;
 
@@ -256,15 +256,73 @@ namespace monster_trading_card_game.Users {
 				}
 			}
 
-			int price;
-			Console.Write("Enter an alternative price for the card (default: 5 coins): ");
+			Console.Write("You chose: ");
+			var card = dbCard.GetCardByCardId(cardId);
+			card.PrintCardName();
+			Console.WriteLine($" -   {card.Damage}");
+
+			Console.WriteLine("What should the element of the received card be?\nPress any other key if the element does not matter.");
+			Console.Write("  [1] "); Console.WriteLine("Fire", Color.Firebrick);
+			Console.Write("  [2] "); Console.WriteLine("Water", Color.DodgerBlue);
+			Console.Write("  [3] "); Console.WriteLine("Normal", Color.Gray);
+
+			// Enter Element-Type of requested card
+			Console.Write(" >> ");
+			int element = -1;
 			try {
-				price = Convert.ToInt32(Console.ReadLine());
-			} catch {
-				price = 5;
+				var input = Console.ReadLine();
+				if (input.ToLower() == "x") { Console.Clear(); return; }
+
+				element = Convert.ToInt32(input) - 1;
+				if (element > 2 || element < 0) element = -1;
+			} catch (FormatException) { }
+
+			Console.WriteLine("What should the type of the received card be?\nPress any other key if the type does not matter.");
+			Console.Write("  [1] "); Console.WriteLine("Spell", Color.DarkViolet);
+			Console.Write("  [2] "); Console.WriteLine("Goblin", Color.Green);
+			Console.Write("  [3] "); Console.WriteLine("Dragon", Color.Green);
+			Console.Write("  [4] "); Console.WriteLine("Wizard", Color.Green);
+			Console.Write("  [5] "); Console.WriteLine("Orc", Color.Green);
+			Console.Write("  [6] "); Console.WriteLine("Knight", Color.Green);
+			Console.Write("  [7] "); Console.WriteLine("Kraken", Color.Green);
+			Console.Write("  [8] "); Console.WriteLine("Elf", Color.Green);
+
+			// Enter Monster-Type of requested card
+			Console.Write(" >> ");
+			int monster = -1;
+			try {
+				var input = Console.ReadLine();
+				if (input.ToLower() == "x") { Console.Clear(); return; }
+
+				monster = Convert.ToInt32(input) - 1;
+				if (monster > 7 || monster < 0) monster = -1;
+			} catch (FormatException) { }
+
+			// Enter minimum damage of requested card
+			int damage = 0;
+			while(damage < 50 || damage > 100){
+				Console.Write("Enter the minimum damage of the requested card (50-100):");
+				try {
+					var input = Console.ReadLine();
+					if (input.ToLower() == "x") { Console.Clear(); return; }
+
+					damage = Convert.ToInt32(input);
+				} catch (FormatException) { Console.Write("Invalid input. ", Color.Red); }
 			}
 
-			var offer = new Offer(0, Id, cardId, price);
+			// Enter alternative price in coins
+			int price = 0;
+			while (price <= 0) {
+				Console.Write("Enter an alternative price for the card: ");
+				try {
+					var input = Console.ReadLine();
+					if (input.ToLower() == "x"){ Console.Clear(); return; }
+
+					price = Convert.ToInt32(input);
+				} catch (FormatException) { Console.Write("Invalid input. ", Color.Red); }
+			}
+
+			var offer = new Offer(0, Id, cardId, element, monster, damage, price);
 
 			var dbOffer = new DBOffer();
 			if (dbOffer.CreateNewOffer(offer)) {
@@ -275,6 +333,145 @@ namespace monster_trading_card_game.Users {
 				Console.WriteLine("Offer failed!", Color.Red);
 				Thread.Sleep(1000);
 				Console.Clear();
+			}
+		}
+
+		public void ShowOwnOffers() {
+			var dbOffer = new DBOffer();
+			var ownOffers = dbOffer.GetOffersByUserId(Id);
+
+			// Table Heading
+			Console.Write("    Offer".PadRight(29), Color.Gold);
+			Console.WriteLine("Request", Color.Gold);
+			Console.WriteLine($"{"#".PadRight(4)}{"Card Name".PadRight(15)}{"Damage".PadRight(10)}{"Element".PadRight(9)}{"Card-Type".PadRight(12)}{"Min-Damage".PadRight(12)}{"Price".PadRight(7)}", Color.Silver);
+
+			int i = 1;
+			foreach (var offer in ownOffers) {
+				// List all Offers of a specific User
+				Console.Write(i.ToString().PadRight(4));
+				offer.PrintOwn();
+				i++;
+			}
+
+			// TODO: Remove Offer or maybe Edit Price from Offer
+
+		}
+
+		public void ShowOtherOffers() {
+			var dbOffer = new DBOffer();
+			var dbCard = new DBCard();
+			var dbUser = new DBUser();
+
+			var otherOffers = dbOffer.GetOffersFromOtherUsers(Id);
+
+			// Table Heading
+			Console.Write("    Offer".PadRight(44), Color.Gold);
+			Console.WriteLine("Request", Color.Gold);
+			Console.WriteLine($"{"#".PadRight(4)}{"Username".PadRight(15)}{"Card Name".PadRight(15)}{"Damage".PadRight(10)}{"Element".PadRight(9)}{"Card-Type".PadRight(12)}{"Min-Damage".PadRight(12)}{"Price".PadRight(7)}", Color.Silver);
+
+			if (otherOffers.Count <= 0) {
+				Console.WriteLine("No offers available.\n", Color.Red);
+				return;
+			}
+
+			int j = 1;
+			foreach (var offer in otherOffers) {
+				// List all Offers that don't belong to the current User
+				Console.Write(j.ToString().PadRight(4));
+				offer.PrintOther();
+				j++;
+			}
+
+			// Select Offer
+			Offer selectedOffer = null;
+			while (selectedOffer == null) {
+				Console.Write("Enter # of the offer you want to select: ");
+				var input = Console.ReadLine();
+
+				try {
+					selectedOffer = otherOffers.ElementAt(Convert.ToInt32(input) - 1);
+				} catch (Exception) {
+					Console.Write("Invalid Input. ", Color.Red);
+				}
+			}
+
+			// Choose Payment-Method
+			Console.WriteLine("How do you want to acquire this card?");
+			Console.WriteLine("  [1] Trade Cards");
+			Console.WriteLine("  [2] Buy with Coins");
+			Console.WriteLine("  [X] Go back");
+
+			// Trade
+			bool transactionCompleted = false;
+			while (!transactionCompleted) {
+				Console.Write(" >> ");
+				switch (Console.ReadLine().ToUpper()) {
+					case "1":
+						// Select a card matching the trade request from your stack
+						var matchingCards = dbCard.GetMatchingCards(Id, selectedOffer.Element, selectedOffer.Monster, selectedOffer.MinDamage);
+
+						if (matchingCards.IsEmpty()) {
+							Console.WriteLine("No matching cards found!", Color.Red);
+							break;
+						}
+
+						// Print cards that can be traded
+						int i = 1; 
+						foreach (var card in matchingCards.Cards) {
+							Console.Write($"  [{i.ToString().PadLeft(2)}] ");
+							card.PrintCardName();
+							Console.WriteLine($"-  {card.Damage}");
+							i++; 
+						}
+
+						// Get Card which will be traded
+						while (!transactionCompleted) {
+							Console.Write("Which card do you want to trade (x to go back)? ");
+							var input = Console.ReadLine();
+							if (input.ToLower() == "x") break;
+
+							try {
+								var cardToTrade = matchingCards.Cards.ElementAt(Convert.ToInt32(input) - 1);
+
+								// Remove Card from Stack of logged in user
+								CardStack.RemoveCard(cardToTrade);
+								
+								// Switch Owners of the two cards and remove offer
+								if (dbCard.SwitchOwners(cardToTrade, dbCard.GetCardByCardId(selectedOffer.CardId)) && dbOffer.RemoveOfferByOfferId(selectedOffer.Id)) {
+									Console.WriteLine("Trade successful", Color.ForestGreen);
+									transactionCompleted = true;
+								} 
+
+
+							} catch (Exception e) {
+								System.Console.WriteLine(e);
+								Console.Write("Invalid input. ", Color.Red);
+							}
+						}
+
+						break;
+					case "2":
+						// Pay the provided price in coins
+						if (selectedOffer.Price > Coins) {
+							Console.WriteLine("You don't have enough coins to purchase this card!", Color.Red);
+							break;
+						}
+
+						Coins -= selectedOffer.Price;
+
+						if (dbUser.TransferCoins(this, selectedOffer.UserId, selectedOffer.Price) &&
+						    dbCard.SwitchOwnerAgainstCoins(this, dbCard.GetCardByCardId(selectedOffer.CardId)) && dbOffer.RemoveOfferByOfferId(selectedOffer.Id)) {
+							Console.WriteLine("Trade successful", Color.ForestGreen);
+							transactionCompleted = true;
+						}
+
+						break;
+					case "X":
+						transactionCompleted = true;
+						break; 
+					default:
+						break; 
+				}
 			}
 		}
     }

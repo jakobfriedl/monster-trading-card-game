@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
 using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using monster_trading_card_game.CardCollections;
@@ -193,6 +195,59 @@ namespace monster_trading_card_game.Database {
 
 	        conn.Close(); 
 	        return users; 
-        } 
+        }
+
+        public int GetCoinsByUserId(int id) {
+	        var conn = dbConn.Connect();
+	        int coins = -1;
+
+	        try {
+		        using (var cmd = new NpgsqlCommand("select coins from \"user\" where user_id=@user_id", conn)) {
+			        cmd.Parameters.AddWithValue("user_id", id);
+					cmd.Prepare();
+
+					coins = (int)cmd.ExecuteScalar(); 
+		        }
+	        } catch (PostgresException) {
+		        return -1; 
+	        }
+
+	        conn.Close();
+	        return coins;
+        }
+
+        public bool TransferCoins(IUser sender, int receiver, int coins) {
+	        var conn = dbConn.Connect();
+
+			// Update Sender
+	        try {
+		        using (var senderCmd = new NpgsqlCommand("update \"user\" set coins=@coins where user_id=@user_id", conn)) {
+			        senderCmd.Parameters.AddWithValue("coins", sender.Coins); // Already updated before 
+			        senderCmd.Parameters.AddWithValue("user_id", sender.Id); 
+					senderCmd.Prepare();
+
+					if (senderCmd.ExecuteNonQuery() < 0) return false;
+		        }
+			} catch (PostgresException) {
+		        return false; 
+	        }
+
+	        // Update Receiver
+	        try {
+		        using (var receiverCommand = new NpgsqlCommand("update \"user\" set coins=@coins where user_id=@user_id", conn)) {
+			        receiverCommand.Parameters.AddWithValue("coins", GetCoinsByUserId(receiver)+coins);
+			        receiverCommand.Parameters.AddWithValue("user_id", receiver);
+			        receiverCommand.Prepare();
+
+			        if (receiverCommand.ExecuteNonQuery() < 0) return false;
+		        }
+	        } catch (PostgresException) {
+		        return false;
+	        }
+
+
+			conn.Close(); 
+	        return true;
+        }
     }
 }

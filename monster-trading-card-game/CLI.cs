@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Database;
 using monster_trading_card_game.Enums;
+using monster_trading_card_game.Trade;
 using monster_trading_card_game.Users;
 using Console = Colorful.Console;  
 
@@ -168,7 +170,7 @@ namespace monster_trading_card_game {
 
 				Console.Write("  [1] "); Console.WriteLine("Show Profile Information");
 				Console.Write("  [2] "); Console.WriteLine("Show Deck");
-				Console.Write("  [3] "); Console.WriteLine("Show All Cards");
+				Console.Write("  [3] "); Console.WriteLine("Show Usable Cards");
 				Console.Write("  [4] "); Console.WriteLine("Change Password");
 				Console.Write("  [X] "); Console.WriteLine("Leave Profile Settings");
 
@@ -183,6 +185,8 @@ namespace monster_trading_card_game {
 						Console.Write("Elo: ", Color.Gold); Console.WriteLine(LoggedInUser.Elo);
 						Console.Write("Wins: ", Color.ForestGreen); Console.WriteLine(LoggedInUser.Wins);
 						Console.Write("Losses: ", Color.Red); Console.WriteLine(LoggedInUser.Losses);
+						double ratio = LoggedInUser.Losses == 0 ? 0 : (double)LoggedInUser.Wins / (double)LoggedInUser.Losses; 
+						Console.Write("W/L: ", Color.Silver); Console.WriteLine(ratio);
 						Console.Write("Cards: ", Color.Silver); Console.WriteLine(dbCard.GetAllCardsFromUserId(LoggedInUser.Id).Count() + "\n");
 
 						break;
@@ -278,8 +282,7 @@ namespace monster_trading_card_game {
 			while (action != "X") {
 				Console.Write("  [1] "); Console.WriteLine("Offer Card");
 				Console.Write("  [2] "); Console.WriteLine("Manage Offers");
-				Console.Write("  [3] "); Console.WriteLine("Check Trade Requests");
-				Console.Write("  [4] "); Console.WriteLine("Check Card Offers");
+				Console.Write("  [3] "); Console.WriteLine("Find Cards");
 				Console.Write("  [X] "); Console.WriteLine("Leave Trading Hall");
 
 				Console.Write(" >> ");
@@ -287,64 +290,19 @@ namespace monster_trading_card_game {
 
 				switch (action) {
 					case "1":
+						// Offer a new card
 						Console.Clear();
 						LoggedInUser.OfferCard();
 						break;
 					case "2":
+						// Show and edit your own offers
 						Console.Clear();
-						var ownOffers = dbOffer.GetOffersByUserId(LoggedInUser.Id);
-
-						// Table Heading
-						Console.WriteLine($"{"#".PadRight(4)}{"Card Name".PadRight(15)}{"Damage".PadRight(10)}{"Price".PadRight(7)}", Color.Silver);
-						
-						int i = 1; 
-						foreach (var offer in ownOffers) {
-							// List all Offers of a specific User
-							var card = dbCard.GetCardByCardId(offer.CardId);
-							Console.Write(i.ToString().PadRight(4));
-							card.PrintCardName();
-							Console.WriteLine($"{card.Damage.ToString().PadRight(10)}{offer.Price.ToString().PadRight(7)}");
-							i++; 
-						}
-
-						// TODO: Remove Offer or Edit Price from Offer
-
+						LoggedInUser.ShowOwnOffers();
 						break;
 					case "3":
-						Console.Clear();
-
-						// TODO: Show who offers cards/coins for your offers
-						// TODO: Accept or deny trade requests with cards
-
-						break;
-					case "4":
 						// Show offers of other users but not your own
 						Console.Clear();
-						var otherOffers = dbOffer.GetOffersFromOtherUsers(LoggedInUser.Id);
-
-						// Table Heading
-						Console.WriteLine($"{"#".PadRight(4)}{"Username".PadRight(15)}{"Card Name".PadRight(15)}{"Damage".PadRight(10)}{"Price".PadRight(7)}", Color.Silver);
-
-						int j = 1;
-
-						if (otherOffers.Count <= 0) {
-							Console.WriteLine("No offers available.\n", Color.Red);
-						}
-
-						foreach (var offer in otherOffers) {
-							// List all Offers that don't belong to the current User
-							var card = dbCard.GetCardByCardId(offer.CardId);
-							var user = dbUser.GetUsernameByUserId(offer.UserId); 
-
-							Console.Write(j.ToString().PadRight(4));
-							Console.Write(user.PadRight(15));
-							card.PrintCardName();
-							Console.WriteLine($"{card.Damage.ToString().PadRight(10)}{offer.Price.ToString().PadRight(7)}");
-							j++;
-						}
-
-						// TODO: Select an offer and either pay the coins or choose a card to trade
-
+						LoggedInUser.ShowOtherOffers();
 						break;
 					case "X":
 						return;

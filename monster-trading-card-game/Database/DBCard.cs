@@ -2,6 +2,7 @@
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Enums;
+using monster_trading_card_game.Users;
 using Npgsql; 
 
 
@@ -16,7 +17,7 @@ namespace monster_trading_card_game.Database {
 
 		    try {
 				// Only select cards that are not used in the deck or in offers
-				var cardCmd = new NpgsqlCommand("select * from \"card\" where user_id=@user_id and in_deck=@in_deck and card_id not in (select card.card_id from( select card_id from offer where user_id=@user_id_2) as card)", conn);
+				var cardCmd = new NpgsqlCommand("select * from \"card\" where user_id=@user_id and in_deck=@in_deck and card_id not in (select offer.card_id from( select card_id from offer where user_id=@user_id_2) as offer)", conn);
 			    cardCmd.Parameters.AddWithValue("user_id", id);
 			    cardCmd.Parameters.AddWithValue("in_deck", false);
 			    cardCmd.Parameters.AddWithValue("user_id_2", id);
@@ -101,8 +102,9 @@ namespace monster_trading_card_game.Database {
 		    CardStack cards = new CardStack();
 
 		    try {
-			    var cardCmd = new NpgsqlCommand("select * from \"card\" where user_id=@user_id", conn);
+			    var cardCmd = new NpgsqlCommand("select * from \"card\" where user_id=@user_id and card_id not in (select offer.card_id from( select card_id from offer where user_id=@user_id_2) as offer)", conn);
 			    cardCmd.Parameters.AddWithValue("user_id", id);
+			    cardCmd.Parameters.AddWithValue("user_id_2", id);
 			    cardCmd.Prepare();
 
 			    using (var reader = cardCmd.ExecuteReader()) {
@@ -116,7 +118,7 @@ namespace monster_trading_card_game.Database {
 							    (ElementType)reader["element_type"]);
 
 							    cards.AddCard(spell);
-						    } else {
+					    } else {
 						    // Monster
 						    Monster monster = new Monster(
 							    (int)reader["card_id"],
@@ -256,6 +258,115 @@ namespace monster_trading_card_game.Database {
 
 		    conn.Close();
 			return true;
+	    }
+
+	    public CardStack GetMatchingCards(int userId, int element, int monster, int minDamage) {
+		    var conn = dbConn.Connect();
+		    CardStack cards = new CardStack();
+
+		    string cmdText = "select * from \"card\" where user_id=@user_id and card_id not in (select offer.card_id from( select card_id from offer where user_id=@user_id_2) as offer) and in_deck=@in_deck and damage>=@min_damage";
+		    if (element != -1)
+			    cmdText += " and element_type=@element";
+		    if (monster != -1)
+			    cmdText += " and monster_type=@monster"; 
+
+		    try {
+			    using (var cardCmd = new NpgsqlCommand(cmdText ,conn)) {
+				    cardCmd.Parameters.AddWithValue("user_id", userId);
+				    cardCmd.Parameters.AddWithValue("user_id_2", userId);
+				    cardCmd.Parameters.AddWithValue("in_deck", false);
+				    cardCmd.Parameters.AddWithValue("min_damage", minDamage);
+				    cardCmd.Parameters.AddWithValue("element", element);
+				    cardCmd.Parameters.AddWithValue("monster", monster);
+					cardCmd.Prepare();
+
+					using (var reader = cardCmd.ExecuteReader()) {
+						while (reader.Read()) {
+							if ((int)reader["monster_type"] == 0) {
+								// Spell
+								Spell s = new Spell(
+									(int)reader["card_id"],
+									(string)reader["name"],
+									(int)reader["damage"],
+									(ElementType)reader["element_type"]);
+
+								cards.AddCard(s);
+							} else {
+								// Monster
+								Monster m = new Monster(
+									(int)reader["card_id"],
+									(string)reader["name"],
+									(int)reader["damage"],
+									(ElementType)reader["element_type"],
+									(MonsterType)reader["monster_type"]);
+
+								cards.AddCard(m);
+							}
+						}
+					}
+				}
+		    } catch (PostgresException) {
+			    return null; 
+		    }
+
+		    conn.Close();
+		    return cards; 
+	    }
+
+	    public bool SwitchOwners(ICard card1, ICard card2) {
+		    var conn = dbConn.Connect();
+
+		    var user1 = GetCardOwner(card1.Id);
+		    var user2 = GetCardOwner(card2.Id); 
+
+			// Update Card1
+			try {
+				using (var updateCard1Cmd = new NpgsqlCommand("update \"card\" set user_id=@user_id where card_id=@card_id", conn)) {
+					updateCard1Cmd.Parameters.AddWithValue("user_id", user2);
+					updateCard1Cmd.Parameters.AddWithValue("card_id", card1.Id);
+					updateCard1Cmd.Prepare();
+
+					if (updateCard1Cmd.ExecuteNonQuery() < 0) return false;
+				}
+			} catch (PostgresException) {
+				return false; 
+			}
+
+			// Update Card2
+			try {
+				using (var updateCard1Cmd = new NpgsqlCommand("update \"card\" set user_id=@user_id where card_id=@card_id", conn)) {
+					updateCard1Cmd.Parameters.AddWithValue("user_id", user1);
+					updateCard1Cmd.Parameters.AddWithValue("card_id", card2.Id);
+					updateCard1Cmd.Prepare();
+
+					if (updateCard1Cmd.ExecuteNonQuery() < 0) return false;
+				}
+			} catch (PostgresException) {
+				return false;
+			}
+
+			conn.Close();
+			return true; 
+	    }
+
+	    public bool SwitchOwnerAgainstCoins(IUser newOwner, ICard card) {
+		    var conn = dbConn.Connect();
+
+		    // Update Card
+		    try {
+			    using (var updateCardCmd = new NpgsqlCommand("update \"card\" set user_id=@user_id where card_id=@card_id", conn)) {
+				    updateCardCmd.Parameters.AddWithValue("user_id", newOwner.Id);
+				    updateCardCmd.Parameters.AddWithValue("card_id", card.Id);
+				    updateCardCmd.Prepare();
+
+				    if (updateCardCmd.ExecuteNonQuery() < 0) return false;
+			    }
+		    } catch (PostgresException) {
+			    return false;
+		    }
+
+			conn.Close();
+		    return true;
 	    }
 	}
 }

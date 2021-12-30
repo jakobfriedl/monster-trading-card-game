@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using monster_trading_card_game.Trade;
 using Npgsql;
@@ -11,15 +12,19 @@ namespace monster_trading_card_game.Database {
 		    var conn = dbConn.Connect();
 
 		    try {
-			    using (var offerCmd = new NpgsqlCommand("insert into \"offer\"(user_id, card_id, price) values (@user_id, @card_id, @price)", conn)) {
+			    using (var offerCmd = new NpgsqlCommand("insert into \"offer\"(user_id, card_id, element, monster, min_damage, price) values (@user_id, @card_id, @element, @monster, @min_damage, @price)", conn)) {
 				    offerCmd.Parameters.AddWithValue("user_id", offer.UserId);
 				    offerCmd.Parameters.AddWithValue("card_id", offer.CardId);
+				    offerCmd.Parameters.AddWithValue("element", offer.Element);
+				    offerCmd.Parameters.AddWithValue("monster", offer.Monster);
+				    offerCmd.Parameters.AddWithValue("min_damage", offer.MinDamage);
 				    offerCmd.Parameters.AddWithValue("price", offer.Price);
 				    offerCmd.Prepare();
 
 				    if (offerCmd.ExecuteNonQuery() < 0) return false;
 			    }
-		    } catch (PostgresException) {
+		    } catch (PostgresException e) {
+			    Console.WriteLine(e);
 			    return false;
 		    }
 
@@ -40,12 +45,15 @@ namespace monster_trading_card_game.Database {
 				    using (var reader = offerCmd.ExecuteReader()) {
 					    while (reader.Read()) {
 						    var offer = new Offer(
-							    (int)reader["offer_id"],
-							    (int)reader["user_id"],
-							    (int)reader["card_id"],
-							    (int)reader["price"]);
+								(int)reader["offer_id"],
+								(int)reader["user_id"],
+								(int)reader["card_id"],
+								(int)reader["element"],
+								(int)reader["monster"],
+								(int)reader["min_damage"],
+								(int)reader["price"]);
 
-						    offers.Add(offer);
+							offers.Add(offer);
 					    }
 				    }
 			    }
@@ -73,6 +81,9 @@ namespace monster_trading_card_game.Database {
 							    (int)reader["offer_id"],
 							    (int)reader["user_id"],
 							    (int)reader["card_id"],
+								(int)reader["element"],
+								(int)reader["monster"],
+								(int)reader["min_damage"],
 							    (int)reader["price"]);
 
 						    offers.Add(offer);
@@ -86,5 +97,23 @@ namespace monster_trading_card_game.Database {
 			conn.Close();
 		    return offers;
 		}
+
+	    public bool RemoveOfferByOfferId(int id) {
+		    var conn = dbConn.Connect();
+
+		    try {
+			    using (var deleteOfferCmd = new NpgsqlCommand("delete from \"offer\" where offer_id=@offer_id", conn)) {
+				    deleteOfferCmd.Parameters.AddWithValue("offer_id", id);
+					deleteOfferCmd.Prepare();
+
+					if (deleteOfferCmd.ExecuteNonQuery() < 0) return false;
+			    }
+		    } catch (PostgresException) {
+			    return false; 
+		    }
+
+			conn.Close();
+		    return true;
+	    }
     }
 }

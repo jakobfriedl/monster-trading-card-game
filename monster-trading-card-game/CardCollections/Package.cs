@@ -50,7 +50,7 @@ namespace monster_trading_card_game.CardCollections {
 				for (int i = 0; i < Capacity; i++) {
 					int damage = rand.Next(MinDamage, MaxDamage);
 					ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length);
-					MonsterType monster = (MonsterType)rand.Next(Enum.GetNames(typeof(ElementType)).Length) + 1; 
+					MonsterType monster = (MonsterType)rand.Next(Enum.GetNames(typeof(MonsterType)).Length) + 1; 
 					string name = $"{element} {monster}";
 
 					Cards.Add(new Monster(0, name, damage, element, monster));
@@ -74,7 +74,7 @@ namespace monster_trading_card_game.CardCollections {
 		    for (int i = 0; i < Capacity; i++) {
 			    int damage = rand.Next(MinDamage, MaxDamage);
 			    ElementType element = (ElementType)type; 
-				MonsterType monster = (MonsterType)rand.Next(Enum.GetNames(typeof(ElementType)).Length+1);
+				MonsterType monster = (MonsterType)rand.Next(Enum.GetNames(typeof(MonsterType)).Length+1);
 
 				if (monster == 0) {
 					string name = $"{element} Spell";

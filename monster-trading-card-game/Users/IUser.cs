@@ -31,5 +31,7 @@ namespace monster_trading_card_game.Users {
 		void Print();
 		void BuyPackage(Package package);
 		void OfferCard();
+		void ShowOwnOffers();
+		void ShowOtherOffers();
 	}
 }
