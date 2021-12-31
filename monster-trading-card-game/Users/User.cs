@@ -213,7 +213,16 @@ namespace monster_trading_card_game.Users {
 		}
 
 		public void Print() {
-			Console.WriteLine($"{Id} -- {Username}:{Password} - Coins: {Coins}");
+			var dbCard = new DBCard(); 
+
+			Console.Write("Username: ", Color.Silver); Console.WriteLine(Username);
+			Console.Write("Coins: ", Color.Silver); Console.WriteLine(Coins);
+			Console.Write("Elo: ", Color.Gold); Console.WriteLine(Elo);
+			Console.Write("Wins: ", Color.ForestGreen); Console.WriteLine(Wins);
+			Console.Write("Losses: ", Color.Red); Console.WriteLine(Losses);
+			double ratio = Losses == 0 ? 0 : (double)Wins / (double)Losses; // Calculate win-loss ratio
+			Console.Write("W/L: ", Color.Silver); Console.WriteLine(ratio);
+			Console.Write("Cards: ", Color.Silver); Console.WriteLine(dbCard.GetAllCardsFromUserId(Id).Count() + "\n");
 		}
 
 		public void BuyPackage(Package package) {
@@ -457,8 +466,9 @@ namespace monster_trading_card_game.Users {
 							break;
 						}
 
-						Coins -= selectedOffer.Price;
+						Coins -= selectedOffer.Price; // Update coins of current User
 
+						// Switch Owners remove offer and transfer coins from buyer to seller of the card
 						if (dbUser.TransferCoins(this, selectedOffer.UserId, selectedOffer.Price) &&
 						    dbCard.SwitchOwnerAgainstCoins(this, dbCard.GetCardByCardId(selectedOffer.CardId)) && dbOffer.RemoveOfferByOfferId(selectedOffer.Id)) {
 							Console.WriteLine("Trade successful", Color.ForestGreen);
@@ -468,9 +478,7 @@ namespace monster_trading_card_game.Users {
 						break;
 					case "X":
 						transactionCompleted = true;
-						break; 
-					default:
-						break; 
+						break;
 				}
 			}
 		}

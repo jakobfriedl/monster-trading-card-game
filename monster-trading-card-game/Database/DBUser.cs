@@ -149,6 +149,43 @@ namespace monster_trading_card_game.Database {
 	        return true; 
         }
 
+        public bool ChangePassword(int id, string oldPassword, string newPassword, string repeatPassword) {
+	        var conn = dbConn.Connect();
+
+	        // Verify old password
+			try {
+				using (var selectOldPassword = new NpgsqlCommand("select password from \"user\" where user_id=@user_id", conn)) {
+					selectOldPassword.Parameters.AddWithValue("user_id", id); 
+					selectOldPassword.Prepare();
+
+					string dbPass = (string)selectOldPassword.ExecuteScalar();
+
+					if (!PasswordHasher.Verify(oldPassword, dbPass)) return false; // Return if old password has not been entered correctly
+				}
+			} catch (PostgresException) {
+				return false;
+			}
+
+			string newHashed = PasswordHasher.Hash(newPassword);
+			if (!PasswordHasher.Verify(repeatPassword, newHashed)) return false; // Return if new password has not been repeated correctly
+
+			// Update Password
+			try {
+				using (var updateCmd = new NpgsqlCommand("update \"user\" set password=@new where user_id=@user_id", conn)) {
+					updateCmd.Parameters.AddWithValue("new", newHashed);
+					updateCmd.Parameters.AddWithValue("user_id", id);
+					updateCmd.Prepare();
+
+					if (updateCmd.ExecuteNonQuery() < 0) return false;
+				}
+			} catch (PostgresException) {
+		        return false; 
+	        }
+
+	        conn.Close();
+	        return true;
+        }
+
         public bool BuyPackage(Package package, IUser user) {
 	        var conn = dbConn.Connect();
 

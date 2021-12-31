@@ -180,15 +180,7 @@ namespace monster_trading_card_game {
 				switch (action) {
 					case "1":
 						Console.Clear();
-						Console.Write("Username: ", Color.Silver); Console.WriteLine(LoggedInUser.Username);
-						Console.Write("Coins: ", Color.Silver); Console.WriteLine(LoggedInUser.Coins); 
-						Console.Write("Elo: ", Color.Gold); Console.WriteLine(LoggedInUser.Elo);
-						Console.Write("Wins: ", Color.ForestGreen); Console.WriteLine(LoggedInUser.Wins);
-						Console.Write("Losses: ", Color.Red); Console.WriteLine(LoggedInUser.Losses);
-						double ratio = LoggedInUser.Losses == 0 ? 0 : (double)LoggedInUser.Wins / (double)LoggedInUser.Losses; 
-						Console.Write("W/L: ", Color.Silver); Console.WriteLine(ratio);
-						Console.Write("Cards: ", Color.Silver); Console.WriteLine(dbCard.GetAllCardsFromUserId(LoggedInUser.Id).Count() + "\n");
-
+						LoggedInUser.Print();
 						break;
 					case "2":
 						Console.Clear();
@@ -201,9 +193,20 @@ namespace monster_trading_card_game {
 						Console.WriteLine();
 						break;
 					case "4":
-						Console.Clear(); 
+						Console.Clear();
+						Console.Write("Enter old password: ", Color.Silver);
+						string oldPassword = ReadPassword();
+						Console.Write("\nEnter new password: ", Color.Silver);
+						string newPassword = ReadPassword();
+						Console.Write("\nRepeat new password: ", Color.Silver);
+						string repeatPassword = ReadPassword();
 
-						// TODO: Change Password
+						var dbUser = new DBUser();
+						if (dbUser.ChangePassword(LoggedInUser.Id, oldPassword, newPassword, repeatPassword)) {
+							Console.WriteLine("\nPassword successfully changed.", Color.ForestGreen);
+						} else {
+							Console.WriteLine("\nPassword change failed.", Color.Red);
+						}
 
 						break;
 					case "X":
@@ -273,10 +276,6 @@ namespace monster_trading_card_game {
 		}
 
 		public void Trade() {
-			var dbOffer = new DBOffer(); 
-			var dbCard = new DBCard();
-			var dbUser = new DBUser(); 
-
 			string action = "";
 
 			while (action != "X") {

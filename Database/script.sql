@@ -29,7 +29,8 @@ create table card
     user_id      integer               not null
         constraint card_user_id_fkey
             references "user",
-    in_deck      boolean default false not null
+    in_deck      boolean default false not null,
+    in_trade     boolean default false
 );
 
 alter table card
@@ -43,15 +44,16 @@ create table trade
     user_id_1 integer not null
         constraint trade_user_id_1_fkey
             references "user",
-    user_id_2 integer not null
+    user_id_2 integer
         constraint trade_user_id_2_fkey
             references "user",
     card_id_1 integer not null
         constraint trade_card_id_1_fkey
             references card,
-    card_id_2 integer not null
+    card_id_2 integer
         constraint trade_card_id_2_fkey
-            references card
+            references card,
+    timestamp timestamp
 );
 
 alter table trade
@@ -91,4 +93,19 @@ create unique index battle_user_id_1_uindex
 create unique index battle_user_id_2_uindex
     on battle (user_id_2);
 
+create table offer
+(
+    offer_id   serial
+        constraint offer_pk
+            primary key,
+    user_id    integer            not null,
+    card_id    integer            not null,
+    price      integer default 5  not null,
+    element    integer            not null,
+    monster    integer            not null,
+    min_damage integer default 50 not null
+);
+
+alter table offer
+    owner to postgres;
 
