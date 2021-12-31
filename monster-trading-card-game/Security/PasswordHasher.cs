@@ -64,7 +64,6 @@ namespace monster_trading_card_game.Security {
 				}
 				return true;
 			}
-
 		}
 	}
 }

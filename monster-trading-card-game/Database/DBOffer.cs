@@ -115,5 +115,27 @@ namespace monster_trading_card_game.Database {
 			conn.Close();
 		    return true;
 	    }
+
+	    public bool UpdateOffer(int offerId, Offer newOffer) {
+		    var conn = dbConn.Connect();
+
+		    try {
+			    using (var updateCmd = new NpgsqlCommand("update \"offer\" set element=@element, monster=@monster, min_damage=@min_damage, price=@price where offer_id=@offer_id", conn)) {
+				    updateCmd.Parameters.AddWithValue("element", newOffer.Element);
+				    updateCmd.Parameters.AddWithValue("monster", newOffer.Monster);
+				    updateCmd.Parameters.AddWithValue("min_damage", newOffer.MinDamage);
+				    updateCmd.Parameters.AddWithValue("price", newOffer.Price);
+				    updateCmd.Parameters.AddWithValue("offer_id", offerId);
+					updateCmd.Prepare();
+
+					if (updateCmd.ExecuteNonQuery() < 0) return false;
+			    }
+			} catch (PostgresException) {
+			    return false; 
+		    }
+
+		    conn.Close();
+		    return true;
+	    }
     }
 }

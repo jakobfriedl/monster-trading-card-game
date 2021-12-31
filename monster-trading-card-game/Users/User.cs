@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -7,7 +7,6 @@ using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Database;
 using monster_trading_card_game.Enums;
-using Colorful;
 using monster_trading_card_game.Trade;
 using Console = Colorful.Console; 
 
@@ -231,6 +230,76 @@ namespace monster_trading_card_game.Users {
 			var dbUser = new DBUser();
 			dbUser.BuyPackage(package, this);
 		}
+
+		private Tuple<int, int, int> GetCardRequest() {
+			Console.WriteLine("What should the element of the received card be?\nPress any other key if the element does not matter.");
+			Console.Write("  [1] "); Console.WriteLine("Fire", Color.Firebrick);
+			Console.Write("  [2] "); Console.WriteLine("Water", Color.DodgerBlue);
+			Console.Write("  [3] "); Console.WriteLine("Normal", Color.Gray);
+
+			// Enter Element-Type of requested card
+			Console.Write(" >> ");
+			int element = -1;
+			try {
+				var input = Console.ReadLine();
+				if (input.ToLower() == "x") { Console.Clear(); return null; }
+
+				element = Convert.ToInt32(input) - 1;
+				if (element > 2 || element < 0) element = -1;
+			} catch (FormatException) { }
+
+			Console.WriteLine("What should the type of the received card be?\nPress any other key if the type does not matter.");
+			Console.Write("  [1] "); Console.WriteLine("Spell", Color.DarkViolet);
+			Console.Write("  [2] "); Console.WriteLine("Goblin", Color.Green);
+			Console.Write("  [3] "); Console.WriteLine("Dragon", Color.Green);
+			Console.Write("  [4] "); Console.WriteLine("Wizard", Color.Green);
+			Console.Write("  [5] "); Console.WriteLine("Orc", Color.Green);
+			Console.Write("  [6] "); Console.WriteLine("Knight", Color.Green);
+			Console.Write("  [7] "); Console.WriteLine("Kraken", Color.Green);
+			Console.Write("  [8] "); Console.WriteLine("Elf", Color.Green);
+
+			// Enter Monster-Type of requested card
+			Console.Write(" >> ");
+			int monster = -1;
+			try {
+				var input = Console.ReadLine();
+				if (input.ToLower() == "x") { Console.Clear(); return null; }
+
+				monster = Convert.ToInt32(input) - 1;
+				if (monster > 7 || monster < 0) monster = -1;
+			} catch (FormatException) { }
+
+			// Enter minimum damage of requested card
+			int damage = 0;
+			while (damage < 50 || damage > 100) {
+				Console.Write("Enter the minimum damage of the requested card (50-100): ");
+				try {
+					var input = Console.ReadLine();
+					if (input.ToLower() == "x") { Console.Clear(); return null; }
+
+					damage = Convert.ToInt32(input);
+				} catch (FormatException) { Console.Write("Invalid input. ", Color.Red); }
+			}
+
+			return new Tuple<int, int, int>(element, monster, damage); 
+		}
+
+		private int GetOfferPrice() {
+			// Enter alternative price in coins
+			int price = 0;
+			while (price <= 0) {
+				Console.Write("Enter a price for the card: ");
+				try {
+					var input = Console.ReadLine();
+					if (input.ToLower() == "x") { Console.Clear(); return -1; }
+
+					price = Convert.ToInt32(input);
+				} catch (FormatException) { Console.Write("Invalid input. ", Color.Red); }
+			}
+
+			return price; 
+		}
+
 		public void OfferCard() {
 			var dbCard = new DBCard();
 
@@ -270,68 +339,14 @@ namespace monster_trading_card_game.Users {
 			card.PrintCardName();
 			Console.WriteLine($" -   {card.Damage}");
 
-			Console.WriteLine("What should the element of the received card be?\nPress any other key if the element does not matter.");
-			Console.Write("  [1] "); Console.WriteLine("Fire", Color.Firebrick);
-			Console.Write("  [2] "); Console.WriteLine("Water", Color.DodgerBlue);
-			Console.Write("  [3] "); Console.WriteLine("Normal", Color.Gray);
+			// Get requested Card
+			var request = GetCardRequest(); // item1...element, item2...monster, item3...min_damage
+			if (request == null) return; 
+			// Get alternative Price
+			var price = GetOfferPrice();
+			if (price <= -1) return;
 
-			// Enter Element-Type of requested card
-			Console.Write(" >> ");
-			int element = -1;
-			try {
-				var input = Console.ReadLine();
-				if (input.ToLower() == "x") { Console.Clear(); return; }
-
-				element = Convert.ToInt32(input) - 1;
-				if (element > 2 || element < 0) element = -1;
-			} catch (FormatException) { }
-
-			Console.WriteLine("What should the type of the received card be?\nPress any other key if the type does not matter.");
-			Console.Write("  [1] "); Console.WriteLine("Spell", Color.DarkViolet);
-			Console.Write("  [2] "); Console.WriteLine("Goblin", Color.Green);
-			Console.Write("  [3] "); Console.WriteLine("Dragon", Color.Green);
-			Console.Write("  [4] "); Console.WriteLine("Wizard", Color.Green);
-			Console.Write("  [5] "); Console.WriteLine("Orc", Color.Green);
-			Console.Write("  [6] "); Console.WriteLine("Knight", Color.Green);
-			Console.Write("  [7] "); Console.WriteLine("Kraken", Color.Green);
-			Console.Write("  [8] "); Console.WriteLine("Elf", Color.Green);
-
-			// Enter Monster-Type of requested card
-			Console.Write(" >> ");
-			int monster = -1;
-			try {
-				var input = Console.ReadLine();
-				if (input.ToLower() == "x") { Console.Clear(); return; }
-
-				monster = Convert.ToInt32(input) - 1;
-				if (monster > 7 || monster < 0) monster = -1;
-			} catch (FormatException) { }
-
-			// Enter minimum damage of requested card
-			int damage = 0;
-			while(damage < 50 || damage > 100){
-				Console.Write("Enter the minimum damage of the requested card (50-100):");
-				try {
-					var input = Console.ReadLine();
-					if (input.ToLower() == "x") { Console.Clear(); return; }
-
-					damage = Convert.ToInt32(input);
-				} catch (FormatException) { Console.Write("Invalid input. ", Color.Red); }
-			}
-
-			// Enter alternative price in coins
-			int price = 0;
-			while (price <= 0) {
-				Console.Write("Enter an alternative price for the card: ");
-				try {
-					var input = Console.ReadLine();
-					if (input.ToLower() == "x"){ Console.Clear(); return; }
-
-					price = Convert.ToInt32(input);
-				} catch (FormatException) { Console.Write("Invalid input. ", Color.Red); }
-			}
-
-			var offer = new Offer(0, Id, cardId, element, monster, damage, price);
+			var offer = new Offer(0, Id, cardId, request.Item1, request.Item2, request.Item3, price);
 
 			var dbOffer = new DBOffer();
 			if (dbOffer.CreateNewOffer(offer)) {
@@ -345,67 +360,127 @@ namespace monster_trading_card_game.Users {
 			}
 		}
 
-		public void ShowOwnOffers() {
+		private List<Offer> ListOffers(bool own) {
 			var dbOffer = new DBOffer();
-			var ownOffers = dbOffer.GetOffersByUserId(Id);
+			
+			var offers = own ? dbOffer.GetOffersByUserId(Id) : dbOffer.GetOffersFromOtherUsers(Id);
+
+			if (offers.Count <= 0) {
+				Console.WriteLine("No offers available.\n", Color.Red);
+				return null;
+			}
 
 			// Table Heading
-			Console.Write("    Offer".PadRight(29), Color.Gold);
+			Console.Write("    Offer".PadRight(own ? 29 : 44), Color.Gold);
 			Console.WriteLine("Request", Color.Gold);
-			Console.WriteLine($"{"#".PadRight(4)}{"Card Name".PadRight(15)}{"Damage".PadRight(10)}{"Element".PadRight(9)}{"Card-Type".PadRight(12)}{"Min-Damage".PadRight(12)}{"Price".PadRight(7)}", Color.Silver);
+
+			if(own)
+				Console.WriteLine($"{"#".PadRight(4)}{"Card Name".PadRight(15)}{"Damage".PadRight(10)}{"Element".PadRight(9)}{"Card-Type".PadRight(12)}{"Min-Damage".PadRight(12)}{"Price".PadRight(7)}", Color.Silver);
+			else 
+				Console.WriteLine($"{"#".PadRight(4)}{"Username".PadRight(15)}{"Card Name".PadRight(15)}{"Damage".PadRight(10)}{"Element".PadRight(9)}{"Card-Type".PadRight(12)}{"Min-Damage".PadRight(12)}{"Price".PadRight(7)}", Color.Silver);
 
 			int i = 1;
-			foreach (var offer in ownOffers) {
-				// List all Offers of a specific User
+			foreach (var offer in offers) {
 				Console.Write(i.ToString().PadRight(4));
-				offer.PrintOwn();
+				if(own)
+					offer.PrintOwn();
+				else 
+					offer.PrintOther();
 				i++;
 			}
-
-			// TODO: Remove Offer or maybe Edit Price from Offer
-
+			
+			return offers; 
 		}
 
-		public void ShowOtherOffers() {
-			var dbOffer = new DBOffer();
-			var dbCard = new DBCard();
-			var dbUser = new DBUser();
+		private Offer SelectOffer(List<Offer> offers) {
+			Offer offer = null;
+			string input = "";
 
-			var otherOffers = dbOffer.GetOffersFromOtherUsers(Id);
-
-			// Table Heading
-			Console.Write("    Offer".PadRight(44), Color.Gold);
-			Console.WriteLine("Request", Color.Gold);
-			Console.WriteLine($"{"#".PadRight(4)}{"Username".PadRight(15)}{"Card Name".PadRight(15)}{"Damage".PadRight(10)}{"Element".PadRight(9)}{"Card-Type".PadRight(12)}{"Min-Damage".PadRight(12)}{"Price".PadRight(7)}", Color.Silver);
-
-			if (otherOffers.Count <= 0) {
-				Console.WriteLine("No offers available.\n", Color.Red);
-				return;
-			}
-
-			int j = 1;
-			foreach (var offer in otherOffers) {
-				// List all Offers that don't belong to the current User
-				Console.Write(j.ToString().PadRight(4));
-				offer.PrintOther();
-				j++;
-			}
-
-			// Select Offer
-			Offer selectedOffer = null;
-			while (selectedOffer == null) {
-				Console.Write("Enter # of the offer you want to select: ");
-				var input = Console.ReadLine();
+			while (offer == null) {
+				Console.Write("\nEnter # of the offer you want to select (x to go back): ");
+				input = Console.ReadLine();
+				if (input.ToLower() == "x") {
+					Console.Clear();
+					return null;
+				}
 
 				try {
-					selectedOffer = otherOffers.ElementAt(Convert.ToInt32(input) - 1);
+					offer = offers.ElementAt(Convert.ToInt32(input) - 1);
 				} catch (Exception) {
 					Console.Write("Invalid Input. ", Color.Red);
 				}
 			}
+			Console.WriteLine($"You selected offer #{input}");
+
+			return offer; 
+		}
+
+		public void ManageOwnOffers() {
+			var dbOffer = new DBOffer();
+			
+			var offers = ListOffers(true);
+			if (offers == null) return;
+			var selectedOffer = SelectOffer(offers);
+			if (selectedOffer == null) return;
+
+			Console.WriteLine("\nWhat would you like to do?");
+			Console.WriteLine("  [1] Remove Offer");
+			Console.WriteLine("  [2] Change Request");
+			Console.WriteLine("  [3] Change Price");
+			Console.WriteLine("  [X] Go back");
+
+			while (true) {
+				Console.Write(" >> ");
+				switch (Console.ReadLine().ToUpper()) {
+					case "1":
+						if (dbOffer.RemoveOfferByOfferId(selectedOffer.Id)) {
+							Console.WriteLine("Offer successfully removed." ,Color.ForestGreen);
+						}
+						break;
+					case "2":
+						var request = GetCardRequest();
+						if (request == null) return;
+
+						var changedRequest = new Offer(0, Id, selectedOffer.CardId, request.Item1, request.Item2, request.Item3, selectedOffer.Price);
+
+						if (dbOffer.UpdateOffer(selectedOffer.Id, changedRequest)) {
+							Console.WriteLine("Offer successfully updated.", Color.ForestGreen);
+							return;
+						}
+						break;
+					case "3":
+						var price = GetOfferPrice();
+						if (price <= -1) return;
+
+						var changedPrice = new Offer(0, Id, selectedOffer.CardId, selectedOffer.Element, selectedOffer.Monster, selectedOffer.MinDamage, price);
+
+						if (dbOffer.UpdateOffer(selectedOffer.Id, changedPrice)) {
+							Console.WriteLine("Offer successfully updated.", Color.ForestGreen);
+							return;
+						}
+						break;
+					case "X":
+						Console.Clear();
+						return;
+					default: 
+						Console.Write("Invalid input.", Color.Red);
+						break; 
+				}
+			}
+		}
+
+		public void FindOtherOffers() {
+			var dbOffer = new DBOffer();
+			var dbCard = new DBCard();
+			var dbUser = new DBUser();
+
+			var offers = ListOffers(false);
+			if (offers == null) return;
+			var selectedOffer = SelectOffer(offers);
+			if (selectedOffer == null) return;
 
 			// Choose Payment-Method
-			Console.WriteLine("How do you want to acquire this card?");
+			Console.WriteLine("\nHow do you want to acquire this card?");
 			Console.WriteLine("  [1] Trade Cards");
 			Console.WriteLine("  [2] Buy with Coins");
 			Console.WriteLine("  [X] Go back");
@@ -451,7 +526,6 @@ namespace monster_trading_card_game.Users {
 									transactionCompleted = true;
 								} 
 
-
 							} catch (Exception e) {
 								System.Console.WriteLine(e);
 								Console.Write("Invalid input. ", Color.Red);
@@ -477,7 +551,11 @@ namespace monster_trading_card_game.Users {
 
 						break;
 					case "X":
+						Console.Clear();
 						transactionCompleted = true;
+						break;
+					default:
+						Console.Write("Invalid input.", Color.Red);
 						break;
 				}
 			}

@@ -49,7 +49,6 @@ namespace monster_trading_card_game.Trade {
 			Console.Write(user.PadRight(15));
 	        card.PrintCardName();
 			Console.WriteLine($"{card.Damage.ToString().PadRight(10)}{element.PadRight(9)}{cardType.PadRight(12)}{MinDamage.ToString().PadRight(12)}{Price.ToString().PadRight(7)}");
-
-		}
+        }
 	}
 }

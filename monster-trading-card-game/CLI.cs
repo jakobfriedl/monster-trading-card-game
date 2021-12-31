@@ -207,7 +207,6 @@ namespace monster_trading_card_game {
 						} else {
 							Console.WriteLine("\nPassword change failed.", Color.Red);
 						}
-
 						break;
 					case "X":
 						return;
@@ -229,7 +228,6 @@ namespace monster_trading_card_game {
 			Console.Write("  [X] "); Console.WriteLine("Leave Card Shop");
 
 			string package;
-
 			while (true) {
 				Console.Write(" >> ");
 				package = Console.ReadLine();
@@ -240,9 +238,9 @@ namespace monster_trading_card_game {
 					if (Convert.ToInt32(package) <= 5 && Convert.ToInt32(package) >= 1) {
 						break;
 					}
-					Console.Write("Invalid input. ", Color.Red);
+					Console.Write("Invalid input.", Color.Red);
 				} catch (FormatException) {
-					Console.Write("Invalid input. ", Color.Red);
+					Console.Write("Invalid input.", Color.Red);
 				}
 			}
 
@@ -296,12 +294,12 @@ namespace monster_trading_card_game {
 					case "2":
 						// Show and edit your own offers
 						Console.Clear();
-						LoggedInUser.ShowOwnOffers();
+						LoggedInUser.ManageOwnOffers();
 						break;
 					case "3":
 						// Show offers of other users but not your own
 						Console.Clear();
-						LoggedInUser.ShowOtherOffers();
+						LoggedInUser.FindOtherOffers();
 						break;
 					case "X":
 						return;
