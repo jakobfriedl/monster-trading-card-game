@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -260,12 +261,21 @@ namespace monster_trading_card_game {
 			var users = dbUser.GetAllUsers();
 
 			// Table Heading
-			Console.WriteLine($"\n{"#".PadRight(4)}{"Username".PadRight(20)}{"Elo".PadRight(10)}{"Wins".PadRight(10)}{"Losses".PadRight(10)}", Color.Silver);
+			Console.WriteLine($"\n{"#".PadRight(4)}{"Username".PadRight(20)}{"Elo".PadRight(10)}{"Wins".PadRight(10)}{"Losses".PadRight(10)}W/L-Ratio", Color.Silver);
 
 			int i = 1; 
 			foreach (var user in users) {
 				// Display Scores of each User
-				Console.WriteLine($"{i.ToString().PadRight(4)}{user.Item1.PadRight(20)}{user.Item2.ToString().PadRight(10)}{user.Item3.ToString().PadRight(10)}{user.Item4.ToString().PadRight(10)}", user.Item1 == LoggedInUser.Username ? Color.Gold : Color.White);
+				var username = user.Item1;
+				var elo = user.Item2;
+				var wins = user.Item3;
+				var losses = user.Item4;
+				
+				double ratio = losses == 0 ? 0 : (double)wins / (double)losses; // Calculate win-loss ratio
+
+				Console.WriteLine(
+					$"{i.ToString().PadRight(4)}{username.PadRight(20)}{elo.ToString().PadRight(10)}{wins.ToString().PadRight(10)}{losses.ToString().PadRight(10)}{ratio.ToString()}", 
+					user.Item1 == LoggedInUser.Username ? Color.Gold : Color.White);
 				i++; 
 			}
 

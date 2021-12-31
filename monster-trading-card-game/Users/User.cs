@@ -220,7 +220,7 @@ namespace monster_trading_card_game.Users {
 			Console.Write("Wins: ", Color.ForestGreen); Console.WriteLine(Wins);
 			Console.Write("Losses: ", Color.Red); Console.WriteLine(Losses);
 			double ratio = Losses == 0 ? 0 : (double)Wins / (double)Losses; // Calculate win-loss ratio
-			Console.Write("W/L: ", Color.Silver); Console.WriteLine(ratio);
+			Console.Write("W/L-Ratio: ", Color.Silver); Console.WriteLine(ratio);
 			Console.Write("Cards: ", Color.Silver); Console.WriteLine(dbCard.GetAllCardsFromUserId(Id).Count() + "\n");
 		}
 
