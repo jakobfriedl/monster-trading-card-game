@@ -25,13 +25,12 @@ namespace monster_trading_card_game.Users {
 		void AddCardToDeck(ICard card);
 		void WinGame();
 		void LoseGame();
-		void GenerateCardStack();
-		CardStack GenerateRandomSpells(int count);
-		CardStack GenerateRandomMonsters(int count);
 		void Print();
 		void BuyPackage(Package package);
 		void OfferCard();
 		void ManageOwnOffers();
 		void FindOtherOffers();
+		void ShowTransactions(); 
+
 	}
 }

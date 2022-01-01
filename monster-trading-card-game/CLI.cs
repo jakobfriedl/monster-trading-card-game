@@ -173,6 +173,7 @@ namespace monster_trading_card_game {
 				Console.Write("  [2] "); Console.WriteLine("Show Deck");
 				Console.Write("  [3] "); Console.WriteLine("Show Usable Cards");
 				Console.Write("  [4] "); Console.WriteLine("Change Password");
+				Console.Write("  [5] "); Console.WriteLine("Show Transaction History");
 				Console.Write("  [X] "); Console.WriteLine("Leave Profile Settings");
 
 				Console.Write(" >> ");
@@ -208,6 +209,10 @@ namespace monster_trading_card_game {
 						} else {
 							Console.WriteLine("\nPassword change failed.", Color.Red);
 						}
+						break;
+					case "5":
+						Console.Clear();
+						LoggedInUser.ShowTransactions(); 
 						break;
 					case "X":
 						return;

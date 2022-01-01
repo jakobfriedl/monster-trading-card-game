@@ -10,4 +10,6 @@
 11/12/2021	2h Database Implementation (Buy)
 28/12/2021	3h PW Hash, Design, Profile, ...
 29/12/2021	3h Trading / Offers + DB
-30/12/2021 	1h Password Change
+30/12/2021 	1h Password Change 
+			2h Manage Own Offers (Remove, Edit), Improve UI
+1/1/2022	2h Transaction History

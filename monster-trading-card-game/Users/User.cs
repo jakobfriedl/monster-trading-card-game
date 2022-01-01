@@ -6,7 +6,6 @@ using System.Threading;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Database;
-using monster_trading_card_game.Enums;
 using monster_trading_card_game.Trade;
 using Console = Colorful.Console; 
 
@@ -19,12 +18,8 @@ namespace monster_trading_card_game.Users {
 	    private const int EloDecrement = 5;
 	    private const int EloIncrement = 3;
 	    private const int DefaultWinLoss = 0;
-	    private const int MinDamage = 50; 
-	    private const int MaxDamage = 101;
-		private const int NumSpells = 2;
-		private const int NumMonsters = 2;
 
-		// Class properties
+	    // Class properties
 		public int Id { get; set; }
 		public string Username { get; set; }
 	    public string Password { get; set; }
@@ -45,8 +40,7 @@ namespace monster_trading_card_game.Users {
 		    Coins = NumberOfCoins;
 		    Elo = EloStartingValue;
 		    Wins = Losses = DefaultWinLoss;
-		    CardStack = new CardStack();
-			GenerateCardStack();
+			CardStack = new CardStack().GenerateCardStack();
 		    Deck = new Deck(); 
 			AutoCreateDeck();
 		}
@@ -170,47 +164,6 @@ namespace monster_trading_card_game.Users {
 			dbUser.UpdateStats(this);
 		}
 
-		public void GenerateCardStack() {
-			//var rand = new Random();
-			//int numberOfSpells = rand.Next(MinSpells, MaxSpells);
-			//int numberOfMonsters = InitialStackCapacity - numberOfSpells;
-
-            foreach (var spell in GenerateRandomSpells(NumSpells).Cards) {
-                CardStack.AddCard(spell);
-            }
-
-            foreach (var monster in GenerateRandomMonsters(NumMonsters).Cards) {
-				CardStack.AddCard(monster);
-			}
-		}
-
-		public CardStack GenerateRandomSpells(int count) {
-			CardStack spellStack = new CardStack(); 
-			var rand = new Random();
-			for (int i = 0; i < count; i++) {
-				int damage = rand.Next(MinDamage, MaxDamage);
-				ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length); 
-				string name = $"{element} Spell"; 
-
-				spellStack.AddCard(new Spell(0, name, damage, element));
-			}
-			return spellStack;
-		}
-
-		public CardStack GenerateRandomMonsters(int count) {
-			CardStack monsterStack = new CardStack();
-			var rand = new Random();
-			for (int i = 0; i < count; i++) {
-				int damage = rand.Next(MinDamage, MaxDamage);
-				ElementType element = (ElementType)rand.Next(Enum.GetNames(typeof(ElementType)).Length);
-				MonsterType monster = (MonsterType)rand.Next(Enum.GetNames(typeof(MonsterType)).Length)+1;
-				string name = $"{element} {monster}";
-
-				monsterStack.AddCard(new Monster(0, name, damage, element, monster));
-			}
-			return monsterStack;
-		}
-
 		public void Print() {
 			var dbCard = new DBCard(); 
 
@@ -228,7 +181,15 @@ namespace monster_trading_card_game.Users {
 			Coins -= package.Cost;
 
 			var dbUser = new DBUser();
-			dbUser.BuyPackage(package, this);
+			var dbTransaction = new DBTransaction();
+
+			var unixTimestamp = (int)(DateTime.UtcNow.Subtract(DateTime.UnixEpoch)).TotalSeconds;
+			var transaction = new Transaction(0, Id, package.Cost, unixTimestamp);
+
+			if (dbUser.BuyPackage(package, this) && dbTransaction.NewTransaction(transaction)) {
+				Console.WriteLine("Transaction successful", Color.ForestGreen);
+				Thread.Sleep(1000);
+			}
 		}
 
 		private Tuple<int, int, int> GetCardRequest() {
@@ -473,6 +434,7 @@ namespace monster_trading_card_game.Users {
 			var dbOffer = new DBOffer();
 			var dbCard = new DBCard();
 			var dbUser = new DBUser();
+			var dbTransaction = new DBTransaction();
 
 			var offers = ListOffers(false);
 			if (offers == null) return;
@@ -519,9 +481,14 @@ namespace monster_trading_card_game.Users {
 
 								// Remove Card from Stack of logged in user
 								CardStack.RemoveCard(cardToTrade);
-								
-								// Switch Owners of the two cards and remove offer
-								if (dbCard.SwitchOwners(cardToTrade, dbCard.GetCardByCardId(selectedOffer.CardId)) && dbOffer.RemoveOfferByOfferId(selectedOffer.Id)) {
+
+								var unixTimestamp = (int)(DateTime.UtcNow.Subtract(DateTime.UnixEpoch)).TotalSeconds;
+								var transaction = new Transaction(0, Id, selectedOffer.UserId, cardToTrade.Id, selectedOffer.CardId, 0, unixTimestamp);
+
+								// Switch Owners of the two cards and remove offer, insert new transaction to DB
+								if (dbCard.SwitchOwners(cardToTrade, dbCard.GetCardByCardId(selectedOffer.CardId)) 
+								    && dbOffer.RemoveOfferByOfferId(selectedOffer.Id)
+								    && dbTransaction.NewTransaction(transaction)) {
 									Console.WriteLine("Trade successful", Color.ForestGreen);
 									transactionCompleted = true;
 								} 
@@ -542,9 +509,14 @@ namespace monster_trading_card_game.Users {
 
 						Coins -= selectedOffer.Price; // Update coins of current User
 
-						// Switch Owners remove offer and transfer coins from buyer to seller of the card
-						if (dbUser.TransferCoins(this, selectedOffer.UserId, selectedOffer.Price) &&
-						    dbCard.SwitchOwnerAgainstCoins(this, dbCard.GetCardByCardId(selectedOffer.CardId)) && dbOffer.RemoveOfferByOfferId(selectedOffer.Id)) {
+						var timestamp = (int)(DateTime.UtcNow.Subtract(DateTime.UnixEpoch)).TotalSeconds;
+						var transactionWithCoins = new Transaction(0, Id, selectedOffer.UserId, selectedOffer.CardId, selectedOffer.Price, timestamp);
+
+						// Switch Owners remove offer and transfer coins from buyer to seller of the card, insert new transaction to DB
+						if (dbUser.TransferCoins(this, selectedOffer.UserId, selectedOffer.Price) 
+						    && dbCard.SwitchOwnerAgainstCoins(this, dbCard.GetCardByCardId(selectedOffer.CardId)) 
+						    && dbOffer.RemoveOfferByOfferId(selectedOffer.Id)
+						    && dbTransaction.NewTransaction(transactionWithCoins)) {
 							Console.WriteLine("Trade successful", Color.ForestGreen);
 							transactionCompleted = true;
 						}
@@ -559,6 +531,22 @@ namespace monster_trading_card_game.Users {
 						break;
 				}
 			}
+		}
+
+		public void ShowTransactions() {
+			var dbTransaction = new DBTransaction();
+
+			var transactions = dbTransaction.GetTransactionsByUserId(Id);
+
+			if (transactions.Count <= 0) {
+				Console.WriteLine("No Transactions yet.\n");
+				return; 
+			}
+
+			foreach (var t in transactions) {
+				t.PrintTransaction();
+			}
+			Console.WriteLine();
 		}
     }
 }

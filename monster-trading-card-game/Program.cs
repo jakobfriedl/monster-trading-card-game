@@ -13,7 +13,7 @@ namespace monster_trading_card_game {
 
 	        Command cmd; 
             while ((cmd = cli.GetUserCommand()) != Command.Quit) {
-	            switch (cmd) {
+				switch (cmd) {
                     case Command.Register:
 	                    if (cli.RegisterUser()) {
 		                    Console.WriteLine("\nRegistration successful", Color.ForestGreen);
