@@ -165,10 +165,12 @@ namespace monster_trading_card_game.Users {
 		}
 
 		public void Print() {
-			var dbCard = new DBCard(); 
+			var dbCard = new DBCard();
+			var dbTransaction = new DBTransaction();
 
 			Console.Write("Username: ", Color.Silver); Console.WriteLine(Username);
 			Console.Write("Coins: ", Color.Silver); Console.WriteLine(Coins);
+			Console.Write("Coins spent: ", Color.Silver); Console.WriteLine(dbTransaction.GetSpentCoinsByUserId(Id));
 			Console.Write("Elo: ", Color.Gold); Console.WriteLine(Elo);
 			Console.Write("Wins: ", Color.ForestGreen); Console.WriteLine(Wins);
 			Console.Write("Losses: ", Color.Red); Console.WriteLine(Losses);
@@ -184,6 +186,7 @@ namespace monster_trading_card_game.Users {
 			var dbTransaction = new DBTransaction();
 
 			var unixTimestamp = (int)(DateTime.UtcNow.Subtract(DateTime.UnixEpoch)).TotalSeconds;
+
 			var transaction = new Transaction(0, Id, package.Cost, unixTimestamp);
 
 			if (dbUser.BuyPackage(package, this) && dbTransaction.NewTransaction(transaction)) {

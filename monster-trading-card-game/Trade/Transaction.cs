@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 using monster_trading_card_game.Database;
-using Moq;
+using Console = Colorful.Console; 
 
 namespace monster_trading_card_game.Trade {
     public class Transaction {
@@ -45,7 +42,7 @@ namespace monster_trading_card_game.Trade {
 			User2 = -1;
 			Card1 = -1;
 			Card2 = -1; 
-			Coins = Coins;
+			Coins = coins;
 			Timestamp = timestamp; 
 		}
 
@@ -58,23 +55,31 @@ namespace monster_trading_card_game.Trade {
 
 			// Package-Transaction
 			if (User2 <= -1) {
-				Console.WriteLine($"{date}: {user1} has bought a package for {Coins} coins.");
+				Console.Write($"{date}: ", Color.Gold);
+				Console.WriteLine($"{user1} has bought a package for {Coins} coins.");
 				return; 
 			}
 			
 			var user2 = dbUser.GetUsernameByUserId(User2);
-			var card2 = dbCard.GetCardByCardId(Card2).Name;
+			var card2 = dbCard.GetCardByCardId(Card2);
 
 			// Trade card against coins
 			if (Card1 <= -1) {
-				Console.WriteLine($"{date}: {user1} has bought {card2} from {user2} for {Coins} coins.");
+				Console.Write($"{date}: ", Color.Gold);
+				Console.Write($"{user1} has bought ");
+				card2.PrintWithDamage();
+				Console.WriteLine($" from {user2} for {Coins} coins.");
 				return; 
 			}
 
-			var card1 = dbCard.GetCardByCardId(Card1).Name;
+			var card1 = dbCard.GetCardByCardId(Card1);
 
-			Console.WriteLine($"{date}: {user1} has traded {card1} for {card2} from {user2}.");
-
+			Console.Write($"{date}: ", Color.Gold);
+			Console.Write($"{user1} has traded ");
+			card1.PrintWithDamage();
+			Console.Write(" for ");
+			card2.PrintWithDamage();
+			Console.WriteLine($" from {user2}.");
 		}
 		
 		public static DateTime ConvertUnixTimeStampToDateTime(long unixTime) {

@@ -11,5 +11,6 @@ namespace monster_trading_card_game.Cards {
 	    ElementType ElementType { get; set; }
 	    MonsterType MonsterType { get; set; }
 	    void PrintCardName();
+	    void PrintWithDamage(); 
     }
 }

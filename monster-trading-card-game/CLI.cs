@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Database;
 using monster_trading_card_game.Enums;
-using monster_trading_card_game.Trade;
 using monster_trading_card_game.Users;
 using Console = Colorful.Console;  
 
@@ -21,6 +16,10 @@ namespace monster_trading_card_game {
 	        IsLoggedIn = false; 
         }
 
+		/// <summary>
+		/// Shows the main menu and reads the input from the user
+		/// </summary>
+		/// <returns> Command that determines action </returns>
         public Command GetUserCommand() {
 			Console.Clear();
 	        if(!IsLoggedIn)
@@ -70,6 +69,10 @@ namespace monster_trading_card_game {
 	        return Command.Invalid; 
         }
 
+		/// <summary>
+		/// Obfuscates password on input
+		/// </summary>
+		/// <returns> Password </returns>
         private string ReadPassword() {
 	        var password = string.Empty;
 	        ConsoleKey key;
@@ -89,6 +92,11 @@ namespace monster_trading_card_game {
 	        return password;
         }
 
+		/// <summary>
+		/// Reads registration data from user and registers user in Database
+		/// </summary>
+		/// <returns> true if registration successful </returns>
+		/// <returns> false if registration fails </returns>
         public bool RegisterUser() {
 	        Console.Write("Username: ", Color.Silver);
 	        string username = Console.ReadLine();
@@ -100,7 +108,12 @@ namespace monster_trading_card_game {
 	        return db.RegisterUser(new User(username, password));
         }
 
-        public bool LoginUser() {
+		/// <summary>
+		/// Reads login data from user and tries to log user in
+		/// </summary>
+		/// <returns> true if login successful </returns>
+		/// <returns> false if login fails </returns>
+		public bool LoginUser() {
 			Console.Write("Username: ", Color.Silver);
 			string username = Console.ReadLine();
 			Console.Write("Password: ", Color.Silver);
@@ -118,11 +131,17 @@ namespace monster_trading_card_game {
 			return false; 
         }
 
+		/// <summary>
+		/// Logs out user by unsetting variables
+		/// </summary>
         public void LogoutUser() {
 	        IsLoggedIn = false;
 	        LoggedInUser = null; 
         }
 
+		/// <summary>
+		/// Shows menu for Battle command and gets user input 
+		/// </summary>
         public void Battle() {
 	        bool battleFinished = false; 
 	        string action = "";
@@ -142,12 +161,9 @@ namespace monster_trading_card_game {
 				        LoggedInUser.Challenge(bot);
 				        battleFinished = true;
 				        break;
-			        case "2":
+					case "2":
 				        Console.Clear();
-
-						// TODO: Send Battle Request to other players or accept battle requests from other players
-
-				        break;
+						break;
 			        case "X":
 				        return;
 			        default:
@@ -163,6 +179,9 @@ namespace monster_trading_card_game {
 			Console.ReadKey(); 
         }
 
+		/// <summary>
+		/// Shows menu for Profile command and gets user input
+		/// </summary>
         public void Profile() {
 	        string action = ""; 
 			while(action != "X"){
@@ -224,6 +243,9 @@ namespace monster_trading_card_game {
 			}
         }
 
+		/// <summary>
+		/// Shows menu for Buy command and gets user input for package number
+		/// </summary>
 		public void GetPackage() {
 			Console.WriteLine("\nChoose a package to buy (5 Coins):");
 			Console.Write("  [1] "); Console.WriteLine("Fire Package", Color.Firebrick);
@@ -260,16 +282,18 @@ namespace monster_trading_card_game {
 	        LoggedInUser.BuyPackage(p);
         }
 
+		/// <summary>
+		/// Shows Scoreboard for Score command
+		/// </summary>
 		public void Scores() {
 			var dbUser = new DBUser();
 
-			var users = dbUser.GetAllUsers();
-
 			// Table Heading
-			Console.WriteLine($"\n{"#".PadRight(4)}{"Username".PadRight(20)}{"Elo".PadRight(10)}{"Wins".PadRight(10)}{"Losses".PadRight(10)}W/L-Ratio", Color.Silver);
+			Console.Clear(); 
+			Console.WriteLine($"{"#".PadRight(4)}{"Username".PadRight(20)}{"Elo".PadRight(10)}{"Wins".PadRight(10)}{"Losses".PadRight(10)}W/L-Ratio", Color.Silver);
 
 			int i = 1; 
-			foreach (var user in users) {
+			foreach (var user in dbUser.GetAllUsers()) {
 				// Display Scores of each User
 				var username = user.Item1;
 				var elo = user.Item2;
@@ -288,6 +312,9 @@ namespace monster_trading_card_game {
 			Console.ReadKey();
 		}
 
+		/// <summary>
+		/// Shows menu for Trade command and gets user input
+		/// </summary>
 		public void Trade() {
 			string action = "";
 
