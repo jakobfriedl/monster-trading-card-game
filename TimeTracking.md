@@ -13,3 +13,4 @@
 30/12/2021 	1h Password Change 
 			2h Manage Own Offers (Remove, Edit), Improve UI
 1/1/2022	2h Transaction History
+2/1/2022	2h Start Multiplayer Battle Requests, Improve UI

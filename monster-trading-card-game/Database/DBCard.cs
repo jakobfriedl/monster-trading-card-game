@@ -3,8 +3,7 @@ using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Enums;
 using monster_trading_card_game.Users;
-using Npgsql; 
-
+using Npgsql;
 
 namespace monster_trading_card_game.Database {
     class DBCard {

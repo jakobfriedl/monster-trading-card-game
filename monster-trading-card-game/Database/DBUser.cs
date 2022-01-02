@@ -207,18 +207,23 @@ namespace monster_trading_card_game.Database {
 	        return dbCard.AddPackageToCards(package, user.Id);
 		}
 
-        public List<Tuple<string, int, int, int>> GetAllUsers() {
+        public List<IUser> GetAllUsers() {
 	        var conn = dbConn.Connect();
 
-	        var users = new List<Tuple<string, int, int, int>>();
+	        var users = new List<IUser>();
 
 	        try {
-		        var selectUsersCmd = new NpgsqlCommand("select username, elo, wins, losses from \"user\" order by elo desc", conn);
+		        var selectUsersCmd = new NpgsqlCommand("select * from \"user\" order by elo desc", conn);
 
 		        using (var reader = selectUsersCmd.ExecuteReader()) {
 			        while (reader.Read()) {
 
-				        var stats = new Tuple<string, int, int, int>((string)reader["username"], (int)reader["elo"],
+				        var stats = new User(
+					        (int)reader["user_id"],
+					        (string)reader["username"],
+					        (string)reader["password"],
+					        (int)reader["coins"],
+					        (int)reader["elo"],
 					        (int)reader["wins"],
 					        (int)reader["losses"]);
 

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
+using System.Xml;
+using Castle.Core.Internal;
+using monster_trading_card_game.Battle;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Database;
@@ -33,6 +36,7 @@ namespace monster_trading_card_game.Users {
 	    public User() {
 
 	    }
+
 	    public User(string username, string password) {
 		    Id = 0; 
 		    Username = username;
@@ -550,6 +554,91 @@ namespace monster_trading_card_game.Users {
 				t.PrintTransaction();
 			}
 			Console.WriteLine();
+		}
+
+		public void SendBattleRequest() {
+			var dbUser = new DBUser();
+
+			Console.WriteLine($"{"#".PadRight(4)}{"Username".PadRight(20)}{"Elo".PadRight(10)}{"Wins".PadRight(10)}{"Losses".PadRight(10)}W/L-Ratio", Color.Silver);
+
+			// Get all users except the currently logged in user
+			var users = dbUser.GetAllUsers().Where(user => user.Id != Id).ToList(); 
+
+			int i = 1;
+			foreach (var user in users) {
+				double ratio = user.Losses == 0 ? 0 : (double)user.Wins / (double)user.Losses; // Calculate win-loss ratio
+				Console.WriteLine($"{i.ToString().PadRight(4)}{user.Username.PadRight(20)}{user.Elo.ToString().PadRight(10)}{user.Wins.ToString().PadRight(10)}{user.Losses.ToString().PadRight(10)}{ratio.ToString()}");
+				i++;
+			}
+
+			IUser opponent = null;
+			while (opponent == null) {
+				Console.Write("Enter # of player you want to challenge (x to go back): ");
+				var input = Console.ReadLine();
+				if (input.ToLower() == "x") return;
+
+				try {
+					opponent = users.ElementAt(Convert.ToInt32(input) - 1); 
+				} catch (Exception) {
+					Console.Write("Invalid Input. ", Color.Red);
+				}
+			}
+
+			var request = new BattleRequest(Id, opponent.Id);
+
+			var dbBattle = new DBBattle();
+			if (dbBattle.CreateBattleRequest(request)) {
+				Console.WriteLine("Battle request successfully sent.", Color.ForestGreen);
+			} else {
+				Console.WriteLine("Failed to send battle request.", Color.Red);
+			}
+		}
+
+		public void HandleBattleRequests() {
+			var dbBattle = new DBBattle();
+			var dbUser = new DBUser();
+
+			var openRequests = dbBattle.GetAllOpenRequestsByUserId(Id);
+
+			if (openRequests.IsNullOrEmpty()) {
+				Console.WriteLine("No Requests available.", Color.Red);
+				return; 
+			}
+
+			int i = 1; 
+			foreach (var req in openRequests) {
+				Console.Write($"  [{i.ToString()}] ");
+				if (req.User1 == Id) {
+					Console.Write("=> to ", Color.LawnGreen);
+					Console.WriteLine(dbUser.GetUsernameByUserId(req.User2));
+				} else {
+					Console.Write("<= from ", Color.OrangeRed);
+					Console.WriteLine(dbUser.GetUsernameByUserId(req.User1));
+				}
+				i++; 
+			}
+
+			BattleRequest selectedReq = null;
+			while (selectedReq == null) {
+				Console.Write("Enter # of battle request you want to manage (x to go back): ");
+				var input = Console.ReadLine();
+				if (input.ToLower() == "x") return;
+
+				try {
+					selectedReq = openRequests.ElementAt(Convert.ToInt32(input) - 1);
+				} catch (Exception) {
+					Console.Write("Invalid Input. ", Color.Red);
+				}
+			}
+
+			// Logged in User has sent this request and can now delete it
+			if (Id == selectedReq.User1) {
+				// TODO: Ask for confirmation and remove Request
+				return; 
+			}
+
+			// TODO: Ask if user wants to deny or accept 
+			// TODO: On accept, start battle and update request to completed
 		}
     }
 }

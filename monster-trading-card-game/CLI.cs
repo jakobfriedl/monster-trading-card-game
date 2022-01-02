@@ -148,7 +148,8 @@ namespace monster_trading_card_game {
 
 	        while (action != "X" && !battleFinished) {
 		        Console.Write("  [1] "); Console.WriteLine("Play against Bot");
-		        Console.Write("  [2] "); Console.WriteLine("Play against other Player");
+		        Console.Write("  [2] "); Console.WriteLine("Send Battle Request");
+		        Console.Write("  [3] "); Console.WriteLine("Accept/Deny Battle Request");
 		        Console.Write("  [X] "); Console.WriteLine("Leave Battle Area");
 
 		        Console.Write(" >> ");
@@ -163,6 +164,11 @@ namespace monster_trading_card_game {
 				        break;
 					case "2":
 				        Console.Clear();
+				        LoggedInUser.SendBattleRequest(); 
+						break;
+					case "3":
+						Console.Clear();
+						LoggedInUser.HandleBattleRequests();
 						break;
 			        case "X":
 				        return;
@@ -295,16 +301,11 @@ namespace monster_trading_card_game {
 			int i = 1; 
 			foreach (var user in dbUser.GetAllUsers()) {
 				// Display Scores of each User
-				var username = user.Item1;
-				var elo = user.Item2;
-				var wins = user.Item3;
-				var losses = user.Item4;
-				
-				double ratio = losses == 0 ? 0 : (double)wins / (double)losses; // Calculate win-loss ratio
+				double ratio = user.Losses == 0 ? 0 : (double)user.Wins / (double)user.Losses; // Calculate win-loss ratio
 
 				Console.WriteLine(
-					$"{i.ToString().PadRight(4)}{username.PadRight(20)}{elo.ToString().PadRight(10)}{wins.ToString().PadRight(10)}{losses.ToString().PadRight(10)}{ratio.ToString()}", 
-					user.Item1 == LoggedInUser.Username ? Color.Gold : Color.White);
+					$"{i.ToString().PadRight(4)}{user.Username.PadRight(20)}{user.Elo.ToString().PadRight(10)}{user.Wins.ToString().PadRight(10)}{user.Losses.ToString().PadRight(10)}{ratio.ToString()}", 
+					user.Id == LoggedInUser.Id ? Color.Gold : Color.White);
 				i++; 
 			}
 

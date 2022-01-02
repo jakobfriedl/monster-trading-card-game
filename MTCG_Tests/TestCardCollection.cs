@@ -24,6 +24,7 @@ namespace MTCG_Tests {
 			Assert.IsFalse(_stack.IsEmpty());
 		}
 
+		[Test]
 		public void TestCount_Returns2() {
 			// Arrange
 			_stack.AddCard(new Spell(0, "Test", 0, ElementType.Water));
