@@ -61,5 +61,23 @@ namespace monster_trading_card_game.Database {
 			conn.Close();
 			return requests; 
 	    }
+
+	    public bool RemoveBattleRequestById(int id) {
+		    var conn = dbConn.Connect();
+
+		    try {
+			    using (var deleteCmd = new NpgsqlCommand("delete from \"battle\" where battle_id=@id", conn)) {
+				    deleteCmd.Parameters.AddWithValue("id", id); 
+					deleteCmd.Prepare();
+
+					if (deleteCmd.ExecuteNonQuery() < 0) return false; 
+			    }
+		    } catch (PostgresException) {
+			    return false; 
+		    }
+
+		    conn.Close();
+		    return true;
+	    }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
-using System.Xml;
 using Castle.Core.Internal;
 using monster_trading_card_game.Battle;
 using monster_trading_card_game.CardCollections;
@@ -80,6 +79,9 @@ namespace monster_trading_card_game.Users {
 		    }
 	    }
 
+		/// <summary>
+		/// Build Deck of 4 cards from own card stack
+		/// </summary>
 	    public void BuildDeck() {
 		    Console.WriteLine("Current Deck: ");
 		    Deck.Print();
@@ -138,8 +140,9 @@ namespace monster_trading_card_game.Users {
 			Random random = new Random();
 			return Deck.Cards.ElementAt(random.Next(Deck.Count()-1)); 
 		}
+
 		public void Challenge(IUser opponent) {
-			Battle battle = new Battle(this, opponent);
+			Battle.Battle battle = new Battle.Battle(this, opponent);
 			battle.StartBattle(); 
 		}
 
@@ -168,6 +171,9 @@ namespace monster_trading_card_game.Users {
 			dbUser.UpdateStats(this);
 		}
 
+		/// <summary>
+		/// Prit User Stats
+		/// </summary>
 		public void Print() {
 			var dbCard = new DBCard();
 			var dbTransaction = new DBTransaction();
@@ -183,6 +189,10 @@ namespace monster_trading_card_game.Users {
 			Console.Write("Cards: ", Color.Silver); Console.WriteLine(dbCard.GetAllCardsFromUserId(Id).Count() + "\n");
 		}
 
+		/// <summary>
+		/// Buy a package und safe transaction to DB
+		/// </summary>
+		/// <param name="package"> Object of selected package </param>
 		public void BuyPackage(Package package) {
 			Coins -= package.Cost;
 
@@ -199,6 +209,15 @@ namespace monster_trading_card_game.Users {
 			}
 		}
 
+		/// <summary>
+		/// Specify requested card for offer
+		/// </summary>
+		/// <returns>
+		///	Tuple consisting of 3 values:
+		///	* ElementType of wanted card, -1 if any element
+		/// * MonsterType of wanted card, 0 if spell, -1 if any type
+		/// * Minimum Damage
+		/// </returns>
 		private Tuple<int, int, int> GetCardRequest() {
 			Console.WriteLine("What should the element of the received card be?\nPress any other key if the element does not matter.");
 			Console.Write("  [1] "); Console.WriteLine("Fire", Color.Firebrick);
@@ -252,6 +271,10 @@ namespace monster_trading_card_game.Users {
 			return new Tuple<int, int, int>(element, monster, damage); 
 		}
 
+		/// <summary>
+		/// Get price of offer
+		/// </summary>
+		/// <returns> price of offer in coins </returns>
 		private int GetOfferPrice() {
 			// Enter alternative price in coins
 			int price = 0;
@@ -268,6 +291,9 @@ namespace monster_trading_card_game.Users {
 			return price; 
 		}
 
+		/// <summary>
+		/// Select a card to offer create new Offer in Database
+		/// </summary>
 		public void OfferCard() {
 			var dbCard = new DBCard();
 
@@ -328,6 +354,11 @@ namespace monster_trading_card_game.Users {
 			}
 		}
 
+		/// <summary>
+		/// Displays all offers from either logged in user or all other users
+		/// </summary>
+		/// <param name="own"> if true, don't show username in table and only show offers of logged in user </param>
+		/// <returns> List of offers </returns>
 		private List<Offer> ListOffers(bool own) {
 			var dbOffer = new DBOffer();
 			
@@ -360,6 +391,11 @@ namespace monster_trading_card_game.Users {
 			return offers; 
 		}
 
+		/// <summary>
+		/// Select a specific offer from a list of offers
+		/// </summary>
+		/// <param name="offers"> List of Offers either from logged in user or all other users </param>
+		/// <returns> the object of the selected offer</returns>
 		private Offer SelectOffer(List<Offer> offers) {
 			Offer offer = null;
 			string input = "";
@@ -383,6 +419,10 @@ namespace monster_trading_card_game.Users {
 			return offer; 
 		}
 
+		/// <summary>
+		/// Lists all of the users own offers
+		/// User can then remove the offer, change the wanted card or change the price
+		/// </summary>
 		public void ManageOwnOffers() {
 			var dbOffer = new DBOffer();
 			
@@ -437,6 +477,10 @@ namespace monster_trading_card_game.Users {
 			}
 		}
 
+		/// <summary>
+		/// Shows all available offers from other players
+		/// Logged in user can then trade own cards against offered card or buy it with coins
+		/// </summary>
 		public void FindOtherOffers() {
 			var dbOffer = new DBOffer();
 			var dbCard = new DBCard();
@@ -540,6 +584,9 @@ namespace monster_trading_card_game.Users {
 			}
 		}
 
+		/// <summary>
+		/// Display all transactions an user has completed, this includes packages, trades and buying cards from other players
+		/// </summary>
 		public void ShowTransactions() {
 			var dbTransaction = new DBTransaction();
 
@@ -556,6 +603,9 @@ namespace monster_trading_card_game.Users {
 			Console.WriteLine();
 		}
 
+		/// <summary>
+		/// Send Battle Request to another player
+		/// </summary>
 		public void SendBattleRequest() {
 			var dbUser = new DBUser();
 
@@ -594,15 +644,21 @@ namespace monster_trading_card_game.Users {
 			}
 		}
 
-		public void HandleBattleRequests() {
+		/// <summary>
+		/// Option 3 of Battle menu, manage outgoing and incoming battle requests
+		/// Remove sent requests and accept/deny received requests
+		/// </summary>
+		/// <returns> true if a battle is played and completed </returns>
+		/// <returns> false if no battle is played </returns>
+		public bool HandleBattleRequests() {
 			var dbBattle = new DBBattle();
 			var dbUser = new DBUser();
 
 			var openRequests = dbBattle.GetAllOpenRequestsByUserId(Id);
 
 			if (openRequests.IsNullOrEmpty()) {
-				Console.WriteLine("No Requests available.", Color.Red);
-				return; 
+				Console.WriteLine("No Requests available.\n", Color.Red);
+				return false; 
 			}
 
 			int i = 1; 
@@ -622,7 +678,7 @@ namespace monster_trading_card_game.Users {
 			while (selectedReq == null) {
 				Console.Write("Enter # of battle request you want to manage (x to go back): ");
 				var input = Console.ReadLine();
-				if (input.ToLower() == "x") return;
+				if (input.ToLower() == "x") return false;
 
 				try {
 					selectedReq = openRequests.ElementAt(Convert.ToInt32(input) - 1);
@@ -633,12 +689,42 @@ namespace monster_trading_card_game.Users {
 
 			// Logged in User has sent this request and can now delete it
 			if (Id == selectedReq.User1) {
-				// TODO: Ask for confirmation and remove Request
-				return; 
+				Console.Write("Do you want to remove this battle request [y|n]? ");
+				if (Console.ReadLine().ToLower() == "y") {
+					if (dbBattle.RemoveBattleRequestById(selectedReq.Id)) {
+						Console.WriteLine("Request successfully removed.", Color.ForestGreen);
+					}
+				}
+				return false; 
 			}
 
-			// TODO: Ask if user wants to deny or accept 
-			// TODO: On accept, start battle and update request to completed
+			// Logged in User has received this request and can now accept or deny it
+			Console.WriteLine("What do you want to do with this request?");
+			Console.WriteLine("  [1] Accept Request");
+			Console.WriteLine("  [2] Deny Request");
+			Console.WriteLine("  [X] Back");
+
+			while (true) {
+				Console.Write(" >> ");
+				switch (Console.ReadLine().ToUpper()) {
+					case "1":
+						// Accept Battle Request and Challenge other Player
+						Challenge(dbUser.GetUserObjectByUserId(selectedReq.User1));
+						dbBattle.RemoveBattleRequestById(selectedReq.Id);
+						return true;
+					case "2":
+						// Deny Battle Request
+						if (dbBattle.RemoveBattleRequestById(selectedReq.Id)) {
+							Console.WriteLine("Request successfully denied.", Color.ForestGreen);
+						}
+						return false;
+					case "X":
+						return false;
+					default:
+						Console.Write("Invalid Input. ", Color.Red);
+						break; 
+				}
+			}
 		}
     }
 }

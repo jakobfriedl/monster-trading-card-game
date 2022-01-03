@@ -14,3 +14,4 @@
 			2h Manage Own Offers (Remove, Edit), Improve UI
 1/1/2022	2h Transaction History
 2/1/2022	2h Start Multiplayer Battle Requests, Improve UI
+3/1/2022	2h Finish Multiplaye Battle, Comment Functions in User Class

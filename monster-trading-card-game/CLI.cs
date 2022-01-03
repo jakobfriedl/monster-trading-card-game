@@ -149,7 +149,7 @@ namespace monster_trading_card_game {
 	        while (action != "X" && !battleFinished) {
 		        Console.Write("  [1] "); Console.WriteLine("Play against Bot");
 		        Console.Write("  [2] "); Console.WriteLine("Send Battle Request");
-		        Console.Write("  [3] "); Console.WriteLine("Accept/Deny Battle Request");
+		        Console.Write("  [3] "); Console.WriteLine("Manage Battle Request");
 		        Console.Write("  [X] "); Console.WriteLine("Leave Battle Area");
 
 		        Console.Write(" >> ");
@@ -168,7 +168,7 @@ namespace monster_trading_card_game {
 						break;
 					case "3":
 						Console.Clear();
-						LoggedInUser.HandleBattleRequests();
+						battleFinished = LoggedInUser.HandleBattleRequests();
 						break;
 			        case "X":
 				        return;
@@ -178,12 +178,7 @@ namespace monster_trading_card_game {
 				        break;
 		        }
 	        }
-
-			var dbCard = new DBCard();
-			LoggedInUser.Deck = dbCard.GetDeckFromUserId(LoggedInUser.Id);
-			Console.WriteLine("\nPress any key to continue.");
-			Console.ReadKey(); 
-        }
+		}
 
 		/// <summary>
 		/// Shows menu for Profile command and gets user input

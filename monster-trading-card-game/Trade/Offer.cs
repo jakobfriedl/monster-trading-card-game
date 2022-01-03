@@ -26,6 +26,9 @@ namespace monster_trading_card_game.Trade {
 	        Price = price <= 0 ? 5 : price; 
         }
 
+		/// <summary>
+		/// Print own offers without username
+		/// </summary>
         public void PrintOwn() {
 	        var dbCard = new DBCard();
 
@@ -37,6 +40,9 @@ namespace monster_trading_card_game.Trade {
 	        Console.WriteLine($"{card.Damage.ToString().PadRight(10)}{element.PadRight(9)}{cardType.PadRight(12)}{MinDamage.ToString().PadRight(12)}{Price.ToString().PadRight(7)}");
         }
 
+        /// <summary>
+		/// Print other offers with username
+		/// </summary>
         public void PrintOther() {
 	        var dbCard = new DBCard();
 	        var dbUser = new DBUser(); 

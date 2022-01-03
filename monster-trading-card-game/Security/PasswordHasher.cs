@@ -6,6 +6,12 @@ namespace monster_trading_card_game.Security {
 		private const int SaltSize = 16;
 		private const int HashSize = 20;
 
+		/// <summary>
+		/// Create Hash from Password
+		/// </summary>
+		/// <param name="password"> Password in clear text </param>
+		/// <param name="iterations"> Iterations, default: 10000 </param>
+		/// <returns> hashed password </returns>
 		public static string Hash(string password, int iterations) {
 			// Create salt
 			using (var rng = new RNGCryptoServiceProvider()) {
@@ -34,6 +40,13 @@ namespace monster_trading_card_game.Security {
 			return hashString.Contains("MTCGHASH$");
 		}
 
+		/// <summary>
+		/// Verify Password Hash
+		/// </summary>
+		/// <param name="password"> Clear text Password </param>
+		/// <param name="hashedPassword"> Hashed Password from Database </param>
+		/// <returns> true if password is verified </returns>
+		/// <returns> false if password cannot be verified </returns>
 		public static bool Verify(string password, string hashedPassword) {
 			// Check hash
 			if (!IsHashSupported(hashedPassword)) {

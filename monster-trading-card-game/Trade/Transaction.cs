@@ -46,6 +46,9 @@ namespace monster_trading_card_game.Trade {
 			Timestamp = timestamp; 
 		}
 
+		/// <summary>
+		/// Print Transaction
+		/// </summary>
 		public void PrintTransaction() {
 			var dbUser = new DBUser(); 
 			var dbCard = new DBCard(); 

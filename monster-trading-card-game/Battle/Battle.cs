@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Drawing;
 using monster_trading_card_game.Cards;
+using monster_trading_card_game.Database;
 using monster_trading_card_game.Enums;
+using monster_trading_card_game.Users;
 using Console = Colorful.Console; 
 
-namespace monster_trading_card_game.Users {
+namespace monster_trading_card_game.Battle {
 	public class Battle {
 		private const int MaxRounds = 100;
 		private const int WeaknessFactor = 2;
@@ -19,7 +21,6 @@ namespace monster_trading_card_game.Users {
 		}
 
 		public IUser StartBattle() {
-
 			for (int i = 0; i < MaxRounds; i++) {
 				ICard card1 = _player1.ChooseRandomCard();
 				ICard card2 = _player2.ChooseRandomCard();
@@ -27,24 +28,26 @@ namespace monster_trading_card_game.Users {
 				Round(i, card1, card2);
 
 				Console.WriteLine();
-
-				if (_player1.Deck.IsEmpty()) {
-					Console.WriteLine($"{_player2.Username} wins the game!", Color.CornflowerBlue);
-					_player2.WinGame();
-					_player1.LoseGame();
-
-					return _player2; 
-				}
-
+				// Player 1 Wins
 				if (_player2.Deck.IsEmpty()) {
 					Console.WriteLine($"{_player1.Username} wins the game!", Color.IndianRed);
 					_player1.WinGame();
 					_player2.LoseGame();
-
+					ResetDecks();
 					return _player1;
+				}
+
+				// Player 2 Wins
+				if (_player1.Deck.IsEmpty()) {
+					Console.WriteLine($"{_player2.Username} wins the game!", Color.CornflowerBlue);
+					_player2.WinGame();
+					_player1.LoseGame();
+					ResetDecks();
+					return _player2; 
 				}
 			}
 			Console.WriteLine($"{MaxRounds} rounds are over. No one wins!", Color.DarkGoldenrod);
+			ResetDecks();
 			return null; 
 		}
 
@@ -70,11 +73,11 @@ namespace monster_trading_card_game.Users {
 			if (roundWinner == card1) {
 				_player2.Deck.RemoveCard(card2);
 				_player1.AddCardToDeck(card2);
-				Console.WriteLine($"{_player1.Username} won round {round}! They now has {_player1.Deck.Count()} cards while {_player2.Username} has {_player2.Deck.Count()}.", Color.IndianRed);
+				Console.WriteLine($"{_player1.Username} won round {round}! They now have {_player1.Deck.Count()} cards while {_player2.Username} has {_player2.Deck.Count()}.", Color.IndianRed);
 			} else if (roundWinner == card2) {
 				_player1.Deck.RemoveCard(card1);
 				_player2.AddCardToDeck(card1);
-				Console.WriteLine($"{_player2.Username} won round {round}! They now has {_player2.Deck.Count()} cards while { _player1.Username} has {_player1.Deck.Count()}.", Color.CornflowerBlue);
+				Console.WriteLine($"{_player2.Username} won round {round}! They now have {_player2.Deck.Count()} cards while { _player1.Username} has {_player1.Deck.Count()}.", Color.CornflowerBlue);
 			} else {
 				Console.WriteLine($"Draw in round {round}!", Color.DarkGoldenrod);
 			}
@@ -168,6 +171,15 @@ namespace monster_trading_card_game.Users {
 
 			if (damage1 == damage2) return null;
 			return damage1 > damage2 ? card1 : card2;
+		}
+
+		public void ResetDecks() {
+			var dbCard = new DBCard();
+
+			_player1.Deck = dbCard.GetDeckFromUserId(_player1.Id);
+			_player2.Deck = dbCard.GetDeckFromUserId(_player2.Id);
+			Console.WriteLine("\nPress any key to continue.");
+			Console.ReadKey();
 		}
 	}
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace monster_trading_card_game.Battle {
+﻿namespace monster_trading_card_game.Battle {
     class BattleRequest {
         public int Id { get; set; }
         public int User1 { get; set; }

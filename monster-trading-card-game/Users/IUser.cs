@@ -32,6 +32,6 @@ namespace monster_trading_card_game.Users {
 		void FindOtherOffers();
 		void ShowTransactions();
 		void SendBattleRequest();
-		void HandleBattleRequests();
+		bool HandleBattleRequests();
 	}
 }

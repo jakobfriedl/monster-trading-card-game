@@ -15,6 +15,12 @@ namespace monster_trading_card_game.Database {
 
 	    private readonly DBConnection dbConn = new DBConnection();
 
+		/// <summary>
+		/// Registers and users and inserts Starter-Cards to Database
+		/// </summary>
+		/// <param name="user"> new User Object </param>
+		/// <returns> true if registration successful </returns>
+		/// <returns> false if registration fails </returns>
 		public bool RegisterUser(IUser user) {
 		    var conn = dbConn.Connect();
 
@@ -69,6 +75,13 @@ namespace monster_trading_card_game.Database {
 		    return true; 
 		}
 
+		/// <summary>
+		/// Checks for username in database and verifies password
+		/// </summary>
+		/// <param name="username"> login-username </param>
+		/// <param name="password"> login-password </param>
+		/// <returns> User object with Cards and Deck if login successful </returns>
+		/// <returns> null if login fails </returns>
         public IUser LoginUser(string username, string password) {
             var conn = dbConn.Connect();
 
@@ -128,7 +141,48 @@ namespace monster_trading_card_game.Database {
 	        return username;
 		}
 
-        public bool UpdateStats(IUser user) {
+        public IUser GetUserObjectByUserId(int id) {
+	        var conn = dbConn.Connect();
+
+	        IUser user = new User();
+	        // Get Username by ID
+	        try {
+		        var userCmd = new NpgsqlCommand("select * from \"user\" where user_id=@user_id", conn);
+		        userCmd.Parameters.AddWithValue("user_id", id);
+		        userCmd.Prepare();
+
+		        using (var reader = userCmd.ExecuteReader()) {
+			        while (reader.Read()) {
+				        user = new User(
+					        (int)reader["user_id"],
+					        (string)reader["username"],
+					        (string)reader["password"],
+					        (int)reader["coins"],
+					        (int)reader["elo"],
+					        (int)reader["wins"],
+					        (int)reader["losses"]);
+			        }
+		        }
+			} catch (PostgresException) {
+		        return null;
+	        }
+
+	        var dbCard = new DBCard();
+
+	        user.CardStack = dbCard.GetCardStackFromUserId(user.Id);
+	        user.Deck = dbCard.GetDeckFromUserId(user.Id);
+
+			conn.Close();
+	        return user;
+        }
+
+		/// <summary>
+		/// Update Stats after a battle
+		/// </summary>
+		/// <param name="user"> user object </param>
+		/// <returns> true if update successful </returns>
+		/// <returns> false if update fails </returns>
+		public bool UpdateStats(IUser user) {
 	        var conn = dbConn.Connect();
 
 	        try {
@@ -149,6 +203,15 @@ namespace monster_trading_card_game.Database {
 	        return true; 
         }
 
+		/// <summary>
+		/// Change Password of specific user
+		/// </summary>
+		/// <param name="id"> Id of User </param>
+		/// <param name="oldPassword"> old password, must be verified with database </param>
+		/// <param name="newPassword"> new password </param>
+		/// <param name="repeatPassword"> repeated new password, must match newPassword</param>
+		/// <returns> true if change successful </returns>
+		/// <returns> false if change fails </returns>
         public bool ChangePassword(int id, string oldPassword, string newPassword, string repeatPassword) {
 	        var conn = dbConn.Connect();
 
@@ -186,6 +249,13 @@ namespace monster_trading_card_game.Database {
 	        return true;
         }
 
+		/// <summary>
+		/// Buy Package, Update coins and add package-cards to Stack
+		/// </summary>
+		/// <param name="package"> Package object </param>
+		/// <param name="user"> User object </param>
+		/// <returns> true if successful </returns>
+		/// <returns> false if fail </returns>
         public bool BuyPackage(Package package, IUser user) {
 	        var conn = dbConn.Connect();
 
@@ -207,6 +277,10 @@ namespace monster_trading_card_game.Database {
 	        return dbCard.AddPackageToCards(package, user.Id);
 		}
 
+		/// <summary>
+		/// Get a list of all users
+		/// </summary>
+		/// <returns> List of users ordered by elo </returns>
         public List<IUser> GetAllUsers() {
 	        var conn = dbConn.Connect();
 
@@ -239,6 +313,11 @@ namespace monster_trading_card_game.Database {
 	        return users; 
         }
 
+		/// <summary>
+		/// Get Number of Coins by User
+		/// </summary>
+		/// <param name="id"> User-ID </param>
+		/// <returns> Number of coins, -1 on error </returns>
         public int GetCoinsByUserId(int id) {
 	        var conn = dbConn.Connect();
 	        int coins = -1;
@@ -258,6 +337,14 @@ namespace monster_trading_card_game.Database {
 	        return coins;
         }
 
+		/// <summary>
+		/// Move coins from one user to another
+		/// </summary>
+		/// <param name="sender"> ID of user that looses coins </param>
+		/// <param name="receiver"> ID of user that receives coins </param>
+		/// <param name="coins"> Number of coins </param>
+		/// <returns> true if transfer is successful </returns>
+		/// <returns> false if transfer is fails </returns>
         public bool TransferCoins(IUser sender, int receiver, int coins) {
 	        var conn = dbConn.Connect();
 
