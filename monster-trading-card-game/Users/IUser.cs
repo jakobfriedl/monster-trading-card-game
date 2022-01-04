@@ -18,11 +18,11 @@ namespace monster_trading_card_game.Users {
 
 		//Functions
 		void Challenge(IUser opponent);
-		void AutoCreateDeck();
 		void BuildDeck();
 		ICard ChooseRandomCard();
 		void AddCardToStack(ICard card);
 		void AddCardToDeck(ICard card);
+		void RemoveCardFromDeck(ICard card);
 		void WinGame();
 		void LoseGame();
 		void Print();

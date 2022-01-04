@@ -9,6 +9,9 @@ namespace monster_trading_card_game.Enums {
 		Fire,
 		Water,
 		Normal,
+		Electric,
+		Ice,
+		Rock,
 		Monster,
 		Spell
 	}

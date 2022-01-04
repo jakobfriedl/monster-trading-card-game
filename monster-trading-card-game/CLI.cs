@@ -252,8 +252,11 @@ namespace monster_trading_card_game {
 			Console.Write("  [1] "); Console.WriteLine("Fire Package", Color.Firebrick);
 			Console.Write("  [2] "); Console.WriteLine("Water Package", Color.DodgerBlue);
 			Console.Write("  [3] "); Console.WriteLine("Normal Package", Color.Gray);
-			Console.Write("  [4] "); Console.WriteLine("Monster Package", Color.Green);
-			Console.Write("  [5] "); Console.WriteLine("Spell Package", Color.DarkViolet);
+			Console.Write("  [4] "); Console.WriteLine("Electric Package", Color.Yellow);
+			Console.Write("  [5] "); Console.WriteLine("Ice Package", Color.LightBlue);
+			Console.Write("  [6] "); Console.WriteLine("Ground Package", Color.SaddleBrown);
+			Console.Write("  [7] "); Console.WriteLine("Monster Package", Color.Green);
+			Console.Write("  [8] "); Console.WriteLine("Spell Package", Color.DarkViolet);
 			Console.Write("  [X] "); Console.WriteLine("Leave Card Shop");
 
 			string package;
@@ -296,7 +299,7 @@ namespace monster_trading_card_game {
 			int i = 1; 
 			foreach (var user in dbUser.GetAllUsers()) {
 				// Display Scores of each User
-				double ratio = user.Losses == 0 ? 0 : (double)user.Wins / (double)user.Losses; // Calculate win-loss ratio
+				double ratio = Math.Round(user.Losses == 0 ? 0 : (double)user.Wins / (double)user.Losses, 3); // Calculate win-loss ratio
 
 				Console.WriteLine(
 					$"{i.ToString().PadRight(4)}{user.Username.PadRight(20)}{user.Elo.ToString().PadRight(10)}{user.Wins.ToString().PadRight(10)}{user.Losses.ToString().PadRight(10)}{ratio.ToString()}", 

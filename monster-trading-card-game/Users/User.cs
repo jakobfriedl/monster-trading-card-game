@@ -8,6 +8,7 @@ using monster_trading_card_game.Battle;
 using monster_trading_card_game.CardCollections;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Database;
+using monster_trading_card_game.Enums;
 using monster_trading_card_game.Trade;
 using Console = Colorful.Console; 
 
@@ -60,7 +61,7 @@ namespace monster_trading_card_game.Users {
 		    Deck = new Deck(); 
 	    }
 
-	    public void AutoCreateDeck() {
+	    private void AutoCreateDeck() {
 		    // Random Cards
 		    // var rand = new Random();
 		    //for (int i = 0; i < Deck.Capacity; i++) {
@@ -154,6 +155,10 @@ namespace monster_trading_card_game.Users {
 			Deck.AddCard(card);
 		}
 
+		public void RemoveCardFromDeck(ICard card) {
+			Deck.RemoveCard(card);
+		}
+
 		public void WinGame() {
 			Wins++;
 			Elo += EloIncrement;
@@ -184,7 +189,7 @@ namespace monster_trading_card_game.Users {
 			Console.Write("Elo: ", Color.Gold); Console.WriteLine(Elo);
 			Console.Write("Wins: ", Color.ForestGreen); Console.WriteLine(Wins);
 			Console.Write("Losses: ", Color.Red); Console.WriteLine(Losses);
-			double ratio = Losses == 0 ? 0 : (double)Wins / (double)Losses; // Calculate win-loss ratio
+			double ratio = Math.Round(Losses == 0 ? 0 : (double)Wins / (double)Losses, 3); // Calculate win-loss ratio
 			Console.Write("W/L-Ratio: ", Color.Silver); Console.WriteLine(ratio);
 			Console.Write("Cards: ", Color.Silver); Console.WriteLine(dbCard.GetAllCardsFromUserId(Id).Count() + "\n");
 		}
@@ -223,6 +228,9 @@ namespace monster_trading_card_game.Users {
 			Console.Write("  [1] "); Console.WriteLine("Fire", Color.Firebrick);
 			Console.Write("  [2] "); Console.WriteLine("Water", Color.DodgerBlue);
 			Console.Write("  [3] "); Console.WriteLine("Normal", Color.Gray);
+			Console.Write("  [4] "); Console.WriteLine("Electric", Color.Yellow);
+			Console.Write("  [5] "); Console.WriteLine("Ice", Color.LightBlue);
+			Console.Write("  [6] "); Console.WriteLine("Ground", Color.SaddleBrown);
 
 			// Enter Element-Type of requested card
 			Console.Write(" >> ");
@@ -232,7 +240,7 @@ namespace monster_trading_card_game.Users {
 				if (input.ToLower() == "x") { Console.Clear(); return null; }
 
 				element = Convert.ToInt32(input) - 1;
-				if (element > 2 || element < 0) element = -1;
+				if (element > Enum.GetNames(typeof(ElementType)).Length || element < 0) element = -1;
 			} catch (FormatException) { }
 
 			Console.WriteLine("What should the type of the received card be?\nPress any other key if the type does not matter.");
@@ -253,7 +261,7 @@ namespace monster_trading_card_game.Users {
 				if (input.ToLower() == "x") { Console.Clear(); return null; }
 
 				monster = Convert.ToInt32(input) - 1;
-				if (monster > 7 || monster < 0) monster = -1;
+				if (monster > Enum.GetNames(typeof(ElementType)).Length+1 || monster < 0) monster = -1;
 			} catch (FormatException) { }
 
 			// Enter minimum damage of requested card

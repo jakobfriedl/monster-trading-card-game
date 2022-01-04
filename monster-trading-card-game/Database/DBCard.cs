@@ -9,17 +9,16 @@ namespace monster_trading_card_game.Database {
     class DBCard {
 	    private readonly DBConnection dbConn = new DBConnection();
 
-	    public CardStack GetCardStackFromUserId(int id) {
+	    public CardStack GetCardStackFromUserId(int userId) {
 		    var conn = dbConn.Connect(); 
 
 		    CardStack stack = new CardStack(); 
 
 		    try {
 				// Only select cards that are not used in the deck or in offers
-				var cardCmd = new NpgsqlCommand("select * from \"card\" where user_id=@user_id and in_deck=@in_deck and card_id not in (select offer.card_id from( select card_id from offer where user_id=@user_id_2) as offer) order by damage desc", conn);
-			    cardCmd.Parameters.AddWithValue("user_id", id);
+				var cardCmd = new NpgsqlCommand("select * from \"card\" where user_id=@id and in_deck=@in_deck and card_id not in (select offer.card_id from( select card_id from offer where user_id=@id) as offer) order by damage desc", conn);
+			    cardCmd.Parameters.AddWithValue("id", userId);
 			    cardCmd.Parameters.AddWithValue("in_deck", false);
-			    cardCmd.Parameters.AddWithValue("user_id_2", id);
 			    cardCmd.Prepare();
 
 			    using (var reader = cardCmd.ExecuteReader()) {
@@ -54,13 +53,13 @@ namespace monster_trading_card_game.Database {
 		    return stack; 
 	    }
 
-	    public Deck GetDeckFromUserId(int id) {
+	    public Deck GetDeckFromUserId(int userId) {
 		    var conn = dbConn.Connect(); 
 		    Deck deck = new Deck();
 
 		    try {
 			    var cardCmd = new NpgsqlCommand("select * from \"card\" where user_id=@user_id and in_deck=@in_deck order by damage desc", conn);
-			    cardCmd.Parameters.AddWithValue("user_id", id);
+			    cardCmd.Parameters.AddWithValue("user_id", userId);
 			    cardCmd.Parameters.AddWithValue("in_deck", true);
 			    cardCmd.Prepare();
 
@@ -96,14 +95,13 @@ namespace monster_trading_card_game.Database {
 		    return deck; 
 	    }
 
-	    public CardStack GetAllCardsFromUserId(int id) {
+	    public CardStack GetAllCardsFromUserId(int userId) {
 		    var conn = dbConn.Connect();
 		    CardStack cards = new CardStack();
 
 		    try {
-			    var cardCmd = new NpgsqlCommand("select * from \"card\" where user_id=@user_id and card_id not in (select offer.card_id from( select card_id from offer where user_id=@user_id_2) as offer) order by damage desc", conn);
-			    cardCmd.Parameters.AddWithValue("user_id", id);
-			    cardCmd.Parameters.AddWithValue("user_id_2", id);
+			    var cardCmd = new NpgsqlCommand("select * from \"card\" where user_id=@user_id and card_id not in (select offer.card_id from( select card_id from offer where user_id=@user_id) as offer) order by damage desc", conn);
+			    cardCmd.Parameters.AddWithValue("user_id", userId);
 			    cardCmd.Prepare();
 
 			    using (var reader = cardCmd.ExecuteReader()) {

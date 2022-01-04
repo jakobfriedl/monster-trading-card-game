@@ -6,6 +6,7 @@ using Console = Colorful.Console;
 
 namespace monster_trading_card_game.Cards {
     public class Spell : ISpell{
+		private readonly Color _color;
 		public int Id { get; set; }
 	    public string Name { get; set; }
 	    public int Damage { get; }
@@ -17,15 +18,36 @@ namespace monster_trading_card_game.Cards {
 		    Name = name;
 		    Damage = damage;
 		    ElementType = type;
+
+		    switch (ElementType) {
+			    case ElementType.Water:
+				    _color = Color.DodgerBlue;
+				    break;
+			    case ElementType.Fire:
+				    _color = Color.Firebrick;
+				    break;
+			    case ElementType.Normal:
+				    _color = Color.Gray;
+				    break;
+			    case ElementType.Electric:
+				    _color = Color.Yellow;
+				    break;
+			    case ElementType.Ice:
+				    _color = Color.LightBlue;
+				    break;
+			    case ElementType.Ground:
+				    _color = Color.SaddleBrown;
+				    break;
+		    }
 		}
 		public void PrintCardName() {
-			Console.Write(ElementType, ElementType == ElementType.Fire ? Color.Firebrick : ElementType == ElementType.Water ? Color.DodgerBlue : Color.Gray);
+			Console.Write(ElementType, _color);
 			Console.Write(" Spell", Color.DarkViolet);
 			Console.Write(" ".PadRight(15 - (ElementType.ToString().Length + "Spell".Length + 1)));
 		}
 
 		public void PrintWithDamage() {
-			Console.Write(ElementType, ElementType == ElementType.Fire ? Color.Firebrick : ElementType == ElementType.Water ? Color.DodgerBlue : Color.Gray);
+			Console.Write(ElementType, _color);
 			Console.Write(" Spell", Color.DarkViolet);
 			Console.Write($" ({Damage})");
 		}

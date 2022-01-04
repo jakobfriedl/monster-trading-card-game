@@ -62,20 +62,20 @@ namespace monster_trading_card_game.Battle {
 			Console.Write($"{_player2.Username}: ", Color.CornflowerBlue); card2.PrintCardName();
 			Console.WriteLine($" - {card2.Damage}");
 
-			if (card1.GetType().Name == "Monster" && card2.GetType().Name == "Monster") {
+			if (card1 is Monster && card2 is Monster) {
 				roundWinner = MonsterBattle(card1, card2);
-			} else if (card1.GetType().Name == "Spell" && card2.GetType().Name == "Spell") {
+			} else if (card1 is Spell && card2 is Spell) {
 				roundWinner = SpellBattle(card1, card2);
 			} else {
 				roundWinner = MixedBattle(card1, card2);
 			}
 
 			if (roundWinner == card1) {
-				_player2.Deck.RemoveCard(card2);
+				_player2.RemoveCardFromDeck(card2);
 				_player1.AddCardToDeck(card2);
 				Console.WriteLine($"{_player1.Username} won round {round}! They now have {_player1.Deck.Count()} cards while {_player2.Username} has {_player2.Deck.Count()}.", Color.IndianRed);
 			} else if (roundWinner == card2) {
-				_player1.Deck.RemoveCard(card1);
+				_player1.RemoveCardFromDeck(card1);
 				_player2.AddCardToDeck(card1);
 				Console.WriteLine($"{_player2.Username} won round {round}! They now have {_player2.Deck.Count()} cards while { _player1.Username} has {_player1.Deck.Count()}.", Color.CornflowerBlue);
 			} else {
@@ -119,12 +119,12 @@ namespace monster_trading_card_game.Battle {
 			int damage1 = card1.Damage;
 			int damage2 = card2.Damage; 
 
-			if (card1.ElementType == _weakness.ElementWeakness[card2.ElementType]) {
+			if (_weakness.ElementWeakness[card2.ElementType].Contains(card1.ElementType)) {
 				damage1 *= WeaknessFactor;
 				damage2 /= WeaknessFactor;
 			}
 
-			if (card2.ElementType == _weakness.ElementWeakness[card1.ElementType]) {
+			if (_weakness.ElementWeakness[card1.ElementType].Contains(card2.ElementType)) {
 				damage1 /= WeaknessFactor;
 				damage2 *= WeaknessFactor; 
 			}
@@ -152,12 +152,12 @@ namespace monster_trading_card_game.Battle {
 			if (card1.MonsterType == MonsterType.Knight && card2.GetType().Name == "Spell" && card2.ElementType == ElementType.Water) return card2; 
 			if (card2.MonsterType == MonsterType.Knight && card1.GetType().Name == "Spell" && card1.ElementType == ElementType.Water) return card1;
 
-			if (card1.ElementType == _weakness.ElementWeakness[card2.ElementType]) {
+			if (_weakness.ElementWeakness[card2.ElementType].Contains(card1.ElementType)) {
 				damage1 *= WeaknessFactor;
 				damage2 /= WeaknessFactor;
 			}
 
-			if (card2.ElementType == _weakness.ElementWeakness[card1.ElementType]) {
+			if (_weakness.ElementWeakness[card1.ElementType].Contains(card2.ElementType)) {
 				damage1 /= WeaknessFactor;
 				damage2 *= WeaknessFactor;
 			}
