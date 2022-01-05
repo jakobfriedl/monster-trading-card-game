@@ -261,13 +261,13 @@ namespace monster_trading_card_game {
 
 			string package;
 			while (true) {
-				Console.Write(" >> ");
-				package = Console.ReadLine();
+				System.Console.Write(" >> ");
+				package = Console.ReadLine().ToLower();
 				
 				if (package == "x") return;
 
 				try {
-					if (Convert.ToInt32(package) <= 5 && Convert.ToInt32(package) >= 1) {
+					if (Convert.ToInt32(package) <= Enum.GetNames(typeof(PackageType)).Length && Convert.ToInt32(package) >= 1) {
 						break;
 					}
 					Console.Write("Invalid input.", Color.Red);

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using Castle.Core.Internal;
 using monster_trading_card_game.Cards;
 using monster_trading_card_game.Enums;
+using Console = Colorful.Console; 
 
 namespace monster_trading_card_game.CardCollections {
     public class CardStack : ICardCollection {
@@ -25,11 +25,21 @@ namespace monster_trading_card_game.CardCollections {
 	    }
 
 	    public void Print() {
-		    foreach (ICard card in Cards) {
+			Console.WriteLine($"{"#".PadRight(4)}{"Card Name".PadRight(18)}{"Damage".PadRight(10)}{"Experience".PadRight(13)}Level");
+
+			int i = 1;
+			foreach (var card in Cards) {
+				Console.Write(i.ToString().PadRight(4));
 				card.PrintCardName();
-				Console.WriteLine($" -   {card.Damage}");
+				System.Console.Write(card.Damage.ToString().PadRight(10));
+				System.Console.Write(card.Experience.ToString().PadRight(13));
+				for (int j = 0; j < card.Level; j++) {
+					Console.Write("*", Color.Gold);
+				}
+				System.Console.WriteLine();
+				i++;
 			}
-	    }
+		}
 
 	    public void RemoveCard(ICard card) {
 		    Cards.Remove(card);

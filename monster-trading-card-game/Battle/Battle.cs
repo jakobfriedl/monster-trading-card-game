@@ -10,6 +10,11 @@ namespace monster_trading_card_game.Battle {
 	public class Battle {
 		private const int MaxRounds = 100;
 		private const int WeaknessFactor = 2;
+		private const int CriticalHit = 2;
+		private const int ExpGainBase = 200;
+		private const int ExpLevelMultiplier = 20;
+		private const int BeatingStrongerOpponentBonus = 20;
+
 		private readonly Weakness _weakness = new();
 
 		private readonly IUser _player1;
@@ -27,7 +32,7 @@ namespace monster_trading_card_game.Battle {
 
 				Round(i, card1, card2);
 
-				Console.WriteLine();
+				System.Console.WriteLine();
 				// Player 1 Wins
 				if (_player2.Deck.IsEmpty()) {
 					Console.WriteLine($"{_player1.Username} wins the game!", Color.IndianRed);
@@ -54,13 +59,12 @@ namespace monster_trading_card_game.Battle {
 		public void Round(int round, ICard card1, ICard card2) {
 			ICard roundWinner;
 
-			Console.WriteLine($"ROUND {round}");
-			Console.WriteLine("Cards used in this round:");
-			Console.Write($"  {_player1.Username}: ", Color.IndianRed); card1.PrintCardName();
-			Console.Write($" - {card1.Damage}");
-			Console.Write("    VS    ");
-			Console.Write($"{_player2.Username}: ", Color.CornflowerBlue); card2.PrintCardName();
-			Console.WriteLine($" - {card2.Damage}");
+			System.Console.WriteLine($"ROUND {round}");
+			System.Console.WriteLine("Before damage calculation:");
+			card1.PrintWithDamage();
+			System.Console.Write("    VS    ");
+			card2.PrintWithDamage();
+			System.Console.WriteLine();
 
 			if (card1 is Monster && card2 is Monster) {
 				roundWinner = MonsterBattle(card1, card2);
@@ -71,12 +75,22 @@ namespace monster_trading_card_game.Battle {
 			}
 
 			if (roundWinner == card1) {
+				// Move Card to Winner
 				_player2.RemoveCardFromDeck(card2);
 				_player1.AddCardToDeck(card2);
+				
+				// Level Up Card
+				card1.LevelUp(ExpGainBase - ExpLevelMultiplier*card1.Level + (card2.Level > card1.Level ? BeatingStrongerOpponentBonus : 0));
+
 				Console.WriteLine($"{_player1.Username} won round {round}! They now have {_player1.Deck.Count()} cards while {_player2.Username} has {_player2.Deck.Count()}.", Color.IndianRed);
 			} else if (roundWinner == card2) {
+				// Move Card to Winner
 				_player1.RemoveCardFromDeck(card1);
 				_player2.AddCardToDeck(card1);
+
+				// Level Up Card
+				card2.LevelUp(ExpGainBase - ExpLevelMultiplier*card2.Level+ (card1.Level > card2.Level ? BeatingStrongerOpponentBonus : 0));
+
 				Console.WriteLine($"{_player2.Username} won round {round}! They now have {_player2.Deck.Count()} cards while { _player1.Username} has {_player1.Deck.Count()}.", Color.CornflowerBlue);
 			} else {
 				Console.WriteLine($"Draw in round {round}!", Color.DarkGoldenrod);
@@ -103,21 +117,38 @@ namespace monster_trading_card_game.Battle {
 			if ((card2.MonsterType == MonsterType.Elf && card2.ElementType == ElementType.Fire && card1.MonsterType == MonsterType.Dragon))
 				return card2;
 
-            Console.WriteLine("After damage calculation:");
-			Console.Write($"  {_player1.Username}: ", Color.IndianRed); card1.PrintCardName();
-			Console.Write($" - {card1.Damage}");
-			Console.Write("    VS    ");
-			Console.Write($"{_player2.Username}: ", Color.CornflowerBlue); card2.PrintCardName();
-			Console.WriteLine($" - {card2.Damage}");
+			// TODO: Check for Critical Hit
+			var damage1 = card1.Damage;
+			var damage2 = card2.Damage;
+
+			var random = new Random();
+			if (random.NextDouble() <= card1.CriticalChance) {
+				Console.Write("CRITICAL HIT: ", Color.Red);
+				card1.PrintWithDamage();
+				System.Console.WriteLine(" lands a critical hit!");
+				damage1 *= CriticalHit;
+			}
+			if (random.NextDouble() <= card2.CriticalChance) {
+				Console.Write("CRITICAL HIT: ", Color.Red);
+				card2.PrintWithDamage();
+				System.Console.WriteLine(" lands a critical hit!");
+				damage2 *= CriticalHit;
+			}
+
+			System.Console.WriteLine("After damage calculation:");
+			card1.PrintWithDamage(damage1);
+			System.Console.Write("    VS    ");
+			card2.PrintWithDamage(damage2);
+			System.Console.WriteLine();
 
 			// Check higher Damage
-			if (card1.Damage == card2.Damage) return null;
-			return card1.Damage > card2.Damage ? card1 : card2; 
+			if (damage1 == damage2) return null;
+			return damage1 > damage2 ? card1 : card2; 
 		}
 
 		public ICard SpellBattle(ICard card1, ICard card2) {
-			int damage1 = card1.Damage;
-			int damage2 = card2.Damage; 
+			var damage1 = card1.Damage;
+			var damage2 = card2.Damage; 
 
 			if (_weakness.ElementWeakness[card2.ElementType].Contains(card1.ElementType)) {
 				damage1 *= WeaknessFactor;
@@ -129,12 +160,25 @@ namespace monster_trading_card_game.Battle {
 				damage2 *= WeaknessFactor; 
 			}
 
-			Console.WriteLine("After damage calculation:");
-			Console.Write($"  {_player1.Username}: ", Color.IndianRed); card1.PrintCardName();
-			Console.Write($" - {damage1}");
-			Console.Write("    VS    ");
-			Console.Write($"{_player2.Username}: ", Color.CornflowerBlue); card2.PrintCardName();
-			Console.WriteLine($" - {damage2}");
+			var random = new Random();
+			if (random.NextDouble() <= card1.CriticalChance) {
+				Console.Write("CRITICAL HIT: ", Color.Red);
+				card1.PrintWithDamage();
+				System.Console.WriteLine(" lands a critical hit!");
+				damage1 *= CriticalHit;
+			}
+			if (random.NextDouble() <= card2.CriticalChance) {
+				Console.Write("CRITICAL HIT: ", Color.Red);
+				card2.PrintWithDamage();
+				System.Console.WriteLine(" lands a critical hit!");
+				damage2 *= CriticalHit;
+			}
+
+			System.Console.WriteLine("After damage calculation:");
+			card1.PrintWithDamage(damage1);
+			System.Console.Write("    VS    ");
+			card2.PrintWithDamage(damage2);
+			System.Console.WriteLine();
 
 			if (damage1 == damage2) return null;
 			return damage1 > damage2 ? card1 : card2; 
@@ -162,12 +206,25 @@ namespace monster_trading_card_game.Battle {
 				damage2 *= WeaknessFactor;
 			}
 
-			Console.WriteLine("After damage calculation:");
-			Console.Write($"  {_player1.Username}: ", Color.IndianRed); card1.PrintCardName();
-			Console.Write($" - {damage1}");
-			Console.Write("    VS    ");
-			Console.Write($"{_player2.Username}: ", Color.CornflowerBlue); card2.PrintCardName();
-			Console.WriteLine($" - {damage2}");
+			var random = new Random();
+			if (random.NextDouble() <= card1.CriticalChance) {
+				Console.Write("CRITICAL HIT: ", Color.Red);
+				card1.PrintWithDamage();
+				System.Console.WriteLine(" lands a critical hit!");
+				damage1 *= CriticalHit;
+			}
+			if (random.NextDouble() <= card2.CriticalChance) {
+				Console.Write("CRITICAL HIT: ", Color.Red);
+				card2.PrintWithDamage();
+				System.Console.WriteLine(" lands a critical hit!");
+				damage2 *= CriticalHit;
+			}
+
+			System.Console.WriteLine("After damage calculation:");
+			card1.PrintWithDamage(damage1);
+			System.Console.Write("    VS    ");
+			card2.PrintWithDamage(damage2);
+			System.Console.WriteLine(); 
 
 			if (damage1 == damage2) return null;
 			return damage1 > damage2 ? card1 : card2;
@@ -178,7 +235,7 @@ namespace monster_trading_card_game.Battle {
 
 			_player1.Deck = dbCard.GetDeckFromUserId(_player1.Id);
 			_player2.Deck = dbCard.GetDeckFromUserId(_player2.Id);
-			Console.WriteLine("\nPress any key to continue.");
+			System.Console.WriteLine("\nPress any key to continue.");
 			Console.ReadKey();
 		}
 	}

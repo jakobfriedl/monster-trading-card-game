@@ -10,7 +10,12 @@ namespace monster_trading_card_game.Cards {
 	    string Name { get; set; }
 	    ElementType ElementType { get; set; }
 	    MonsterType MonsterType { get; set; }
-	    void PrintCardName();
-	    void PrintWithDamage(); 
+		int Level { get; set; }
+		int Experience { get; set; }
+		double CriticalChance { get; set; }
+		void PrintCardName();
+	    void PrintWithDamage();
+	    void PrintWithDamage(int damage);
+	    void LevelUp(int exp);
     }
 }

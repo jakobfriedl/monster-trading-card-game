@@ -17,8 +17,6 @@ namespace monster_trading_card_game.Database {
 						"insert into \"transaction\"(user_id_1, user_id_2, card_id_1, card_id_2, coins, timestamp) values (@user1, @user2, @card1, @card2, @coins, @timestamp)",
 						conn)) {
 
-					Console.WriteLine(transaction.Coins);
-
 					insertCmd.Parameters.AddWithValue("user1", transaction.User1);
 					insertCmd.Parameters.AddWithValue("user2", transaction.User2);
 					insertCmd.Parameters.AddWithValue("card1", transaction.Card1);

@@ -96,17 +96,12 @@ namespace monster_trading_card_game.Users {
 			DBCard dbCard = new DBCard();
 			var cards = dbCard.GetAllCardsFromUserId(Id);
 
-			int j = 1;
-			for (; j <= cards.Count(); j++) {
-				Console.Write($"  [{j.ToString().PadLeft(2)}]  ");
-				cards.Cards[j - 1].PrintCardName(); 
-				Console.WriteLine($" - {cards.Cards[j - 1].Damage}");
-			}
+			cards.Print();
 
 			Deck newDeck = new Deck(); 
 			int i = 1; 
 			while (i <= Deck.Capacity) {
-				Console.Write($"Enter ID of Card #{i} (x to go back): ");
+				Console.Write($"Enter # of card {i} (x to go back): ");
 				int cardId;
 				try {
 					var input = Console.ReadLine();
@@ -177,7 +172,7 @@ namespace monster_trading_card_game.Users {
 		}
 
 		/// <summary>
-		/// Prit User Stats
+		/// Print User Stats
 		/// </summary>
 		public void Print() {
 			var dbCard = new DBCard();
@@ -310,11 +305,8 @@ namespace monster_trading_card_game.Users {
 				Console.WriteLine("You don't have cards to trade.\n", Color.Red);
 				return; 
 			}
-			for (int i = 1; i <= cards.Count(); i++) {
-				Console.Write($"  [{i.ToString().PadLeft(2)}] ");
-				cards.Cards[i - 1].PrintCardName();
-				Console.WriteLine($" - {cards.Cards[i - 1].Damage}");
-			}
+			
+			cards.Print();
 
 			int cardId;
 			while (true) {
@@ -338,8 +330,8 @@ namespace monster_trading_card_game.Users {
 
 			Console.Write("You chose: ");
 			var card = dbCard.GetCardByCardId(cardId);
-			card.PrintCardName();
-			Console.WriteLine($" -   {card.Damage}");
+			card.PrintWithDamage();
+			Console.WriteLine();
 
 			// Get requested Card
 			var request = GetCardRequest(); // item1...element, item2...monster, item3...min_damage
@@ -378,13 +370,13 @@ namespace monster_trading_card_game.Users {
 			}
 
 			// Table Heading
-			Console.Write("    Offer".PadRight(own ? 29 : 44), Color.Gold);
+			Console.Write("    Offer".PadRight(own ? 42 : 57), Color.Gold);
 			Console.WriteLine("Request", Color.Gold);
 
 			if(own)
-				Console.WriteLine($"{"#".PadRight(4)}{"Card Name".PadRight(15)}{"Damage".PadRight(10)}{"Element".PadRight(9)}{"Card-Type".PadRight(12)}{"Min-Damage".PadRight(12)}{"Price".PadRight(7)}", Color.Silver);
+				Console.WriteLine($"{"#".PadRight(4)}{"Card Name".PadRight(18)}{"Damage".PadRight(10)}{"Level".PadRight(10)}{"Element".PadRight(9)}{"Card-Type".PadRight(12)}{"Min-Damage".PadRight(12)}{"Price".PadRight(7)}", Color.Silver);
 			else 
-				Console.WriteLine($"{"#".PadRight(4)}{"Username".PadRight(15)}{"Card Name".PadRight(15)}{"Damage".PadRight(10)}{"Element".PadRight(9)}{"Card-Type".PadRight(12)}{"Min-Damage".PadRight(12)}{"Price".PadRight(7)}", Color.Silver);
+				Console.WriteLine($"{"#".PadRight(4)}{"Username".PadRight(15)}{"Card Name".PadRight(18)}{"Damage".PadRight(10)}{"Level".PadRight(10)}{"Element".PadRight(9)}{"Card-Type".PadRight(12)}{"Min-Damage".PadRight(12)}{"Price".PadRight(7)}", Color.Silver);
 
 			int i = 1;
 			foreach (var offer in offers) {
@@ -521,13 +513,7 @@ namespace monster_trading_card_game.Users {
 						}
 
 						// Print cards that can be traded
-						int i = 1; 
-						foreach (var card in matchingCards.Cards) {
-							Console.Write($"  [{i.ToString().PadLeft(2)}] ");
-							card.PrintCardName();
-							Console.WriteLine($"-  {card.Damage}");
-							i++; 
-						}
+						matchingCards.Print();
 
 						// Get Card which will be traded
 						while (!transactionCompleted) {
@@ -624,10 +610,11 @@ namespace monster_trading_card_game.Users {
 
 			int i = 1;
 			foreach (var user in users) {
-				double ratio = user.Losses == 0 ? 0 : (double)user.Wins / (double)user.Losses; // Calculate win-loss ratio
+				double ratio = Math.Round(user.Losses == 0 ? 0 : (double)user.Wins / (double)user.Losses, 3); // Calculate win-loss ratio
 				Console.WriteLine($"{i.ToString().PadRight(4)}{user.Username.PadRight(20)}{user.Elo.ToString().PadRight(10)}{user.Wins.ToString().PadRight(10)}{user.Losses.ToString().PadRight(10)}{ratio.ToString()}");
 				i++;
 			}
+			Console.WriteLine();
 
 			IUser opponent = null;
 			while (opponent == null) {
@@ -681,6 +668,7 @@ namespace monster_trading_card_game.Users {
 				}
 				i++; 
 			}
+			Console.WriteLine();
 
 			BattleRequest selectedReq = null;
 			while (selectedReq == null) {

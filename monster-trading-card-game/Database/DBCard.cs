@@ -29,9 +29,11 @@ namespace monster_trading_card_game.Database {
 							    (int)reader["card_id"],
 							    (string)reader["name"],
 							    (int)reader["damage"],
-							    (ElementType)reader["element_type"]);
+							    (ElementType)reader["element_type"],
+							    (int)reader["level"],
+							    (int)reader["experience"]);
 
-						    stack.AddCard(spell);
+							stack.AddCard(spell);
 					    } else {
 						    // Monster
 						    Monster monster = new Monster(
@@ -39,9 +41,11 @@ namespace monster_trading_card_game.Database {
 							    (string)reader["name"],
 							    (int)reader["damage"],
 							    (ElementType)reader["element_type"],
-							    (MonsterType)reader["monster_type"]);
+							    (MonsterType)reader["monster_type"],
+								(int)reader["level"],
+								(int)reader["experience"]);
 
-						    stack.AddCard(monster);
+							stack.AddCard(monster);
 					    }
 				    }
 			    }
@@ -71,9 +75,11 @@ namespace monster_trading_card_game.Database {
 							    (int)reader["card_id"],
 							    (string)reader["name"],
 							    (int)reader["damage"],
-							    (ElementType)reader["element_type"]);
+							    (ElementType)reader["element_type"],
+							    (int)reader["level"],
+							    (int)reader["experience"]);
 
-						    deck.AddCard(spell);
+							deck.AddCard(spell);
 					    } else {
 						    // Monster
 						    Monster monster = new Monster(
@@ -81,9 +87,11 @@ namespace monster_trading_card_game.Database {
 							    (string)reader["name"],
 							    (int)reader["damage"],
 							    (ElementType)reader["element_type"],
-							    (MonsterType)reader["monster_type"]);
+							    (MonsterType)reader["monster_type"],
+							    (int)reader["level"],
+							    (int)reader["experience"]);
 
-						    deck.AddCard(monster);
+							deck.AddCard(monster);
 					    }
 				    }
 			    }
@@ -112,9 +120,11 @@ namespace monster_trading_card_game.Database {
 							    (int)reader["card_id"],
 							    (string)reader["name"],
 							    (int)reader["damage"],
-							    (ElementType)reader["element_type"]);
+							    (ElementType)reader["element_type"],
+							    (int)reader["level"],
+							    (int)reader["experience"]);
 
-							    cards.AddCard(spell);
+							cards.AddCard(spell);
 					    } else {
 						    // Monster
 						    Monster monster = new Monster(
@@ -122,9 +132,11 @@ namespace monster_trading_card_game.Database {
 							    (string)reader["name"],
 							    (int)reader["damage"],
 							    (ElementType)reader["element_type"],
-							    (MonsterType)reader["monster_type"]);
+							    (MonsterType)reader["monster_type"],
+							    (int)reader["level"],
+							    (int)reader["experience"]);
 
-							    cards.AddCard(monster);
+							cards.AddCard(monster);
 					    }
 				    }
 			    }
@@ -175,9 +187,11 @@ namespace monster_trading_card_game.Database {
 							    (int)reader["card_id"],
 							    (string)reader["name"],
 							    (int)reader["damage"],
-							    (ElementType)reader["element_type"]);
+							    (ElementType)reader["element_type"],
+							    (int)reader["level"],
+							    (int)reader["experience"]);
 
-						    return spell;
+							return spell;
 					    }
 
 					    // Monster
@@ -186,9 +200,11 @@ namespace monster_trading_card_game.Database {
 						    (string)reader["name"],
 						    (int)reader["damage"],
 						    (ElementType)reader["element_type"],
-						    (MonsterType)reader["monster_type"]);
+						    (MonsterType)reader["monster_type"],
+						    (int)reader["level"],
+						    (int)reader["experience"]);
 
-					    return monster;
+						return monster;
 				    }
 			    }
 		    } catch (PostgresException) {
@@ -285,7 +301,9 @@ namespace monster_trading_card_game.Database {
 									(int)reader["card_id"],
 									(string)reader["name"],
 									(int)reader["damage"],
-									(ElementType)reader["element_type"]);
+									(ElementType)reader["element_type"],
+									(int)reader["level"],
+									(int)reader["experience"]);
 
 								cards.AddCard(s);
 							} else {
@@ -295,7 +313,9 @@ namespace monster_trading_card_game.Database {
 									(string)reader["name"],
 									(int)reader["damage"],
 									(ElementType)reader["element_type"],
-									(MonsterType)reader["monster_type"]);
+									(MonsterType)reader["monster_type"],
+									(int)reader["level"],
+									(int)reader["experience"]);
 
 								cards.AddCard(m);
 							}
@@ -364,6 +384,27 @@ namespace monster_trading_card_game.Database {
 
 			conn.Close();
 		    return true;
+	    }
+
+	    public bool UpdateCardLevel(ICard card) {
+		    var conn = dbConn.Connect();
+
+		    try {
+			    using (var updateCmd = new NpgsqlCommand("update \"card\" set level=@level, experience=@exp, damage=@damage where card_id=@card_id", conn)) {
+				    updateCmd.Parameters.AddWithValue("level", card.Level);
+				    updateCmd.Parameters.AddWithValue("exp", card.Experience);
+				    updateCmd.Parameters.AddWithValue("damage", card.Damage);
+				    updateCmd.Parameters.AddWithValue("card_id", card.Id);
+				    updateCmd.Prepare();
+
+				    if (updateCmd.ExecuteNonQuery() < 0) return false;
+			    }
+		    } catch (PostgresException) {
+			    return false; 
+		    }
+
+			conn.Close();
+			return true; 
 	    }
 	}
 }
