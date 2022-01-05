@@ -11,7 +11,7 @@ namespace monster_trading_card_game.Battle {
 		private const int MaxRounds = 100;
 		private const int WeaknessFactor = 2;
 		private const int CriticalHit = 2;
-		private const int ExpGainBase = 200;
+		private const int ExpGainBase = 100;
 		private const int ExpLevelMultiplier = 20;
 		private const int BeatingStrongerOpponentBonus = 20;
 
@@ -30,9 +30,11 @@ namespace monster_trading_card_game.Battle {
 				ICard card1 = _player1.ChooseRandomCard();
 				ICard card2 = _player2.ChooseRandomCard();
 
+				System.Console.WriteLine($"==================[ROUND {i}]=====================");
 				Round(i, card1, card2);
+				System.Console.WriteLine("=====================================================");
 
-				System.Console.WriteLine();
+				System.Console.WriteLine(); 
 				// Player 1 Wins
 				if (_player2.Deck.IsEmpty()) {
 					Console.WriteLine($"{_player1.Username} wins the game!", Color.IndianRed);
@@ -59,7 +61,6 @@ namespace monster_trading_card_game.Battle {
 		public void Round(int round, ICard card1, ICard card2) {
 			ICard roundWinner;
 
-			System.Console.WriteLine($"ROUND {round}");
 			System.Console.WriteLine("Before damage calculation:");
 			card1.PrintWithDamage();
 			System.Console.Write("    VS    ");
