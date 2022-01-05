@@ -16,3 +16,4 @@
 2/1/2022	2h Start Multiplayer Battle Requests, Improve UI
 3/1/2022	2h Finish Multiplaye Battle, Comment Functions in User Class
 4/1/2022	1h Mandatory Unique Feature (Electric, Ice, Ground Elements) 
+5/1/2022	3h Mandatory Unique Feature (Level System + extend Battle Log)

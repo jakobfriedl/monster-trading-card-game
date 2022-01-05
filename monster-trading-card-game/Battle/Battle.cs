@@ -32,7 +32,7 @@ namespace monster_trading_card_game.Battle {
 
 				System.Console.WriteLine($"==================[ROUND {i}]=====================");
 				Round(i, card1, card2);
-				System.Console.WriteLine("=====================================================");
+				System.Console.WriteLine("================================================");
 
 				System.Console.WriteLine(); 
 				// Player 1 Wins
@@ -61,11 +61,13 @@ namespace monster_trading_card_game.Battle {
 		public void Round(int round, ICard card1, ICard card2) {
 			ICard roundWinner;
 
+			System.Console.WriteLine("---------------------------");
 			System.Console.WriteLine("Before damage calculation:");
 			card1.PrintWithDamage();
 			System.Console.Write("    VS    ");
 			card2.PrintWithDamage();
 			System.Console.WriteLine();
+			System.Console.WriteLine("---------------------------");
 
 			if (card1 is Monster && card2 is Monster) {
 				roundWinner = MonsterBattle(card1, card2);
@@ -81,18 +83,18 @@ namespace monster_trading_card_game.Battle {
 				_player1.AddCardToDeck(card2);
 				
 				// Level Up Card
-				card1.LevelUp(ExpGainBase - ExpLevelMultiplier*card1.Level + (card2.Level > card1.Level ? BeatingStrongerOpponentBonus : 0));
+				card1.LevelUp(ExpGainBase - ExpLevelMultiplier * card1.Level + (card2.Level > card1.Level ? BeatingStrongerOpponentBonus : 0));
 
-				Console.WriteLine($"{_player1.Username} won round {round}! They now have {_player1.Deck.Count()} cards while {_player2.Username} has {_player2.Deck.Count()}.", Color.IndianRed);
+				Console.WriteLine($"\n{_player1.Username} won round {round}! They now have {_player1.Deck.Count()} cards while {_player2.Username} has {_player2.Deck.Count()}.", Color.IndianRed);
 			} else if (roundWinner == card2) {
 				// Move Card to Winner
 				_player1.RemoveCardFromDeck(card1);
 				_player2.AddCardToDeck(card1);
 
 				// Level Up Card
-				card2.LevelUp(ExpGainBase - ExpLevelMultiplier*card2.Level+ (card1.Level > card2.Level ? BeatingStrongerOpponentBonus : 0));
+				card2.LevelUp(ExpGainBase - ExpLevelMultiplier * card2.Level + (card1.Level > card2.Level ? BeatingStrongerOpponentBonus : 0));
 
-				Console.WriteLine($"{_player2.Username} won round {round}! They now have {_player2.Deck.Count()} cards while { _player1.Username} has {_player1.Deck.Count()}.", Color.CornflowerBlue);
+				Console.WriteLine($"\n{_player2.Username} won round {round}! They now have {_player2.Deck.Count()} cards while { _player1.Username} has {_player1.Deck.Count()}.", Color.CornflowerBlue);
 			} else {
 				Console.WriteLine($"Draw in round {round}!", Color.DarkGoldenrod);
 			}
@@ -101,22 +103,34 @@ namespace monster_trading_card_game.Battle {
 		public ICard MonsterBattle(ICard card1, ICard card2) {
 			// Pure Monster Fight, not affected by element type
 			// Goblin is too afraid of Dragon to attack
-			if ((card1.MonsterType == MonsterType.Goblin && card2.MonsterType == MonsterType.Dragon))
+			if ((card1.MonsterType == MonsterType.Goblin && card2.MonsterType == MonsterType.Dragon)) {
+				System.Console.WriteLine("Goblins are afraid of Dragons");
 				return card2;
-			if ((card2.MonsterType == MonsterType.Goblin && card1.MonsterType == MonsterType.Dragon))
+			}
+			if ((card2.MonsterType == MonsterType.Goblin && card1.MonsterType == MonsterType.Dragon)) {
+				System.Console.WriteLine("Goblins are afraid of Dragons");
 				return card1;
+			}
 
 			// Wizard can control Orc
-			if ((card1.MonsterType == MonsterType.Wizard && card2.MonsterType == MonsterType.Orc))
+			if ((card1.MonsterType == MonsterType.Wizard && card2.MonsterType == MonsterType.Orc)) {
+				System.Console.WriteLine("Wizards can control Orcs");
 				return card1;
-			if ((card2.MonsterType == MonsterType.Wizard && card1.MonsterType == MonsterType.Orc))
+			}
+			if ((card2.MonsterType == MonsterType.Wizard && card1.MonsterType == MonsterType.Orc)) {
+				System.Console.WriteLine("Wizards can control Orcs");
 				return card2;
+			}
 
 			// FireElves can evade Dragon attacks
-			if ((card1.MonsterType == MonsterType.Elf && card1.ElementType == ElementType.Fire && card2.MonsterType == MonsterType.Dragon))
+			if ((card1.MonsterType == MonsterType.Elf && card1.ElementType == ElementType.Fire && card2.MonsterType == MonsterType.Dragon)) {
+				System.Console.WriteLine("Fire Elves can evade the attacks of Dragons");
 				return card1;
-			if ((card2.MonsterType == MonsterType.Elf && card2.ElementType == ElementType.Fire && card1.MonsterType == MonsterType.Dragon))
+			}
+			if ((card2.MonsterType == MonsterType.Elf && card2.ElementType == ElementType.Fire && card1.MonsterType == MonsterType.Dragon)) {
+				System.Console.WriteLine("Fire Elves can evade the attacks of Dragons");
 				return card2;
+			}
 
 			// TODO: Check for Critical Hit
 			var damage1 = card1.Damage;
@@ -136,11 +150,13 @@ namespace monster_trading_card_game.Battle {
 				damage2 *= CriticalHit;
 			}
 
+			System.Console.WriteLine("---------------------------");
 			System.Console.WriteLine("After damage calculation:");
 			card1.PrintWithDamage(damage1);
 			System.Console.Write("    VS    ");
 			card2.PrintWithDamage(damage2);
 			System.Console.WriteLine();
+			System.Console.WriteLine("---------------------------");
 
 			// Check higher Damage
 			if (damage1 == damage2) return null;
@@ -175,11 +191,13 @@ namespace monster_trading_card_game.Battle {
 				damage2 *= CriticalHit;
 			}
 
+			System.Console.WriteLine("---------------------------");
 			System.Console.WriteLine("After damage calculation:");
 			card1.PrintWithDamage(damage1);
 			System.Console.Write("    VS    ");
 			card2.PrintWithDamage(damage2);
 			System.Console.WriteLine();
+			System.Console.WriteLine("---------------------------");
 
 			if (damage1 == damage2) return null;
 			return damage1 > damage2 ? card1 : card2; 
@@ -190,12 +208,25 @@ namespace monster_trading_card_game.Battle {
 			int damage2 = card2.Damage;
 
 			// Kraken is immune to spells
-			if (card1.MonsterType == MonsterType.Kraken) return card1;
-			if (card2.MonsterType == MonsterType.Kraken) return card2;
+			if (card1.MonsterType == MonsterType.Kraken) {
+				System.Console.WriteLine("Krakens are immune to Spells");
+				return card1;
+			}
+			if (card2.MonsterType == MonsterType.Kraken) {
+				System.Console.WriteLine("Krakens are immune to Spells");
+				return card2;
+			}
 
 			// Knights instantly loose to Water Spells
-			if (card1.MonsterType == MonsterType.Knight && card2.GetType().Name == "Spell" && card2.ElementType == ElementType.Water) return card2; 
-			if (card2.MonsterType == MonsterType.Knight && card1.GetType().Name == "Spell" && card1.ElementType == ElementType.Water) return card1;
+			if (card1.MonsterType == MonsterType.Knight && card2.GetType().Name == "Spell" && card2.ElementType == ElementType.Water) {
+				System.Console.WriteLine("Knights are instantly drowned by Water Spells");
+				return card2;
+			}
+
+			if (card2.MonsterType == MonsterType.Knight && card1.GetType().Name == "Spell" && card1.ElementType == ElementType.Water) {
+				System.Console.WriteLine("Knights are instantly drowned by Water Spells");
+				return card1;
+			}
 
 			if (_weakness.ElementWeakness[card2.ElementType].Contains(card1.ElementType)) {
 				damage1 *= WeaknessFactor;
@@ -221,11 +252,13 @@ namespace monster_trading_card_game.Battle {
 				damage2 *= CriticalHit;
 			}
 
+			System.Console.WriteLine("---------------------------");
 			System.Console.WriteLine("After damage calculation:");
 			card1.PrintWithDamage(damage1);
 			System.Console.Write("    VS    ");
 			card2.PrintWithDamage(damage2);
-			System.Console.WriteLine(); 
+			System.Console.WriteLine();
+			System.Console.WriteLine("---------------------------");
 
 			if (damage1 == damage2) return null;
 			return damage1 > damage2 ? card1 : card2;

@@ -69,6 +69,9 @@ namespace monster_trading_card_game.Cards {
 			    case ElementType.Ground:
 				    _color = Color.SaddleBrown;
 				    break;
+				default:
+					_color = Color.White;
+					break;
 		    }
 		}
 
