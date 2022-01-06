@@ -30,46 +30,13 @@ create table card
         constraint card_user_id_fkey
             references "user",
     in_deck      boolean default false not null,
-    in_trade     boolean default false
+    in_trade     boolean default false,
+    level        integer default 0,
+    experience   integer default 0
 );
 
 alter table card
     owner to postgres;
-
-create table trade
-(
-    trade_id  serial
-        constraint trade_pkey
-            primary key,
-    user_id_1 integer not null
-        constraint trade_user_id_1_fkey
-            references "user",
-    user_id_2 integer
-        constraint trade_user_id_2_fkey
-            references "user",
-    card_id_1 integer not null
-        constraint trade_card_id_1_fkey
-            references card,
-    card_id_2 integer
-        constraint trade_card_id_2_fkey
-            references card,
-    timestamp timestamp
-);
-
-alter table trade
-    owner to postgres;
-
-create unique index trade_card_id_1_uindex
-    on trade (card_id_1);
-
-create unique index trade_card_id_2_uindex
-    on trade (card_id_2);
-
-create unique index trade_user_id_1_uindex
-    on trade (user_id_1);
-
-create unique index trade_user_id_2_uindex
-    on trade (user_id_2);
 
 create table battle
 (
@@ -81,17 +48,14 @@ create table battle
             references "user",
     user_id_2 integer not null
         constraint battle_user_id_2_fkey
-            references "user"
+            references "user",
+    completed boolean default false,
+    constraint battle_pk
+        unique (user_id_1, user_id_2)
 );
 
 alter table battle
     owner to postgres;
-
-create unique index battle_user_id_1_uindex
-    on battle (user_id_1);
-
-create unique index battle_user_id_2_uindex
-    on battle (user_id_2);
 
 create table offer
 (
@@ -108,4 +72,23 @@ create table offer
 
 alter table offer
     owner to postgres;
+
+create table transaction
+(
+    transaction_id serial
+        constraint transaction_pk
+            primary key,
+    user_id_1      integer not null,
+    user_id_2      integer,
+    card_id_1      integer,
+    card_id_2      integer,
+    coins          integer,
+    timestamp      integer
+);
+
+alter table transaction
+    owner to postgres;
+
+create unique index transaction_transaction_id_uindex
+    on transaction (transaction_id);
 

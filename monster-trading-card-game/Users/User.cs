@@ -45,8 +45,7 @@ namespace monster_trading_card_game.Users {
 		    Elo = EloStartingValue;
 		    Wins = Losses = DefaultWinLoss;
 			CardStack = new CardStack().GenerateCardStack();
-		    Deck = new Deck(); 
-			AutoCreateDeck();
+		    Deck = new Deck().AutoCreateDeck(CardStack);
 		}
 
 	    public User(int id, string username, string password, int coins, int elo, int wins, int losses) {
@@ -61,26 +60,7 @@ namespace monster_trading_card_game.Users {
 		    Deck = new Deck(); 
 	    }
 
-	    private void AutoCreateDeck() {
-		    // Random Cards
-		    // var rand = new Random();
-		    //for (int i = 0; i < Deck.Capacity; i++) {
-		    //	Deck.AddCard(CardStack.Cards.ElementAt(rand.Next(CardStack.Count()-1)));
-		    //}
-
-		    // Strongest Cards
-		    for (int i = 0; i < Deck.Capacity; i++) {
-			    var card = CardStack.GetHighestDamageCard(); 
-				Deck.AddCard(card);
-				CardStack.RemoveCard(card);
-		    }
-
-		    foreach (var card in Deck.Cards) {
-			    CardStack.AddCard(card);
-		    }
-	    }
-
-		/// <summary>
+	    /// <summary>
 		/// Build Deck of 4 cards from own card stack
 		/// </summary>
 	    public void BuildDeck() {
@@ -184,7 +164,7 @@ namespace monster_trading_card_game.Users {
 			Console.Write("Elo: ", Color.Gold); Console.WriteLine(Elo);
 			Console.Write("Wins: ", Color.ForestGreen); Console.WriteLine(Wins);
 			Console.Write("Losses: ", Color.Red); Console.WriteLine(Losses);
-			double ratio = Math.Round(Losses == 0 ? 0 : (double)Wins / (double)Losses, 3); // Calculate win-loss ratio
+			double ratio = Math.Round(Losses == 0 ? Wins : Wins / (double)Losses, 3); // Calculate win-loss ratio
 			Console.Write("W/L-Ratio: ", Color.Silver); Console.WriteLine(ratio);
 			Console.Write("Cards: ", Color.Silver); Console.WriteLine(dbCard.GetAllCardsFromUserId(Id).Count() + "\n");
 		}
@@ -610,7 +590,7 @@ namespace monster_trading_card_game.Users {
 
 			int i = 1;
 			foreach (var user in users) {
-				double ratio = Math.Round(user.Losses == 0 ? 0 : (double)user.Wins / (double)user.Losses, 3); // Calculate win-loss ratio
+				double ratio = Math.Round(user.Losses == 0 ? user.Wins : user.Wins / (double)user.Losses, 3); // Calculate win-loss ratio
 				Console.WriteLine($"{i.ToString().PadRight(4)}{user.Username.PadRight(20)}{user.Elo.ToString().PadRight(10)}{user.Wins.ToString().PadRight(10)}{user.Losses.ToString().PadRight(10)}{ratio.ToString()}");
 				i++;
 			}
@@ -660,10 +640,10 @@ namespace monster_trading_card_game.Users {
 			foreach (var req in openRequests) {
 				Console.Write($"  [{i.ToString()}] ");
 				if (req.User1 == Id) {
-					Console.Write("=> to ", Color.LawnGreen);
+					Console.Write("[TO] ", Color.LawnGreen);
 					Console.WriteLine(dbUser.GetUsernameByUserId(req.User2));
 				} else {
-					Console.Write("<= from ", Color.OrangeRed);
+					Console.Write("[FROM] ", Color.OrangeRed);
 					Console.WriteLine(dbUser.GetUsernameByUserId(req.User1));
 				}
 				i++; 

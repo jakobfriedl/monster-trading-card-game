@@ -36,7 +36,7 @@ namespace monster_trading_card_game.Trade {
 	        var element = Element<=-1 ? "Any" : ((ElementType)Element).ToString(); 
 	        var cardType = Monster<=-1 ? "Any" : Monster == 0 ? "Spell" : ((MonsterType)Monster).ToString(); 
 
-	        card.PrintCardName();
+	        card.PrintCardNameInTable();
 	        Console.WriteLine($"{card.Damage.ToString().PadRight(10)}{card.Level.ToString().PadRight(10)}{element.PadRight(9)}{cardType.PadRight(12)}{MinDamage.ToString().PadRight(12)}{Price.ToString().PadRight(7)}");
         }
 
@@ -53,7 +53,7 @@ namespace monster_trading_card_game.Trade {
 	        var cardType = Monster <= -1 ? "Any" : Monster == 0 ? "Spell" : ((MonsterType)Monster).ToString();
 
 			Console.Write(user.PadRight(15));
-	        card.PrintCardName();
+	        card.PrintCardNameInTable();
 			Console.WriteLine($"{card.Damage.ToString().PadRight(10)}{card.Level.ToString().PadRight(10)}{element.PadRight(9)}{cardType.PadRight(12)}{MinDamage.ToString().PadRight(12)}{Price.ToString().PadRight(7)}");
         }
 	}

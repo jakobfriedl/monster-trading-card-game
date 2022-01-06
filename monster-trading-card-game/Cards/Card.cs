@@ -22,7 +22,8 @@ namespace monster_trading_card_game.Cards {
 	    public int Experience { get; set; }
 	    public double CriticalChance { get; set; }
 
-	    public abstract void PrintCardName();
+	    public abstract void PrintCardNameInTable();
+	    public abstract void PrintCardName(); 
 	    public abstract void PrintWithDamage();
 	    public abstract void PrintWithDamage(int damage);
 	    public void LevelUp(int exp) {

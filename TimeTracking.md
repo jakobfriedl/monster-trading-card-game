@@ -17,3 +17,5 @@
 3/1/2022	2h Finish Multiplaye Battle, Comment Functions in User Class
 4/1/2022	1h Mandatory Unique Feature (Electric, Ice, Ground Elements) 
 5/1/2022	3h Mandatory Unique Feature (Level System + extend Battle Log)
+6/1/2022	3h Added more information to battle log
+			Add Unit Tests for CardCollection and PasswordHash

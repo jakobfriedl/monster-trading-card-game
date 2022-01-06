@@ -30,7 +30,7 @@ namespace monster_trading_card_game.CardCollections {
 			int i = 1;
 			foreach (var card in Cards) {
 				Console.Write(i.ToString().PadRight(4));
-				card.PrintCardName();
+				card.PrintCardNameInTable();
 				System.Console.Write(card.Damage.ToString().PadRight(10));
 				System.Console.Write(card.Experience.ToString().PadRight(13));
 				for (int j = 0; j < card.Level; j++) {
@@ -54,13 +54,12 @@ namespace monster_trading_card_game.CardCollections {
 	    }
 
 	    public ICard GetHighestDamageCard() {
-		    var max = Cards.First(); 
+		    var max = Cards.First();
 
 		    foreach (var card in Cards) {
 			    if (card.Damage > max.Damage)
 				    max = card; 
 		    }
-
 		    return max; 
 	    }
 

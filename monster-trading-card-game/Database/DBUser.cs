@@ -13,6 +13,7 @@ using Npgsql;
 namespace monster_trading_card_game.Database {
     class DBUser {
 
+	    private readonly PasswordHasher hasher = new PasswordHasher();
 	    private readonly DBConnection dbConn = new DBConnection();
 
 		/// <summary>
@@ -24,7 +25,7 @@ namespace monster_trading_card_game.Database {
 		public bool RegisterUser(IUser user) {
 		    var conn = dbConn.Connect();
 
-		    var hashedPassword = PasswordHasher.Hash(user.Password);
+		    var hashedPassword = hasher.Hash(user.Password);
 
 		    // Insert new User
 			try {
@@ -95,7 +96,7 @@ namespace monster_trading_card_game.Database {
 
 				using (var reader = userCmd.ExecuteReader()) {
                     while (reader.Read()) {
-	                    if (!PasswordHasher.Verify(password, (string)reader["password"])) return null; 
+	                    if (!hasher.Verify(password, (string)reader["password"])) return null; 
 	                    
 	                    user = new User(
 							(int)reader["user_id"],
@@ -223,14 +224,14 @@ namespace monster_trading_card_game.Database {
 
 					string dbPass = (string)selectOldPassword.ExecuteScalar();
 
-					if (!PasswordHasher.Verify(oldPassword, dbPass)) return false; // Return if old password has not been entered correctly
+					if (!hasher.Verify(oldPassword, dbPass)) return false; // Return if old password has not been entered correctly
 				}
 			} catch (PostgresException) {
 				return false;
 			}
 
-			string newHashed = PasswordHasher.Hash(newPassword);
-			if (!PasswordHasher.Verify(repeatPassword, newHashed)) return false; // Return if new password has not been repeated correctly
+			string newHashed = hasher.Hash(newPassword);
+			if (!hasher.Verify(repeatPassword, newHashed)) return false; // Return if new password has not been repeated correctly
 
 			// Update Password
 			try {

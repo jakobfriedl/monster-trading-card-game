@@ -70,10 +70,15 @@ namespace monster_trading_card_game.Cards {
 				    break;
 		    }
 		}
-		public override void PrintCardName() {
+		public override void PrintCardNameInTable() {
 			Console.Write(ElementType, _color);
 			Console.Write(" Spell", Color.DarkViolet);
 			Console.Write(" ".PadRight(18 - (ElementType.ToString().Length + "Spell".Length + 1)));
+		}
+
+		public override void PrintCardName() {
+			Console.Write(ElementType, _color);
+			Console.Write(" Spell", Color.DarkViolet);
 		}
 
 		public override void PrintWithDamage() {

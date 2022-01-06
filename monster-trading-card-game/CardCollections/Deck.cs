@@ -22,7 +22,7 @@ namespace monster_trading_card_game.CardCollections {
 		    int i = 1;
 		    foreach (var card in Cards) {
 				Console.Write(i.ToString().PadRight(4));
-				card.PrintCardName();
+				card.PrintCardNameInTable();
 				System.Console.Write(card.Damage.ToString().PadRight(10));
 				System.Console.Write(card.Experience.ToString().PadRight(13));
 				for (int j = 0; j < card.Level; j++) {
@@ -44,5 +44,25 @@ namespace monster_trading_card_game.CardCollections {
 		    return Cards.IsNullOrEmpty();
 	    }
 
+	    public Deck AutoCreateDeck(CardStack cardStack) {
+		    // Random Cards
+		    // var rand = new Random();
+		    //for (int i = 0; i < Deck.Capacity; i++) {
+		    //	Deck.AddCard(CardStack.Cards.ElementAt(rand.Next(CardStack.Count()-1)));
+		    //}
+
+		    // Strongest Cards
+		    for (int i = 0; i < Capacity; i++) {
+			    var card = cardStack.GetHighestDamageCard();
+			    AddCard(card);
+			    cardStack.RemoveCard(card);
+		    }
+
+		    foreach (var card in Cards) {
+			    cardStack.AddCard(card);
+		    }
+
+		    return this; 
+	    }
 	}
 }

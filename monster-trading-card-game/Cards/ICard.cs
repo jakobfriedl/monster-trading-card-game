@@ -13,7 +13,8 @@ namespace monster_trading_card_game.Cards {
 		int Level { get; set; }
 		int Experience { get; set; }
 		double CriticalChance { get; set; }
-		void PrintCardName();
+		void PrintCardNameInTable();
+		void PrintCardName(); 
 	    void PrintWithDamage();
 	    void PrintWithDamage(int damage);
 	    void LevelUp(int exp);

@@ -28,7 +28,8 @@ namespace monster_trading_card_game {
 				Console.WriteLine("[ DECK | BATTLE | TRADE | BUY | SCORES | PROFILE | LOGOUT | QUIT ]", Color.Silver);
 
 	        Console.Write(" >> ", Color.Silver);
-	        string command = Console.ReadLine(); 
+	        Console.ForegroundColor = Color.White;
+			string command = Console.ReadLine(); 
 
 	        if (!IsLoggedIn) {
 		        switch (command.ToUpper()) {
@@ -299,7 +300,7 @@ namespace monster_trading_card_game {
 			int i = 1; 
 			foreach (var user in dbUser.GetAllUsers()) {
 				// Display Scores of each User
-				double ratio = Math.Round(user.Losses == 0 ? 0 : (double)user.Wins / (double)user.Losses, 3); // Calculate win-loss ratio
+				double ratio = Math.Round(user.Losses == 0 ? user.Wins : user.Wins / (double)user.Losses, 3); // Calculate win-loss ratio
 
 				Console.WriteLine(
 					$"{i.ToString().PadRight(4)}{user.Username.PadRight(20)}{user.Elo.ToString().PadRight(10)}{user.Wins.ToString().PadRight(10)}{user.Losses.ToString().PadRight(10)}{ratio.ToString()}", 
