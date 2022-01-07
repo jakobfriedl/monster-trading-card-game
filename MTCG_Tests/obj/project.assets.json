@@ -1338,27 +1338,13 @@
           "Colorful.Console": "1.2.15",
           "Moq": "4.16.1",
           "Newtonsoft.Json": "13.0.1",
-          "Npgsql": "6.0.0",
-          "WebService-Lib": "1.0.0"
+          "Npgsql": "6.0.0"
         },
         "compile": {
           "bin/placeholder/monster-trading-card-game.dll": {}
         },
         "runtime": {
           "bin/placeholder/monster-trading-card-game.dll": {}
-        }
-      },
-      "WebService-Lib/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
-        "dependencies": {
-          "Newtonsoft.Json": "9.0.1"
-        },
-        "compile": {
-          "bin/placeholder/WebService-Lib.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/WebService-Lib.dll": {}
         }
       }
     }
@@ -5248,11 +5234,6 @@
       "type": "project",
       "path": "../monster-trading-card-game/monster-trading-card-game.csproj",
       "msbuildProject": "../monster-trading-card-game/monster-trading-card-game.csproj"
-    },
-    "WebService-Lib/1.0.0": {
-      "type": "project",
-      "path": "../../REST_Server/SWE1-MTCG-main/WebService/WebService-Lib/WebService-Lib.csproj",
-      "msbuildProject": "../../REST_Server/SWE1-MTCG-main/WebService/WebService-Lib/WebService-Lib.csproj"
     }
   },
   "projectFileDependencyGroups": {

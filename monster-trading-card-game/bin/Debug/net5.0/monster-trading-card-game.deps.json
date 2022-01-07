@@ -11,8 +11,7 @@
           "Colorful.Console": "1.2.15",
           "Moq": "4.16.1",
           "Newtonsoft.Json": "13.0.1",
-          "Npgsql": "6.0.0",
-          "WebService-Lib": "1.0.0"
+          "Npgsql": "6.0.0"
         },
         "runtime": {
           "monster-trading-card-game.dll": {}
@@ -876,14 +875,6 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
         }
-      },
-      "WebService-Lib/1.0.0": {
-        "dependencies": {
-          "Newtonsoft.Json": "13.0.1"
-        },
-        "runtime": {
-          "WebService-Lib.dll": {}
-        }
       }
     }
   },
@@ -1508,11 +1499,6 @@
       "sha512": "sha512-lJ8AxvkX7GQxpC6GFCeBj8ThYVyQczx2+f/cWHJU8tjS7YfI6Cv6bon70jVEgs2CiFbmmM8b9j1oZVx0dSI2Ww==",
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
-    },
-    "WebService-Lib/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }
