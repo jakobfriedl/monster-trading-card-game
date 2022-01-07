@@ -55,3 +55,5 @@ C:\.Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster
 C:\.Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\bin\Debug\net5.0\Npgsql.dll
 C:\.Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
 C:\.Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\bin\Debug\net5.0\Colorful.Console.dll
+C:\.Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\bin\Debug\net5.0\WebService-Lib.dll
+C:\.Jakob\FHTW\3_Semester\Software_Engineering\monster-trading-card-game\monster-trading-card-game\bin\Debug\net5.0\WebService-Lib.pdb

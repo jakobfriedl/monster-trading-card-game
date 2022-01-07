@@ -1462,6 +1462,19 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
+      },
+      "WebService-Lib/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "bin/placeholder/WebService-Lib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WebService-Lib.dll": {}
+        }
       }
     }
   },
@@ -5329,6 +5342,11 @@
         "system.xml.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xmldocument.nuspec"
       ]
+    },
+    "WebService-Lib/1.0.0": {
+      "type": "project",
+      "path": "../../REST_Server/SWE1-MTCG-main/WebService/WebService-Lib/WebService-Lib.csproj",
+      "msbuildProject": "../../REST_Server/SWE1-MTCG-main/WebService/WebService-Lib/WebService-Lib.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5336,7 +5354,8 @@
       "Colorful.Console >= 1.2.15",
       "Moq >= 4.16.1",
       "Newtonsoft.Json >= 13.0.1",
-      "Npgsql >= 6.0.0"
+      "Npgsql >= 6.0.0",
+      "WebService-Lib >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5365,7 +5384,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\REST_Server\\SWE1-MTCG-main\\WebService\\WebService-Lib\\WebService-Lib.csproj": {
+              "projectPath": "C:\\.Jakob\\FHTW\\3_Semester\\Software_Engineering\\REST_Server\\SWE1-MTCG-main\\WebService\\WebService-Lib\\WebService-Lib.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

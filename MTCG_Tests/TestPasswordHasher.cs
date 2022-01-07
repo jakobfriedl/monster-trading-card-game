@@ -1,8 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Moq;
 using monster_trading_card_game.Security;
-using NUnit.Framework.Internal;
 
 namespace MTCG_Tests {
     class TestPasswordHasher {

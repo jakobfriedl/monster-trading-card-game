@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using monster_trading_card_game.Trade;
 using Npgsql;
 

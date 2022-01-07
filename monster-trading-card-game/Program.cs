@@ -1,7 +1,5 @@
 ﻿using System;
 using monster_trading_card_game.Enums;
-using monster_trading_card_game.Database;
-using Colorful;
 using System.Drawing;
 using System.Threading;
 using Console = Colorful.Console; 

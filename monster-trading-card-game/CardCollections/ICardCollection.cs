@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using monster_trading_card_game.Cards;
 
 namespace monster_trading_card_game.CardCollections {

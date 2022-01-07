@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using monster_trading_card_game.Enums;
-using Colorful;
 using Console = Colorful.Console;
 
 namespace monster_trading_card_game.Cards {

@@ -1,9 +1,14 @@
 @startuml Projekt: Monster Trading Card Game 
+title Monster Trading Card Game 
 
+/' Enums '/
 enum ElementType{
     Water
     Fire
     Normal
+    Electric
+    Ice 
+    Ground
 }
 
 enum MonsterType{
@@ -16,94 +21,293 @@ enum MonsterType{
     Elf 
 }
 
+enum PackageType{
+    Water
+    Fire
+    Normal
+    Electric
+    Ice 
+    Ground
+    Monster
+    Spell
+}
+
+enum Command{
+    Quit
+    Register
+    Login
+    Logout
+    Deck
+    Battle
+    Buy
+    Trade
+    Scores
+    Profile
+    Invalid
+}
+
+class CLI{
+    + bool IsLoggedIn
+    + IUser LoggedInUser
+    + CLI();
+    + Command GetUserCommand();
+    + string ReadPassword();  
+    + bool RegisterUser(); 
+    + bool LoginUser(); 
+    + void LogoutUser(); 
+    + void Battle(); 
+    + void Profile(); 
+    + void GetPackage(); 
+    + void Scores(); 
+    + void Trade(); 
+}
+
 interface IUser{
+}
+
+class User{
+    + int Id
     + string Username 
     + string Password
     + int Coins 
     + int Elo
     + int Wins
     + int Losses
-    + Stack CardStack
+    + CardStack CardStack
     + Deck Deck
-    + Register()
-    + Login()
-    + BuyPackage()
-    + SelectCardForDeck()
-    + OfferTrade()
-    + AcceptTrade()
-    + Challenge(IUser opponent);
-    + ChooseRandomCard(); 
-}
-
-class User{
+    + void Challenge(IUser opponent);
+    + void BuildDeck();
+    + ICard ChooseRandomCard();
+	+ void AddCardToStack(ICard card);
+    + void AddCardToDeck(ICard card);
+	+ void RemoveCardFromDeck(ICard card);
+	+ void WinGame();
+	+ void LoseGame();
+	+ void Print();
+	+ void BuyPackage(Package package);
+	+ void OfferCard();
+	+ void ManageOwnOffers();
+	+ void FindOtherOffers();
+	+ void ShowTransactions();
+	+ void SendBattleRequest();
+	+ bool HandleBattleRequests();
+    + User(string username, string password);
+    + User(int id, string username, string password, int coins, int elo, int wins, int losses);
+    - Tuple<int, int, int> GetCardRequest();
+    - int GetOfferPrice();
+    - List<Offer> ListOffers(bool own);
+    - Offer SelectOffer(List<Offer> offers);
 }
 IUser <|-- User
 
 interface ICard{
-
 }
 
-interface ISpell{
-
+abstract class Card{
+    + int Id
+    + int Damage
+    + string Name 
+    + ElementType ElementType
+    + MonsterType MonsterType
+    + int Level 
+    + int Experience
+    + void LevelUp(int exp); 
 }
-ISpell --|> ICard
-
-interface IMonster{
-
-}
-IMonster --|> ICard
+Card --|> ICard
 
 class Spell{
-    - int Damage
-    - ElementType Type
+    + Spell(int id, string name, int damage, ElementType type, int level, int exp)
+    + Spell(int id, string name, int damage, ElementType type)
+    + void PrintCardNameInTable();
+    + void PrintCardName(); 
+    + void PrintWithDamage();
+    + void PrintWithDamage(int damage);
 }
-Spell --|> ISpell
+Spell --|> Card
 
 class Monster{
-    - int Damage
-    - ElementType ElementType
-    - MonsterType MonsterType
+    + Monster(int id, string name, int damage, ElementType eType, MonsterType mType, int level, int exp);
+    + Monster(int id, string name, int damage, ElementType eType, MonsterType mType);
+    + void PrintCardNameInTable();
+    + void PrintCardName(); 
+    + void PrintWithDamage();
+    + void PrintWithDamage(int damage);
 }
-Monster --|> IMonster
+Monster --|> Card
 
 class Stack{
-
+    + int Capacity
+    + List<ICard> Cards
+    + void AddCard();
+    + void RemoveCard();
+    + int Count();
+    + bool IsEmpty();
+    + CardStack()
+    + void Print(); 
+    + ICard GetHighestDamageCard(),
+    + CardStack GenerateRandomSpell(int count);
+    + CardStack GenerateRandomMonsters(int count); 
+    + CardStack GenerateCardStack(); 
 }
 User --> Stack : has
 
 class Package{
-
+    + int Capacity
+    + List<ICard> Cards
+    + void AddCard();
+    + void RemoveCard();
+    + int Count();
+    + bool IsEmpty();
+    + Package(PackageType type);
+    + void Print(); 
+    + void GeneratePackage(PackageType type); 
 }
 User --> Package : buys
 
 class Deck{
-
+    + int Capacity
+    + List<ICard> Cards
+    + void AddCard();
+    + void RemoveCard();
+    + int Count();
+    + bool IsEmpty();
+    + Deck(); 
+    + void Print(); 
+    + Deck AutoCreateDeck(CardStack stack); 
 }
 User --> Deck : uses
 
 interface ICardCollection{
-    + List<ICard> Cards
-    + AddCard()
-    + RemoveCard()
-    + Print()
 }
 Stack --|> ICardCollection
 Package --|> ICardCollection
 Deck --|> ICardCollection
 ICardCollection "1" --> "n" ICard : contains
 
-class Store{
-
-}
-User --> Store : trades in
-
 class Battle{
     - IUser User1
     - IUser User2
-
     + Battle(User1, User2)
-
+    + IUser StartBattle(); 
+    + void Round(int round, ICard card1, ICard card2);
+    + ICard MonsterBattle(ICard card1, ICard card2);
+    + ICard SpellBattle(ICard card1, ICard card2);  
+    + ICard MixedBattle(ICard card1, ICard card2);
+    - ICard CalculateDamage(ICard card1, ICard card2, bool considerWeaknesses)
+    - ResetDecks() 
 }
 Deck --> Battle : is used in
+
+class BattleRequest{
+    + int Id
+    + int User1
+    + int User2
+    + bool Completed
+    + BattleRequest(int id, int user1, int user2, bool completed);
+    + BattleRequest(int user1, int user2); 
+}
+User --> BattleRequest : sends/accepts/denies
+
+class Offer{
+    + int Id
+    + int UserId 
+    + int CardId 
+    + int Element
+    + int Monster 
+    + int MinDamage 
+    + int Price 
+    + Offer(int id, int user, int card, int element, int monster, int damage, int price); 
+    + void PrintOwn();
+    + void PrintOther(); 
+}
+User --> Offer : makes/accepts
+
+class Transaction{
+    + int Id
+    + int User1 
+    + int User2 
+    + int Card1
+    + int Card2 
+    + int Coins 
+    + int Timestamp
+    + Transaction(int id, int user1, int user2, int card1, int card2, int coins, int timestamp);
+    + Transaction(int id, int user1, int user2, int card2, int coins, int timestamp); 
+    + Transaction(int id, int user1, int coins, int timestamp); 
+    + void PrintTransaction(); 
+    + DateTime ConvertUnixTimeStampToDateTime(long unixTime);
+}
+Offer --> Transaction : gets saved when accepted
+Package --> Transaction : gets saved on purchase
+
+/' Database '/
+class DBConnection{
+    - string ConnString
+    - NpgsqlConnect Connect();  
+}
+
+class DBUser{
+    - PasswordHasher hasher
+    - DBConnection dbConn
+    + bool RegisterUser(IUser user); 
+    + IUser LoginUser(string username, string password); 
+    + string GetUsernameByUserId(int id); 
+    + IUser GetUserObjectByUserId(int id); 
+    + bool UpdateStats(IUser user); 
+    + bool ChangePassword(int id, string oldPassword, string newPassword, string repeatPassword); 
+    + bool BuyPackage(Package package, IUser user); 
+    + List<IUser> GetAllUsers(); 
+    + int GetCoinsByUserId(int id); 
+    + bool TransferCoins(IUser sender, int receiver, int coins); 
+}
+DBUser --> DBConnection : uses
+
+class PasswordHasher{
+    + string Hash(string password, int iterations); 
+    + string Hash(string password); 
+    + bool IsHashSupported(string hashString); 
+    + bool Verify(string password, string hashedPassword); 
+}
+DBUser --> PasswordHasher : uses
+class DBTransaction{
+    - DBConnection dbConn
+    + bool NewTransaction(Transaction transaction);
+    + List<Transaction> GetTransactionsByUserId(int id);
+    + long GetSpentCoinsByUserId(int id);
+}
+DBTransaction --> DBConnection : uses
+
+class DBOffer{
+    - DBConnection dbConn
+    + bool CreateNewOffer(Offer offer);
+    + List<Offer> GetOffersByUserId(int id); 
+    + List<Offer> GetOffersFromOtherUsers(int id); 
+    + bool RemoveOfferByOfferId(int id); 
+    + bool UpdateOffer(int offerId, Offer newOffer); 
+}
+DBOffer --> DBConnection : uses
+
+class DBCard{
+    - DBConnection dbConn
+    + CardStack GetCardStackFromUserId(int userId);
+    + Deck GetDeckFromUserId(int userId); 
+    + CardStack GetAllCardsFromUserId(int userId); 
+    + int GetCardOwner(int cardId); 
+    + ICard GetCardByCardId(int cardId); 
+    + bool UpdateDeck(int userId, Deck deck); 
+    + bool AddPackageToCards(Package package, int userId);
+    + CardStack GetMatchingCards(int userId, int element, int monster, int minDamage); 
+    + bool SwitchOwners(ICard card1, ICard card2); 
+    + bool SwitchOwnerAgainstCoins(IUser newOwner, ICard card); 
+    + bool UpdateCardLevel(ICard card); 
+}
+DBCard --> DBConnection : uses
+
+class DBBattle{
+    - DBConnection dbConn
+    + bool CreateBattleRequest(BattleRequest req);
+    + List<BattleRequest> GetAllOpenRequestsByUserId(int id); 
+    + bool RemoveBattleRequestById(int id); 
+}
+DBBattle --> DBConnection : uses
 
 @enduml

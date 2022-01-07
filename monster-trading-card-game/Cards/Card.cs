@@ -1,10 +1,6 @@
-﻿
-using System;
-using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
+﻿using System;
 using monster_trading_card_game.Database;
 using monster_trading_card_game.Enums;
-using Npgsql.Replication.PgOutput.Messages;
 
 namespace monster_trading_card_game.Cards {
     public abstract class Card : ICard {
