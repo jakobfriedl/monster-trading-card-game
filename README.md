@@ -1,7 +1,7 @@
 # Monster Trading Card Game (MTCG)
-By Jakob Friedl <br>
+By Jakob Friedl, if20b089 <br>
 https://github.com/jakobfriedl/monster-trading-card-game<br>
-Erstellt im Rahmen der Lehrveranstaltung Software Engineering (SWEN1) im Wintersemester 2021
+Erstellt im Rahmen der Lehrveranstaltung Software Engineering (SWEN1) im Wintersemester 2021 an der Fachhochschule Technikum Wien
 
 ## Technical Steps 
 
@@ -9,22 +9,24 @@ Das Monster Trading Card Game ist ein Konsolen-basiertes Kartenspiel bei dem der
 
 ### Programm-Aufbau 
 
-Das Programm besteht aus einem Konsolen-Frontend, durch welches User-Eingaben über die CLI-Klasse aufgenommen werden und anschließend im Backend verarbeitet und in einer PostgreSQL-Datenbank persistiert werden. Die vollständige Architektur in Form eines UML-Diagramms kann weiter [unten](#uml-diagramm) eingesehen werden. Für die User und Card Klasse wurde jeweils ein Interface verwendet. Dies wäre für die User-Klasse nicht unbedingt notwendig gewesen, da es nur eine Art von User gibt, jedoch könnte man das Programm mit einem Admin-Account erweitern, wodurch diese Klasse auch das IUser Interface implementiert. Zusätzlich kann durch bei Unit-Tests ein Mock der User-Klasse erstellt werden, ohne, dass eine Implementierung der Funktionalität notwendig ist. <br>
+Das Programm besteht aus einem Konsolen-Frontend, durch welches User-Eingaben über die CLI-Klasse aufgenommen werden und anschließend im Backend verarbeitet und in einer PostgreSQL-Datenbank persistiert werden. Die vollständige Architektur in Form eines UML-Diagramms kann weiter unten im Unterpunkt [UML-Diagramm](#uml-diagramm) angesehen werden. Für die User und Card Klasse wurde jeweils ein Interface verwendet. Dies wäre für die User-Klasse nicht unbedingt notwendig gewesen, da es nur eine Art von User gibt, jedoch könnte man das Programm mit einem Admin-Account erweitern, wodurch diese Klasse auch das IUser Interface implementiert. Zusätzlich kann durch bei Unit-Tests ein Mock der User-Klasse erstellt werden, ohne, dass eine Implementierung der Funktionalität notwendig ist. <br>
 
 ### Vorgehensweise 
 
-Die Vorgehensweise beim Programmieren wird weiter [unten](#zeitprotokoll)  sowie in der Git-Commit-History detailiert beschrieben. Grundsätzlich sah die Reihenfolge der Implementierung folgendermaßen aus:
+Die Vorgehensweise beim Programmieren wird im [Zeitprotokoll](#zeitprotokoll) sowie in der Git-Commit-History detailiert beschrieben. Grundsätzlich sah die Reihenfolge der Implementierung folgendermaßen aus:
 
 - Notwendige Klassen erstellen
 - Battle-Logik und Battle-Tests
 - Anbindung der bestehenden Funktionalität an die Datenbank
-- Weitere Must-Have Features (Profile, Trading, Scores, Mandatory Unique Feature)
+- Weitere Must-Have Feature (Profile, Trading, Scores, Mandatory Unique Feature)
 - Optionale Features  
   - Transaction History
   - Trade Cards vs Coins
-  - neue Elemente (Ice, Electric, Ground)
+  - neue Elemente (Ice, Electric, Ground) inklusive Tests
   - +1 Coin bei Win
+  - Spent Coin Stats
   - Win/Loss Ratio
+  - Extended Scoreboard
 - UI Verbesserungen, Unit-Tests
 
 ### Mandatory Unique Feature
@@ -42,23 +44,25 @@ Hauptsächlich wird mit Unit-Tests die Battle-Logik abgedeckt, da dadurch diese 
 
 Die TestCardCollection-Klasse testet das Hinzufügen und Löschen von Karten aus den unterschiedlichen CardCollections, aber auch beispielsweise das automatische Generieren eines Decks aus dem CardStack, bei dem die stärksten 4 Karten ins Deck aufgenommen werden. <br>
 
-Die TestPasswordHasher-Klasse testet die Security-Hash Funktion und überprüft ob ein Hash mit einem passenden Passwort verifiziert werden kann. 
+Die TestPasswordHasher-Klasse testet die Security-Hash Funktion und überprüft ob ein Hash mit einem passenden Passwort verifiziert werden kann. <br>
+
+Die Tests wurde so gestaltet, dass der Funktionsname für den Testfall sprechend ist und bereits anführt, was das erwartete Ergebnis des Tests ist. Die Funktion selbst wird nach der AAA (Arrange, Act, Assert) Regel strukturiert. 
 
 ## Zeitprotokoll
 
 - 28/9/2021	    1h UML-Diagram
 - 6/10/2021	    1h Classes
-- 20/10/2021 	2h Battle Logic & Unit Tests for Battle <br>
+- 20/10/2021 	  2h Battle Logic & Unit Tests for Battle <br>
 - 20/10/2021    1h Random-generated Stacks and Decks <br>
 - 20/10/2021    1h Trying out Mocks
 - 3/11/2021	    2h UI User Commands and other changes
-- 28/11/2021	2h Database Design
+- 28/11/2021	  2h Database Design
 - 2/12/2021	    3h Database Implementation (Register)
 - 7/12/2021     2h Database Implementation (Login)
-- 11/12/2021	2h Database Implementation (Buy)
-- 28/12/2021	3h PW Hash, Design, Profile, ...
-- 29/12/2021	3h Trading / Offers + DB
-- 30/12/2021 	1h Password Change <br>
+- 11/12/2021	  2h Database Implementation (Buy)
+- 28/12/2021	  3h PW Hash, Design, Profile, ...
+- 29/12/2021	  3h Trading / Offers + DB
+- 30/12/2021 	  1h Password Change <br>
 - 30/12/2021    2h Manage Own Offers (Remove, Edit), Improve UI
 - 1/1/2022	    2h Transaction History
 - 2/1/2022	    2h Start Multiplayer Battle Requests, Improve UI
@@ -73,4 +77,5 @@ Total: 42h
 
 ## UML-Diagramm
 
-[UML](./uml.png)
+[PNG](./Resources/uml.png)<br>
+[SVG](https://raw.githubusercontent.com/jakobfriedl/monster-trading-card-game/main/uml.svg)
