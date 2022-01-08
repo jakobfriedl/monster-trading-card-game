@@ -78,4 +78,4 @@ Total: 42h
 ## UML-Diagramm
 
 [PNG](./Resources/uml.png)<br>
-[SVG](https://raw.githubusercontent.com/jakobfriedl/monster-trading-card-game/main/uml.svg)
+[SVG](https://raw.githubusercontent.com/jakobfriedl/monster-trading-card-game/main/Resources/uml.svg)
