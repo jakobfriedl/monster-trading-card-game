@@ -11,6 +11,35 @@ Das Monster Trading Card Game ist ein Konsolen-basiertes Kartenspiel bei dem der
 
 Das Programm besteht aus einem Konsolen-Frontend, durch welches User-Eingaben über die CLI-Klasse aufgenommen werden und anschließend im Backend verarbeitet und in einer PostgreSQL-Datenbank persistiert werden. Die vollständige Architektur in Form eines UML-Diagramms kann weiter unten im Unterpunkt [UML-Diagramm](#uml-diagramm) angesehen werden. Für die User und Card Klasse wurde jeweils ein Interface verwendet. Dies wäre für die User-Klasse nicht unbedingt notwendig gewesen, da es nur eine Art von User gibt, jedoch könnte man das Programm mit einem Admin-Account erweitern, wodurch diese Klasse auch das IUser Interface implementiert. Zusätzlich kann durch bei Unit-Tests ein Mock der User-Klasse erstellt werden, ohne, dass eine Implementierung der Funktionalität notwendig ist. <br>
 
+### Datenbank
+
+Die PostgreSQL Datenbank besteht aus folgenden 5 Tabellen: 
+
+- user: Relevante Informationen für User (Username, gehashtes Passwort, Coins, ...)
+- card: Relevante Informationen für Karten (Name, Damage, Level, ...)
+- battle: Battle Request von einem User an einen anderen
+- offer: Angebotene Karte sowie Informationen zur gewünschten Karte
+- transaction: Informationen über abgeschlossene Geschäfte, bei denen User Karten tauschen oder Coins ausgeben.
+
+[Hier](Resources/db.png) kann das beschriebene Datenbank-Modell angesehen werden. 
+
+### Features
+
+Nach dem Starten des Programms hat der User zunächst 3 Befehle zur Verfügung. Mit Register kann sich der User einen neuen Account erstellen, mit Login kann sich der User mit einem bestehenden Account anmelden und mit Quit wird das Programm beendet. Loggt sich der User erfolgreich ein, so stehen ihm weitere Befehle zur Verfügung.
+
+- Profile: Zeigt das Profil des Users an, hier können Statistiken, wie die Anzahl der ausgegebenen Coins, Siege, Verluste und Karten gesehen werden. Zusätzlich können jeweils das aktuelle Deck des Users und die anderen nicht verwendeten Karten betrachtet werden. Weiters ist es möglich das Passwort des Users unter Angabe des alten Passworts zu ändern, sowie die Transaction History, also Informationen über gekaufte Packages und vollendete Trades anzuzeigen. 
+- Deck: Das aktuelle Kampfdeck angezeigt und kann auf Wunsch geändert werden.
+- Buy: Der User kann für 5 Coins eines von 8 verschiedenen Packages kaufen. Es gibt Packages für jeden ElementTyp, sowie spezielle Packages für Spells und Monster.
+- Trade: Hier findet der Handel mit anderen Usern statt. Ein Spieler kann eine seiner Karten auf dem Markt anbieten und beschreibt beim Angebot jene Karte, bzw. jenen Coin-Betrag den er dafür haben möchte. Die gestellten Angebote können im Nachhinein geändert oder gelöscht werden. Andere Spieler sehen die Angebote und tauschen dann entweder passende Karten oder zahlen Coins dafür. 
+- Scores: Scoreboard mit allen Users, geordnet nach ELO.
+- Battle: Der aktuelle User kann mit seinem Kampfdeck entweder gegen einen zufälligen Bot spielen, oder Battle-Requests an andere Spieler schicken, bzw. diese annehmen oder ablehnen.
+- Logout: Session des Users wird beendet.
+- Quit: Programm wird beendet. 
+
+### Mandatory Unique Feature
+
+Im Rahmen der Aufgabenstellung ist es notwendig, ein kreatives Feature einzubauen, das nicht in der Angabe vorgeschlagen wird. Ich habe mich dazu entschieden, ein Level-System für Karten zu implementieren. Alle Karten starten bei Level 0 mit 0 EXP und einer 0% Chance einen Critical Hit zu treffen und können durch das Gewinnen von Runden in Battles EXP bekommen. Die Menge der EXP pro Runde hängen vom eigenen Level der Karte, sowie vom Level der Karte ab, die besiegt wurde. Erreicht eine Karte 1000 EXP wird das Level - welches maximal 5 sein kann - erhöht und die Critical Hit Chance wird um 10% erhöht. Ein Critical Hit im Battle bedeutet, dass sich der Damage verdoppelt.  
+
 ### Vorgehensweise 
 
 Die Vorgehensweise beim Programmieren wird im [Zeitprotokoll](#zeitprotokoll) sowie in der Git-Commit-History detailiert beschrieben. Grundsätzlich sah die Reihenfolge der Implementierung folgendermaßen aus:
@@ -29,10 +58,6 @@ Die Vorgehensweise beim Programmieren wird im [Zeitprotokoll](#zeitprotokoll) so
   - Extended Scoreboard
 - UI Verbesserungen, Unit-Tests
 
-### Mandatory Unique Feature
-
-Im Rahmen der Aufgabenstellung ist notwendig, ein kreatives Feature einzubauen, das nicht in der Angabe vorgeschlagen wird. Ich habe mich dazu entschieden, ein Level-System für Karten zu implementieren. Alle Karten starten bei Level 0 mit 0 EXP und einer 0% Chance einen Critical Hit zu treffen und können durch das Gewinnen von Runden in Battles EXP bekommen. Die Menge der EXP pro Runde hängen vom eigenen Level der Karte, sowie vom Level der Karte ab, die besiegt wurde. Erreicht eine Karte 1000 EXP wird das Level - welches maximal 5 sein kann - erhöht und die Critical Hit Chance wird um 10% erhöht. Ein Critical Hit im Battle bedeutet, dass sich der Damage verdoppelt.  
-
 ### Failures
 
 Der in der Angabe beschriebene REST-HTTP-Server wurde nicht implementiert, da in der Lehrveranstaltung vermittelt wurde, dass dieser nicht unbedingt für das Projekt notwendig ist. Eine Implementierung dieses Servers hätte zur Folge, dass das gesamte bestehende Projekt umgeschrieben werden muss, um die Anbindung und Kommunikation sicherzustellen. 
@@ -45,8 +70,6 @@ Hauptsächlich wird mit Unit-Tests die Battle-Logik abgedeckt, da dadurch diese 
 Die TestCardCollection-Klasse testet das Hinzufügen und Löschen von Karten aus den unterschiedlichen CardCollections, aber auch beispielsweise das automatische Generieren eines Decks aus dem CardStack, bei dem die stärksten 4 Karten ins Deck aufgenommen werden. <br>
 
 Die TestPasswordHasher-Klasse testet die Security-Hash Funktion und überprüft ob ein Hash mit einem passenden Passwort verifiziert werden kann. <br>
-
-Die Tests wurde so gestaltet, dass der Funktionsname für den Testfall sprechend ist und bereits anführt, was das erwartete Ergebnis des Tests ist. Die Funktion selbst wird nach der AAA (Arrange, Act, Assert) Regel strukturiert. 
 
 ## Zeitprotokoll
 

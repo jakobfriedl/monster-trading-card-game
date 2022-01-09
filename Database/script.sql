@@ -30,7 +30,6 @@ create table card
         constraint card_user_id_fkey
             references "user",
     in_deck      boolean default false not null,
-    in_trade     boolean default false,
     level        integer default 0,
     experience   integer default 0
 );
@@ -62,8 +61,12 @@ create table offer
     offer_id   serial
         constraint offer_pk
             primary key,
-    user_id    integer            not null,
-    card_id    integer            not null,
+    user_id    integer            not null
+        constraint offer_user_user_id_fk
+            references "user",
+    card_id    integer            not null
+        constraint offer_card_card_id_fk
+            references card,
     price      integer default 5  not null,
     element    integer            not null,
     monster    integer            not null,
@@ -78,7 +81,9 @@ create table transaction
     transaction_id serial
         constraint transaction_pk
             primary key,
-    user_id_1      integer not null,
+    user_id_1      integer not null
+        constraint transaction_user_user_id_fk
+            references "user",
     user_id_2      integer,
     card_id_1      integer,
     card_id_2      integer,
