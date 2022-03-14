@@ -21,7 +21,7 @@ namespace monster_trading_card_game.Users {
 	    private const int EloDecrement = 5;
 	    private const int EloIncrement = 3;
 	    private const int DefaultWinLoss = 0;
-
+		
 	    // Class properties
 		public int Id { get; set; }
 		public string Username { get; set; }

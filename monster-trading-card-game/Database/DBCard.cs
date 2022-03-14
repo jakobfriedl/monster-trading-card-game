@@ -277,7 +277,7 @@ namespace monster_trading_card_game.Database {
 		    var conn = dbConn.Connect();
 		    CardStack cards = new CardStack();
 
-		    string cmdText = "select * from \"card\" where user_id=@user_id and card_id not in (select offer.card_id from( select card_id from offer where user_id=@user_id_2) as offer) and in_deck=@in_deck and damage>=@min_damage";
+		    string cmdText = "select * from \"card\" where user_id=@user_id and card_id not in (select offer.card_id from( select card_id from offer where user_id=@user_id_2) as offer) and in_deck=@in_deck and damage>=@min_damage order by damage desc";
 		    if (element != -1)
 			    cmdText += " and element_type=@element";
 		    if (monster != -1)
@@ -289,8 +289,10 @@ namespace monster_trading_card_game.Database {
 				    cardCmd.Parameters.AddWithValue("user_id_2", userId);
 				    cardCmd.Parameters.AddWithValue("in_deck", false);
 				    cardCmd.Parameters.AddWithValue("min_damage", minDamage);
-				    cardCmd.Parameters.AddWithValue("element", element);
-				    cardCmd.Parameters.AddWithValue("monster", monster);
+					if(element != -1)
+						cardCmd.Parameters.AddWithValue("element", element);
+					if(monster == -1)
+						cardCmd.Parameters.AddWithValue("monster", monster);
 					cardCmd.Prepare();
 
 					using (var reader = cardCmd.ExecuteReader()) {
